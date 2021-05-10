@@ -34,6 +34,10 @@ int main() {
 
     // Load
     service.load();
+    for (Item *i : repository->get_items()) {
+        std::cout << i->to_string() << std::endl;
+    }
+
 
     // Add item
 //    service.add(&i1);

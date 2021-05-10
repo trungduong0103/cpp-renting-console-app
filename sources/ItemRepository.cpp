@@ -84,11 +84,13 @@ std::vector<std::string> get_item_as_vector(std::string &line) {
 
     while ((pos = line.find(delimiter)) != std::string::npos) {
         token = line.substr(0, pos);
+        remove_whitespace(token);
         item_as_vector.push_back(token);
         line.erase(0, pos + delimiter.length());
     }
 
-    item_as_vector.push_back(line.substr(1, line.length()));
+    remove_whitespace(line);
+    item_as_vector.push_back(line.substr(0, line.length()));
 
     return item_as_vector;
 }
@@ -105,23 +107,46 @@ std::vector<Item *> MockItemPersistence::load() {
     std::string line;
     while (std::getline(infile, line)) {
         if (line[0] == '#') {
-            std::cout << "ignoring.." << std::endl;
+            std::cout << "ignoring..." << std::endl;
         } else {
             std::vector<std::string> item_vector = get_item_as_vector(line);
             // 6 means game
             if (item_vector.size() == 6) {
-                Game game(
+                Item *game = new Game(
                         item_vector[0],
                         item_vector[1],
-                        string_to_rental_type(item_vector[2]),
-                        std::stod(item_vector[3]),
-                        std::stof(item_vector[4]),
+                        string_to_rental_type(item_vector[3]),
+                        std::stoi(item_vector[4]),
+                        std::stof(item_vector[5]),
                         Item::RentalStatus::Available
                 );
+                mockItems.push_back(game);
             }
-                // 7 means dvd or record
+            // 7 means dvd or record
             else if (item_vector.size() == 7) {
-
+                if (item_vector[2] == "DVD") {
+                    Item *dvd = new DVD(
+                            item_vector[0],
+                            item_vector[1],
+                            string_to_rental_type(item_vector[3]),
+                            std::stoi(item_vector[3]),
+                            std::stof(item_vector[4]),
+                            Item::RentalStatus::Available,
+                            string_to_genre(item_vector[6])
+                    );
+                    mockItems.push_back(dvd);
+                } else if (item_vector[2] == "Record") {
+                    Item *videoRecord = new VideoRecord(
+                            item_vector[0],
+                            item_vector[1],
+                            string_to_rental_type(item_vector[3]),
+                            std::stoi(item_vector[3]),
+                            std::stof(item_vector[4]),
+                            Item::RentalStatus::Available,
+                            string_to_genre(item_vector[6])
+                    );
+                    mockItems.push_back(videoRecord);
+                }
             } else {
                 std::cerr << "Unexpected length of item :/" << std::endl;
             }
@@ -130,7 +155,7 @@ std::vector<Item *> MockItemPersistence::load() {
     }
 
     infile.close();
-    return {};
+    return mockItems;
 }
 
 void MockItemPersistence::save(std::vector<Item *>) {
