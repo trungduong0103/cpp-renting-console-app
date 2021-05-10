@@ -3,4 +3,4 @@ project(cpp_renting_console_app)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(cpp_renting_console_app main.cpp)
+add_executable(cpp_renting_console_app main.cpp headers/Customer.h headers/CustomerRepository.h headers/Item.h headers/ItemRepository.h headers/Menu.h sources/Customer.cpp sources/CustomerRepository.cpp sources/Item.cpp sources/ItemRepository.cpp sources/Menu.cpp headers/FileReader.h sources/ItemHelpers.cpp headers/ItemHelpers.h)

@@ -17,7 +17,7 @@ public:
 struct ItemTitleModificationIntent : public ItemModificationIntent {
 	std::string title;
 	ItemTitleModificationIntent() = default;
-	ItemTitleModificationIntent(std::string const& name);
+	ItemTitleModificationIntent(std::string  name);
 	void modify() override;
 };
 
@@ -45,14 +45,19 @@ struct ItemRepository {
 
 struct InMemoryItemRepository : public ItemRepository {
 	std::vector<Item*> items;
+	unsigned int starting_index = 0;
 public:
 	InMemoryItemRepository() = default;
-	InMemoryItemRepository(std::vector<Item*> const& items);
+	InMemoryItemRepository(std::vector<Item*>  items);
+	unsigned int get_starting_index() { return starting_index; }
+	void increment_starting_index() { this -> starting_index++; }
+	void decrement_starting_index() { this -> starting_index--; }
     std::vector<Item*> get_items() override { return items; }
 	void set_items(std::vector<Item*> const& items) override;
 	void add_item(Item* item) override;
 	void remove_item(std::string const& item_id) override;
 	void update_item(std::string const& item_id, ItemModificationIntent& intent) override;
+	int get_item_index(std::string const &item_id);
 };
 
 //Persistence

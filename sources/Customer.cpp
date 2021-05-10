@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 #include "../headers/Customer.h"
 #include "../headers/Item.h"
 
@@ -105,8 +106,9 @@ void VIPState::set_context(Customer* customer) {
 	current_points = customer->get_number_of_rentals() * 10;
 }
 
-Customer::Customer(std::string const& id, std::string const& name, std::string const& address, std::string const& phone, int total_rentals, std::vector<std::string> const& items, CustomerState* state)
-	: id(id), name(name), address(address), phone(phone), number_of_rentals(total_rentals), items(items) , state(state) {
+Customer::Customer(std::string id, std::string name, std::string address, std::string phone,
+         int total_rentals, std::vector<std::string> items, CustomerState *state)
+	: id(std::move(id)), name(std::move(name)), address(std::move(address)), phone(std::move(phone)), number_of_rentals(total_rentals), items(std::move(items)) , state(state) {
 	state->set_context(this);
 }
 

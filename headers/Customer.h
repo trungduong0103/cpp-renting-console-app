@@ -15,8 +15,8 @@ class Customer {
 	std::vector<std::string> items;
 	CustomerState* state;
 
-public: 
-	Customer(std::string const& id, std::string const& name, std::string const& address, std::string const& phone, int total_rentals, std::vector<std::string> const& items, CustomerState* state);
+public:
+	Customer(std::string  id, std::string  name, std::string  address, std::string  phone, int total_rentals, std::vector<std::string>  items, CustomerState* state);
 	~Customer();
 	inline int get_number_of_rentals() { return number_of_rentals; }
 	inline std::vector<std::string> get_items() const { return items; }
@@ -96,6 +96,6 @@ public:
 	//Methods
 	void borrow(Item& item) override;
 	void promote() override;
-	void set_context(Customer* customer);
+	void set_context(Customer* customer) override;
 	Category get_state() override;
 };
