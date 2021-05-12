@@ -20,3 +20,5 @@ bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItem
 bool item_type_and_genre_is_valid(const std::string &type, const std::string &genre, std::vector<std::string>::size_type item_info_length);
 
 bool item_loan_type_is_valid(const std::string &loan_type);
+
+bool item_stock_is_valid(const std::string &stock);

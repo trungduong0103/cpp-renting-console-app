@@ -103,7 +103,7 @@ bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItem
     // first year ever made was in 1888, current year is 2021
     const unsigned int MAX_YEAR = 2021, MIN_YEAR = 1888;
     try {
-        const unsigned int int_year = std::stoi(year);
+        const unsigned int int_year = std::stoi(year, nullptr, 10);
         if (int_year < MIN_YEAR || int_year > MAX_YEAR) {
             std::cerr << default_error << "(year must be between 1888 and 2021)!" << std::endl;
             return false;
@@ -174,9 +174,39 @@ bool item_type_and_genre_is_valid(
 }
 
 bool item_loan_type_is_valid(const std::string &loan_type) {
-    if (loan_type != "1-week" || loan_type != "2-day") {
+    if (loan_type != "1-week" && loan_type != "2-day") {
         std::cerr << "Item loan type is invalid, received: " << loan_type << std::endl;
         return false;
     }
     return true;
+}
+
+bool has_digits_or_comma(const std::string &str) {
+    for (char c : str) {
+        if (c < 48 || c > 57) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool item_stock_is_valid(const std::string &stock) {
+    const std::string default_error = "Item stock is invalid";
+    try {
+        const int int_stock = std::stoi(stock, nullptr, 10);
+        std::cout << "stock: " << int_stock << std::endl;
+        if (has_digits_or_comma(stock)) {
+            std::cerr << default_error << ", received: " << stock << std::endl;
+            return false;
+        }
+        if (int_stock < 0) {
+            std::cerr << default_error << ", stock must be bigger than 0, received: " << stock << std::endl;
+            return false;
+        }
+        return true;
+    } catch (std::invalid_argument &e) {
+        std::cerr << default_error << ", received: " << stock << std::endl;
+        return false;
+    }
 }

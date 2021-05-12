@@ -127,10 +127,12 @@ std::vector<Item *> MockItemPersistence::load() {
                         item_vector.size()
                 );
                 bool y = item_loan_type_is_valid(item_vector[3]);
+                bool w = item_stock_is_valid(item_vector[4]);
 
-                std::cout << "item id:: " << x << std::endl;
+                std::cout << "item id: " << x << std::endl;
                 std::cout << "item type and genre: " << z << std::endl;
                 std::cout << "item loan type: " << y << std::endl;
+                std::cout << "item stock: " << w << std::endl;
             }
 //            std::cout << item_id_is_valid(item_vector[0], mockItems);
 //            bool x = item_type_is_valid(item_vector[2]);
