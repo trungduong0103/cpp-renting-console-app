@@ -38,7 +38,6 @@ int main() {
         std::cout << i->to_string() << std::endl;
     }
 
-
     // Add item
 //    service.add(&i1);
 //    service.add(&i2);

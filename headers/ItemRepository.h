@@ -43,6 +43,10 @@ struct ItemRepository {
 	virtual void set_items(std::vector<Item*> const&) = 0;
 };
 
+// TODO:
+//  If an item is currently borrowed, a delete action with that item will fail with an error message
+//  A customer can only be removed from the system once he/she returned all borrowed items
+
 struct InMemoryItemRepository : public ItemRepository {
 	std::vector<Item*> items;
 	unsigned int starting_index = 0;
