@@ -181,6 +181,7 @@ bool item_loan_type_is_valid(const std::string &loan_type) {
     return true;
 }
 
+
 bool has_digits_or_comma(const std::string &str) {
     for (char c : str) {
         if (c < 48 || c > 57) {
