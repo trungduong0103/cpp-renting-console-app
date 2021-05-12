@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 Item::RentalType string_to_rental_type(const std::string &string_rental_type) {
     if (string_rental_type == "2-day") {
@@ -58,9 +59,8 @@ bool id_number_is_not_numeric(const std::string &id_number) {
     return id_number.find_first_not_of(numerics) != std::string::npos;
 }
 
-bool item_id_is_correct(const std::string &id, const std::vector<Item *> &mockItems) {
+bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItems) {
     // format: Ixxx-yyyy
-    std::cout << id << std::endl;
     std::vector<std::string> id_pool;
     std::string default_error = "Item ID is incorrect format ";
     // id must be unique
@@ -113,5 +113,70 @@ bool item_id_is_correct(const std::string &id, const std::vector<Item *> &mockIt
         return false;
     }
 
+    return true;
+}
+
+bool item_type_and_genre_is_valid(
+        const std::string &type,
+        const std::string &genre,
+        std::vector<std::string>::size_type item_info_length
+) {
+    const std::string &default_error = "Item Type/Genre is in invalid ";
+    const std::vector<std::string> allowed_games = {"Game", "game"};
+    const std::vector<std::string> allowed_videos_dvds = {"Record", "record", "DVD", "dvd"};
+    const std::vector<std::string> allowed_genres = {
+            "Action",
+            "action",
+            "Horror",
+            "horror",
+            "Drama",
+            "drama",
+            "Comedy",
+            "comedy"
+    };
+
+    bool is_game = std::count(allowed_games.begin(), allowed_games.end(), type) != 0;
+    bool is_video_or_dvd = std::count(allowed_videos_dvds.begin(), allowed_videos_dvds.end(), type) != 0;
+    bool correct_genre = std::count(allowed_genres.begin(), allowed_genres.end(), genre);
+
+    if (item_info_length == 6) {
+        if (!is_game) {
+            std::cout << default_error << "(item type is invalid), received: " << type << std::endl;
+            return false;
+        }
+        return true;
+    } else if (item_info_length == 7) {
+        // Flow
+        // if not dvd or video => false
+        // if either dvd or video but genre is not of action, horror, comedy, and drama => false
+        // otherwise true
+        if (is_game) {
+            std::cout << default_error
+                      << "(received game but game has genre/or other data at the end of line)!"
+                      << std::endl;
+            return false;
+        }
+        if (!is_video_or_dvd) {
+            std::cout << default_error << "(item type is invalid), received: " << type << std::endl;
+            return false;
+        }
+        if (!correct_genre) {
+            std::cout << default_error << "(item genre is invalid), received: " << genre << std::endl;
+            return false;
+        }
+
+        return true;
+    } else {
+        std::cerr << default_error << "(item info length is invalid)!" << std::endl;
+        return false;
+    }
+
+}
+
+bool item_loan_type_is_valid(const std::string &loan_type) {
+    if (loan_type != "1-week" || loan_type != "2-day") {
+        std::cerr << "Item loan type is invalid, received: " << loan_type << std::endl;
+        return false;
+    }
     return true;
 }

@@ -84,6 +84,9 @@ std::vector<std::string> get_item_as_vector(std::string &line) {
 
     while ((pos = line.find(delimiter)) != std::string::npos) {
         token = line.substr(0, pos);
+        if (token.empty()) {
+            return {};
+        }
         remove_whitespace(token);
         item_as_vector.push_back(token);
         line.erase(0, pos + delimiter.length());
@@ -96,10 +99,9 @@ std::vector<std::string> get_item_as_vector(std::string &line) {
 }
 // TODO: customer file is incorrect in C003 & C004
 
-
 //Persistence
 std::vector<Item *> MockItemPersistence::load() {
-    std::ifstream infile("textfiles/items.txt");
+    std::ifstream infile("textfiles/validate_items.txt");
     if (!infile) {
         std::cerr << "Cannot read file items.txt" << std::endl;
         return {};
@@ -108,54 +110,77 @@ std::vector<Item *> MockItemPersistence::load() {
     std::vector<Item *> mockItems;
     std::string line;
     while (std::getline(infile, line)) {
+        std::cout << "LINE: " << line << std::endl;
         if (line[0] == '#') {
-            std::cout << "ignoring..." << std::endl;
+            std::cout << "Ignoring line " << count << " (has # in the beginning)" << std::endl;
+        } else if (line.empty()) {
+            std::cout << "Ignoring line " << count << " (line is empty)." << std::endl;
         } else {
             std::vector<std::string> item_vector = get_item_as_vector(line);
-            if (item_id_is_correct(item_vector[0], mockItems)) {
-                // 6 means game
-                if (item_vector.size() == 6) {
-                    Item *game = new Game(
-                            item_vector[0],
-                            item_vector[1],
-                            string_to_rental_type(item_vector[3]),
-                            std::stoi(item_vector[4]),
-                            std::stof(item_vector[5]),
-                            Item::RentalStatus::Available
-                    );
-                    mockItems.push_back(game);
-                }
-                    // 7 means dvd or record
-                else if (item_vector.size() == 7) {
-                    if (item_vector[2] == "DVD") {
-                        Item *dvd = new DVD(
-                                item_vector[0],
-                                item_vector[1],
-                                string_to_rental_type(item_vector[3]),
-                                std::stoi(item_vector[3]),
-                                std::stof(item_vector[4]),
-                                Item::RentalStatus::Available,
-                                string_to_genre(item_vector[6])
-                        );
-                        mockItems.push_back(dvd);
-                    } else if (item_vector[2] == "Record") {
-                        Item *videoRecord = new VideoRecord(
-                                item_vector[0],
-                                item_vector[1],
-                                string_to_rental_type(item_vector[3]),
-                                std::stoi(item_vector[3]),
-                                std::stof(item_vector[4]),
-                                Item::RentalStatus::Available,
-                                string_to_genre(item_vector[6])
-                        );
-                        mockItems.push_back(videoRecord);
-                    }
-                } else {
-                    std::cerr << "Unexpected length of item :/" << std::endl;
-                }
+            if (item_vector.empty()) {
+                std::cout << "Ignoring line " << count << " (line is missing info)." << std::endl;
             } else {
-                std::cout << "Ignpring line " << count << std::endl;
+                bool x = item_id_is_valid(item_vector[0], mockItems);
+                bool z = item_type_and_genre_is_valid(
+                        item_vector[2],
+                        item_vector[item_vector.size() - 1],
+                        item_vector.size()
+                );
+                bool y = item_loan_type_is_valid(item_vector[3]);
+
+                std::cout << "item id:: " << x << std::endl;
+                std::cout << "item type and genre: " << z << std::endl;
+                std::cout << "item loan type: " << y << std::endl;
             }
+//            std::cout << item_id_is_valid(item_vector[0], mockItems);
+//            bool x = item_type_is_valid(item_vector[2]);
+//            std::cout << x << std::endl;
+//            item_type_is_valid(item_vector[2]);
+
+//            if (item_id_is_valid(item_vector[0], mockItems)) {
+//                // 6 means game
+//                if (item_vector.size() == 6) {
+//                    Item *game = new Game(
+//                            item_vector[0],
+//                            item_vector[1],
+//                            string_to_rental_type(item_vector[3]),
+//                            std::stoi(item_vector[4]),
+//                            std::stof(item_vector[5]),
+//                            Item::RentalStatus::Available
+//                    );
+//                    mockItems.push_back(game);
+//                }
+//                    // 7 means dvd or record
+//                else if (item_vector.size() == 7) {
+//                    if (item_vector[2] == "DVD") {
+//                        Item *dvd = new DVD(
+//                                item_vector[0],
+//                                item_vector[1],
+//                                string_to_rental_type(item_vector[3]),
+//                                std::stoi(item_vector[3]),
+//                                std::stof(item_vector[4]),
+//                                Item::RentalStatus::Available,
+//                                string_to_genre(item_vector[6])
+//                        );
+//                        mockItems.push_back(dvd);
+//                    } else if (item_vector[2] == "Record") {
+//                        Item *videoRecord = new VideoRecord(
+//                                item_vector[0],
+//                                item_vector[1],
+//                                string_to_rental_type(item_vector[3]),
+//                                std::stoi(item_vector[3]),
+//                                std::stof(item_vector[4]),
+//                                Item::RentalStatus::Available,
+//                                string_to_genre(item_vector[6])
+//                        );
+//                        mockItems.push_back(videoRecord);
+//                    }
+//                } else {
+//                    std::cerr << "Unexpected length of item :/" << std::endl;
+//                }
+//            } else {
+//                std::cout << "Ignpring line " << count << std::endl;
+//            }
         }
         count++;
     }

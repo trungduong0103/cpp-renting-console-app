@@ -3,6 +3,7 @@
 #include "Item.h"
 #include <iostream>
 #include <string>
+#include <vector>
 
 Item::RentalType string_to_rental_type(const std::string &string_rental_type);
 
@@ -14,4 +15,8 @@ void remove_whitespace(std::string &string);
 
 bool id_number_is_not_numeric(const std::string &id_number);
 
-bool item_id_is_correct(const std::string &id, const std::vector<Item *>& mockItems);
+bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItems);
+
+bool item_type_and_genre_is_valid(const std::string &type, const std::string &genre, std::vector<std::string>::size_type item_info_length);
+
+bool item_loan_type_is_valid(const std::string &loan_type);
