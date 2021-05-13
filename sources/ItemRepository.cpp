@@ -100,6 +100,7 @@ std::vector<std::string> get_item_as_vector(std::string &line) {
 // TODO: customer file is incorrect in C003 & C004
 
 //Persistence
+// TODO: combine validations into a single function
 std::vector<Item *> MockItemPersistence::load() {
     std::ifstream infile("textfiles/validate_items.txt");
     if (!infile) {
@@ -110,11 +111,13 @@ std::vector<Item *> MockItemPersistence::load() {
     std::vector<Item *> mockItems;
     std::string line;
     while (std::getline(infile, line)) {
-        std::cout << "LINE: " << line << std::endl;
+        std::cout << "LINE " << "[" << count << "]: " << line << std::endl;
         if (line[0] == '#') {
             std::cout << "Ignoring line " << count << " (has # in the beginning)" << std::endl;
         } else if (line.empty()) {
             std::cout << "Ignoring line " << count << " (line is empty)." << std::endl;
+        } else if (!correct_info_length(line)) {
+            std::cout << "Ignoring line " << count << " (line can only have 5-6 commas)." << std::endl;
         } else {
             std::vector<std::string> item_vector = get_item_as_vector(line);
             if (item_vector.empty()) {
@@ -128,11 +131,13 @@ std::vector<Item *> MockItemPersistence::load() {
                 );
                 bool y = item_loan_type_is_valid(item_vector[3]);
                 bool w = item_stock_is_valid(item_vector[4]);
+                bool u = item_price_is_valid(item_vector[5]);
 
                 std::cout << "item id: " << x << std::endl;
                 std::cout << "item type and genre: " << z << std::endl;
                 std::cout << "item loan type: " << y << std::endl;
                 std::cout << "item stock: " << w << std::endl;
+                std::cout << "item price: " << u << std::endl;
             }
 //            std::cout << item_id_is_valid(item_vector[0], mockItems);
 //            bool x = item_type_is_valid(item_vector[2]);

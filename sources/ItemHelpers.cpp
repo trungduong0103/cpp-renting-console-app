@@ -54,6 +54,15 @@ void remove_whitespace(std::string &string) {
     }
 }
 
+bool correct_info_length(const std::string &line) {
+    const unsigned int comma_count = std::count(line.begin(), line.end(), ',');
+    if (comma_count < 5 || comma_count > 6) {
+        return false;
+    }
+
+    return true;
+}
+
 bool id_number_is_not_numeric(const std::string &id_number) {
     const std::string numerics = "0123456789";
     return id_number.find_first_not_of(numerics) != std::string::npos;
@@ -182,25 +191,22 @@ bool item_loan_type_is_valid(const std::string &loan_type) {
 }
 
 
-bool has_digits_or_comma(const std::string &str) {
-    for (char c : str) {
-        if (c < 48 || c > 57) {
-            return true;
-        }
+bool is_not_numeric(const std::string &str) {
+    const std::string allowed = "0123456789.";
+    if (str[0] == '-') {
+        return str.substr(1, str.length() - 1).find_first_not_of(allowed) != std::string::npos;
     }
-
-    return false;
+    return str.find_first_not_of(allowed) != std::string::npos;
 }
 
 bool item_stock_is_valid(const std::string &stock) {
     const std::string default_error = "Item stock is invalid";
     try {
-        const int int_stock = std::stoi(stock, nullptr, 10);
-        std::cout << "stock: " << int_stock << std::endl;
-        if (has_digits_or_comma(stock)) {
+        if (is_not_numeric(stock)) {
             std::cerr << default_error << ", received: " << stock << std::endl;
             return false;
         }
+        const int int_stock = std::stoi(stock, nullptr, 10);
         if (int_stock < 0) {
             std::cerr << default_error << ", stock must be bigger than 0, received: " << stock << std::endl;
             return false;
@@ -208,6 +214,31 @@ bool item_stock_is_valid(const std::string &stock) {
         return true;
     } catch (std::invalid_argument &e) {
         std::cerr << default_error << ", received: " << stock << std::endl;
+        return false;
+    }
+}
+
+bool has_more_than_one_decimal(const std::string &price) {
+    return std::count(price.begin(), price.end(), '.') > 1;
+}
+
+bool item_price_is_valid(const std::string &price) {
+    const std::string default_error = "Item price is invalid";
+    try {
+        if (has_more_than_one_decimal(price) || is_not_numeric(price)) {
+            std::cerr << default_error << ", received: " << price << std::endl;
+            return false;
+        }
+        std::cout << "OG price: " << price << std::endl;
+        const float float_price = std::stof(price);
+        std::cerr << "price: " << float_price << std::endl;
+        if (float_price < 0) {
+            std::cerr << default_error << ", price must be greater than 0, received: " << float_price << std::endl;
+            return false;
+        }
+        return true;
+    } catch (std::invalid_argument &e) {
+        std::cerr << default_error << ", received: " << price << std::endl;
         return false;
     }
 }
