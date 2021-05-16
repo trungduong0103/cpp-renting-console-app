@@ -39,7 +39,8 @@ struct ItemRepository {
 	virtual void add_item(Item* item) = 0;
 	virtual void remove_item(std::string const& item_id) = 0;
 	virtual void update_item(std::string const& item_id, ItemModificationIntent& intent) = 0;
-    virtual std::vector<Item*> get_items() = 0;
+  virtual Item* get_item(std::string const& id) = 0;
+	virtual std::vector<Item*> get_items() = 0;
 	virtual void set_items(std::vector<Item*> const&) = 0;
 };
 
@@ -52,15 +53,17 @@ struct InMemoryItemRepository : public ItemRepository {
 	unsigned int starting_index = 0;
 public:
 	InMemoryItemRepository() = default;
+  ~InMemoryItemRepository();
 	InMemoryItemRepository(std::vector<Item*>  items);
 	unsigned int get_starting_index() { return starting_index; }
-	void increment_starting_index() { this -> starting_index++; }
-	void decrement_starting_index() { this -> starting_index--; }
-    std::vector<Item*> get_items() override { return items; }
+	void increment_starting_index() { this->starting_index++; }
+	void decrement_starting_index() { this->starting_index--; }
+	std::vector<Item*> get_items() override { return items; }
 	void set_items(std::vector<Item*> const& items) override;
 	void add_item(Item* item) override;
 	void remove_item(std::string const& item_id) override;
 	void update_item(std::string const& item_id, ItemModificationIntent& intent) override;
+  Item* get_item(std::string const& id) override;
 	int get_item_index(std::string const &item_id);
 };
 
@@ -70,7 +73,12 @@ struct ItemPersistence {
 	virtual void save(std::vector<Item*>) = 0;
 };
 
-struct FilePersistence : public ItemPersistence {
+struct MockItemPersistence : public ItemPersistence {
+	std::vector<Item*> load() override;
+	void save(std::vector<Item*>) override;
+};
+
+struct TextFileItemPersistence : public ItemPersistence {
 	std::vector<Item*> load() override;
 	void save(std::vector<Item*>) override;
 };
@@ -118,7 +126,7 @@ struct ItemAllFilterSpecification : public ItemFilterSpecification {
 };
 
 struct ItemFilterer {
-	static std::vector<Item*> filter(std::vector<Item*> const& items, ItemFilterSpecification const*);
+	std::vector<Item*> filter(std::vector<Item*> const& items, ItemFilterSpecification const*);
 };
 
 //Aggregated class

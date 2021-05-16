@@ -65,33 +65,39 @@ struct MockCustomerPersistence : public CustomerPersistence {
 	void save(std::vector<Customer*>) override;
 };
 
+struct TextFileCustomerPersistence : public CustomerPersistence {
+	std::vector<Customer*> load() override;
+	void save(std::vector<Customer*>) override;
+};
+
+
 //Displayer
-struct Order {
+struct CustomerOrder {
 	virtual void order(std::vector<Customer*>& customers) const = 0;
 };
 
-struct NoOrder : public Order {
+struct CustomerNoOrder : public CustomerOrder {
 	void order(std::vector<Customer*>& customers) const override;
 };
 
-struct NameOrder : public Order {
+struct CustomerNameOrder : public CustomerOrder {
 	void order(std::vector<Customer*>& customers) const override;
 };
 
-struct IdOrder : public Order {
+struct CustomerIdOrder : public CustomerOrder {
 	void order(std::vector<Customer*>& customers) const override;
 };
 
-struct LevelOrder : public Order {
+struct CustomerLevelOrder : public CustomerOrder {
 	void order(std::vector<Customer*>& customers) const override;
 };
 
 struct CustomerDisplayer {
-	virtual void display(std::vector<Customer*> customers, Order const* order) = 0;
+	virtual void display(std::vector<Customer*> customers, CustomerOrder const* order) = 0;
 };
 
 struct ConsoleCustomerDisplayer : public CustomerDisplayer {
-	void display(std::vector<Customer*> customers, Order const* order) override;
+	void display(std::vector<Customer*> customers, CustomerOrder const* order) override;
 };
 
 //Filterer
@@ -140,6 +146,6 @@ public:
 	void add(Customer* customer);
 	void remove(std::string const& id);
 	void update(std::string const& id, ModificationIntent& intent);
-	void display(Order const* order);
+	void display(CustomerOrder const* order);
 	void filter(FilterSpecification const* spec);
 };
