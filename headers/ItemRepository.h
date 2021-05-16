@@ -70,7 +70,7 @@ struct ItemPersistence {
 	virtual void save(std::vector<Item*>) = 0;
 };
 
-struct MockItemPersistence : public ItemPersistence {
+struct FilePersistence : public ItemPersistence {
 	std::vector<Item*> load() override;
 	void save(std::vector<Item*>) override;
 };
@@ -118,7 +118,7 @@ struct ItemAllFilterSpecification : public ItemFilterSpecification {
 };
 
 struct ItemFilterer {
-	std::vector<Item*> filter(std::vector<Item*> const& items, ItemFilterSpecification const*);
+	static std::vector<Item*> filter(std::vector<Item*> const& items, ItemFilterSpecification const*);
 };
 
 //Aggregated class

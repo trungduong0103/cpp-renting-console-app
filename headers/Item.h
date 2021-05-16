@@ -29,7 +29,9 @@ struct Item {
 	inline bool is_available() const { return rental_status == RentalStatus::Available; }
 	inline bool is_in_stock() const { return number_in_stock > 0; }
 	friend std::ostream& operator<<(std::ostream& os, Item const& item);
-	virtual std::string to_string() const;
+	virtual std::string to_string_console() const = 0;
+	virtual std::string to_string_file() const = 0;
+
 };
 
 struct GenredItem : public Item {
@@ -43,7 +45,8 @@ struct GenredItem : public Item {
     inline Genre get_genre() const { return genre; }
     inline void set_genre(Genre const new_genre) { genre = new_genre; }
 	friend std::ostream& operator<<(std::ostream& os, GenredItem const& genredItem);
-	virtual std::string to_string() const override;
+	virtual std::string to_string_console() const override;
+	virtual std::string to_string_file() const override = 0;
 };
 
 struct Game : public Item {
@@ -52,7 +55,8 @@ struct Game : public Item {
 
 	//Methods
 	friend std::ostream& operator<<(std::ostream& os, Game const& game);
-	std::string to_string() const;
+	std::string to_string_console() const;
+	std::string to_string_file() const;
 };
 
 struct VideoRecord : public GenredItem {
@@ -61,7 +65,8 @@ struct VideoRecord : public GenredItem {
 
 	//Methods
 	friend std::ostream& operator<<(std::ostream& os, VideoRecord const& videoRecord);
-	std::string to_string() const override;
+	std::string to_string_console() const override;
+    std::string to_string_file() const override;
 };
 
 struct DVD : public GenredItem {
@@ -70,6 +75,7 @@ struct DVD : public GenredItem {
 
 	//Methods
 	friend std::ostream& operator<<(std::ostream& os, DVD const& dvd);
-	std::string to_string() const override;
+	std::string to_string_console() const override;
+    std::string to_string_file() const override;
 };
 

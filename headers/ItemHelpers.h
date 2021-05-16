@@ -7,9 +7,15 @@
 
 Item::RentalType string_to_rental_type(const std::string &string_rental_type);
 
+std::string rental_type_to_string(Item::RentalType rental_type);
+
 Item::RentalStatus string_to_rental_status(const std::string &string_rental_status);
 
+std::string rental_status_to_string(Item::RentalStatus rental_status);
+
 GenredItem::Genre string_to_genre(const std::string &string_genre);
+
+std::string genre_to_string(GenredItem::Genre genre);
 
 void remove_whitespace(std::string &string);
 

@@ -13,7 +13,18 @@ Item::RentalType string_to_rental_type(const std::string &string_rental_type) {
 
     std::cerr << "Must only be 2-day or 1-week" << std::endl;
     return Item::RentalType::TwoDay;
-};
+}
+
+std::string rental_type_to_string(Item::RentalType rental_type) {
+    switch (rental_type) {
+        case Item::RentalType::TwoDay:
+            return "2-day";
+        case Item::RentalType::OneWeek:
+            return "1-week";
+        default:
+            return "Unknown";
+    }
+}
 
 Item::RentalStatus string_to_rental_status(const std::string &string_rental_status) {
     if (string_rental_status == "available") {
@@ -26,9 +37,18 @@ Item::RentalStatus string_to_rental_status(const std::string &string_rental_stat
     return Item::RentalStatus::Borrowed;
 }
 
+std::string rental_status_to_string(Item::RentalStatus rental_status) {
+    switch (rental_status) {
+        case Item::RentalStatus::Available:
+            return "Available";
+        case Item::RentalStatus::Borrowed:
+            return "Borrowed";
+        default:
+            return "Unknown";
+    }
+}
+
 GenredItem::Genre string_to_genre(const std::string &string_genre) {
-//    bool result = string_genre == "Comedy";
-//    std::cout << result << std::endl;
     if (string_genre == "Action") {
         return GenredItem::Genre::Action;
     } else if (string_genre == "Comedy") {
@@ -41,6 +61,21 @@ GenredItem::Genre string_to_genre(const std::string &string_genre) {
         std::cerr << "Genre must either be 'Action', 'Comedy', 'Drama', or 'Horror'! Received: " << string_genre
                   << std::endl;
         return GenredItem::Genre::Action;
+    }
+}
+
+std::string genre_to_string(GenredItem::Genre genre) {
+    switch (genre) {
+        case GenredItem::Genre::Action:
+            return "Action";
+        case GenredItem::Genre::Comedy:
+            return "Comedy";
+        case GenredItem::Genre::Drama:
+            return "Drama";
+        case GenredItem::Genre::Horror:
+            return "Horror";
+        default:
+            return "Unknown";
     }
 }
 

@@ -100,8 +100,8 @@ std::vector<std::string> get_item_as_vector(std::string &line) {
 // TODO: customer file is incorrect in C003 & C004
 
 //Persistence
-std::vector<Item *> MockItemPersistence::load() {
-    std::ifstream infile("textfiles/validate_items.txt");
+std::vector<Item *> FilePersistence::load() {
+    std::ifstream infile("textfiles/items.txt");
     if (!infile) {
         std::cerr << "Cannot read file items.txt" << std::endl;
         return {};
@@ -132,6 +132,7 @@ std::vector<Item *> MockItemPersistence::load() {
                         item_vector[4],
                         item_vector[5]
                 )) {
+                    std::cout << "Line is OK" << std::endl;
                     // 6 means video game
                     if (item_vector.size() == 6) {
                         Item *game = new Game(
@@ -172,6 +173,8 @@ std::vector<Item *> MockItemPersistence::load() {
                     } else {
                         std::cerr << "Unexpected length of item :/" << std::endl;
                     }
+                } else {
+                    continue;
                 }
             }
         }
@@ -182,8 +185,21 @@ std::vector<Item *> MockItemPersistence::load() {
     return mockItems;
 }
 
-void MockItemPersistence::save(std::vector<Item *>) {
-    //Do nothing
+void FilePersistence::save(std::vector<Item *> items) {
+    std::ofstream outfile("outfiles/items_out.txt", std::ios::trunc);
+    if (!outfile) {
+        std::cerr << "Cannot read file items.txt" << std::endl;
+        return ;
+    }
+    unsigned int i = 0;
+    for (; i < items.size(); i++) {
+        outfile << items[i]->to_string_file();
+        if (i < items.size()) {
+            outfile << "\n";
+        }
+    }
+    outfile << "Hello World!";
+    outfile.close();
 }
 
 //Displayer

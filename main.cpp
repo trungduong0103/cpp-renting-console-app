@@ -27,7 +27,7 @@ int main() {
     ItemRepository *repository = new InMemoryItemRepository;
     ItemDisplayer *displayer = new ConsoleItemDisplayer;
     ItemFilterer *filterer = new ItemFilterer;
-    ItemPersistence *persistence = new MockItemPersistence;
+    ItemPersistence *persistence = new FilePersistence;
 
     // Create service
     ItemService service{repository, displayer, filterer, persistence};
@@ -35,8 +35,10 @@ int main() {
     // Load
     service.load();
     for (Item *i : repository->get_items()) {
-        std::cout << i->to_string() << std::endl;
+        std::cout << i->to_string_console() << std::endl;
     }
+
+
 
     // Add item
 //    service.add(&i1);
