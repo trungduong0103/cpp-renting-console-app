@@ -75,30 +75,30 @@ void MockCustomerPersistence::save(std::vector<Customer*>) {
 }
 
 //Displayer
-void NameOrder::order(std::vector<Customer*>& customers) const {
+void CustomerNameOrder::order(std::vector<Customer*>& customers) const {
 	std::sort(customers.begin(), customers.end(), [](Customer const* a, Customer const* b) {
 		return a->get_name() < b->get_name();
 	});
 }
 
-void IdOrder::order(std::vector<Customer*>& customers) const {
+void CustomerIdOrder::order(std::vector<Customer*>& customers) const {
 	std::sort(customers.begin(), customers.end(), [](Customer const* a, Customer const* b) {
 		return a->get_id() < b->get_id();
 	});
 }
 
-void LevelOrder::order(std::vector<Customer*>& customers) const {
+void CustomerLevelOrder::order(std::vector<Customer*>& customers) const {
 	std::sort(customers.begin(), customers.end(), [](Customer const* a, Customer const* b) {
 		return a->get_state() < b->get_state();
 	});
 }
 
-void NoOrder::order(std::vector<Customer*>& customers) const {
+void CustomerNoOrder::order(std::vector<Customer*>& customers) const {
 	//Do nothing
 }
 
 
-void ConsoleCustomerDisplayer::display(std::vector<Customer*> customers, Order const* order) {
+void ConsoleCustomerDisplayer::display(std::vector<Customer*> customers, CustomerOrder const* order) {
 	//Sort first
 	order->order(customers);
 	for (auto& customer : customers) {
@@ -174,14 +174,15 @@ void CustomerService::update(std::string const& id, ModificationIntent& intent) 
 	repository->update_customer(id, intent);
 }
 
-void CustomerService::display(Order const* order) {
+void CustomerService::display(CustomerOrder const* order) {
 	displayer->display(repository->get_customers(), order);
 }
 
 void CustomerService::filter(FilterSpecification const* spec) {
 	//Get filtered element
 	auto filtered = filterer->filter(repository->get_customers(), spec);
+
 	//Display
-	NoOrder order;
+	CustomerNoOrder order;
 	displayer->display(filtered, &order);
 }

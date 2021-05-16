@@ -125,7 +125,7 @@ std::vector<std::string> get_item_as_vector(std::string &line) {
 //Text file persistence
 // TODO: combine validations into a single function
 std::vector<Item *> TextFileItemPersistence::load() {
-	std::ifstream infile("items.txt");
+	std::ifstream infile("../textfiles/items.txt");
   if (!infile) {
       std::cerr << "Cannot read file items.txt" << std::endl;
       return {};
@@ -209,7 +209,7 @@ std::vector<Item *> TextFileItemPersistence::load() {
 }
 
 void TextFileItemPersistence::save(std::vector<Item *> items) {
-	std::ofstream outfile("items_out.txt", std::ios::trunc);
+	std::ofstream outfile("../outfiles/items_out.txt", std::ios::trunc);
   if (!outfile) {
       std::cerr << "Cannot read file items.txt" << std::endl;
       return ;
