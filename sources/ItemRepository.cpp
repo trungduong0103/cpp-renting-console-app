@@ -100,7 +100,6 @@ std::vector<std::string> get_item_as_vector(std::string &line) {
 // TODO: customer file is incorrect in C003 & C004
 
 //Persistence
-// TODO: combine validations into a single function
 std::vector<Item *> MockItemPersistence::load() {
     std::ifstream infile("textfiles/validate_items.txt");
     if (!infile) {
@@ -133,6 +132,7 @@ std::vector<Item *> MockItemPersistence::load() {
                         item_vector[4],
                         item_vector[5]
                 )) {
+                    // 6 means video game
                     if (item_vector.size() == 6) {
                         Item *game = new Game(
                                 item_vector[0],
@@ -144,7 +144,7 @@ std::vector<Item *> MockItemPersistence::load() {
                         );
                         mockItems.push_back(game);
                     }
-                        // 7 means dvd or record
+                    // 7 means dvd or record
                     else if (item_vector.size() == 7) {
                         if (item_vector[2] == "DVD") {
                             Item *dvd = new DVD(

@@ -229,9 +229,7 @@ bool item_price_is_valid(const std::string &price) {
             std::cerr << default_error << ", received: " << price << std::endl;
             return false;
         }
-        std::cout << "OG price: " << price << std::endl;
         const float float_price = std::stof(price);
-        std::cerr << "price: " << float_price << std::endl;
         if (float_price < 0) {
             std::cerr << default_error << ", price must be greater than 0, received: " << float_price << std::endl;
             return false;
