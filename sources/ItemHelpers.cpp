@@ -242,3 +242,20 @@ bool item_price_is_valid(const std::string &price) {
         return false;
     }
 }
+
+bool valid_item_data(
+        const std::string &id,
+        const std::vector<Item *> &mockItems,
+        const std::string &type,
+        const std::string &genre,
+        std::vector<std::string>::size_type item_info_length,
+        const std::string &loan_type,
+        const std::string &stock,
+        const std::string &price
+) {
+    return item_id_is_valid(id, mockItems)
+           && item_type_and_genre_is_valid(type, genre, item_info_length)
+           && item_loan_type_is_valid(loan_type)
+           && item_stock_is_valid(stock)
+           && item_price_is_valid(price);
+}
