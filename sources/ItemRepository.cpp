@@ -1,9 +1,7 @@
 #include "../headers/ItemRepository.h"
-#include "../headers/Item.h"
 #include "../headers/ItemHelpers.h"
 #include <iostream>
 #include <algorithm>
-#include <utility>
 #include <fstream>
 #include <string>
 
@@ -28,9 +26,16 @@ void ItemNumberOfStockDecreaseIntent::modify() {
     item->decrease_num_in_stock(value);
 }
 
-
 //Repository
 InMemoryItemRepository::InMemoryItemRepository(std::vector<Item *> items) : items(std::move(items)) {}
+
+InMemoryItemRepository::~InMemoryItemRepository() {
+    for (auto item_ptr : items) {
+        if (item_ptr != nullptr) {
+            delete item_ptr;
+        }
+    }
+}
 
 void InMemoryItemRepository::set_items(std::vector<Item *> const &new_items) {
     items = new_items;
@@ -44,10 +49,18 @@ void InMemoryItemRepository::remove_item(std::string const &item_id) {
     //Find the position of the item
     int position = get_item_index(item_id);
 
+    //Get the item and check if it is borrowed or not
+    if (!items[position]->is_available()) {
+        //Display error message
+        std::cerr << "Item is currently borrowed and can not be deleted" << std::endl;
+        return;
+    }
+
     //Remove if element exists
     if (position != -1) {
         items.erase(items.begin() + position);
-    } else {
+    }
+    else {
         std::cerr << "User does not exist" << std::endl;
     }
 }
@@ -60,13 +73,23 @@ void InMemoryItemRepository::update_item(std::string const &item_id, ItemModific
     if (position != -1) {
         intent.set_item(items[position]);
         intent.modify();
-    } else {
+    }
+    else {
         std::cerr << "User does not exist" << std::endl;
     }
 }
 
+Item* InMemoryItemRepository::get_item(std::string const& id) {
+    //Get the item position
+    int position = get_item_index(id);
+
+    //Then get item at that position
+    return position == -1 ? nullptr : items[position];
+}
+
 int InMemoryItemRepository::get_item_index(std::string const &item_id) {
     int position = 0;
+
     for (; position < items.size(); position++) {
         if (item_id == items[position]->get_id()) {
             return position;
@@ -99,9 +122,10 @@ std::vector<std::string> get_item_as_vector(std::string &line) {
 }
 // TODO: customer file is incorrect in C003 & C004
 
-//Persistence
-std::vector<Item *> FilePersistence::load() {
-    std::ifstream infile("textfiles/items.txt");
+//Text file persistence
+// TODO: combine validations into a single function
+std::vector<Item *> TextFileItemPersistence::load() {
+    std::ifstream infile("../textfiles/items.txt");
     if (!infile) {
         std::cerr << "Cannot read file items.txt" << std::endl;
         return {};
@@ -145,7 +169,7 @@ std::vector<Item *> FilePersistence::load() {
                         );
                         mockItems.push_back(game);
                     }
-                    // 7 means dvd or record
+                        // 7 means dvd or record
                     else if (item_vector.size() == 7) {
                         if (item_vector[2] == "DVD") {
                             Item *dvd = new DVD(
@@ -180,13 +204,12 @@ std::vector<Item *> FilePersistence::load() {
         }
         count++;
     }
-
     infile.close();
     return mockItems;
 }
 
-void FilePersistence::save(std::vector<Item *> items) {
-    std::ofstream outfile("outfiles/items_out.txt", std::ios::trunc);
+void TextFileItemPersistence::save(std::vector<Item *> items) {
+    std::ofstream outfile("../textfiles/items_out.txt", std::ios::trunc);
     if (!outfile) {
         std::cerr << "Cannot read file items.txt" << std::endl;
         return ;
@@ -198,9 +221,12 @@ void FilePersistence::save(std::vector<Item *> items) {
             outfile << "\n";
         }
     }
-    outfile << "Hello World!";
     outfile.close();
 }
+
+//Mock persistence
+std::vector<Item *> MockItemPersistence::load() { return {}; }
+void MockItemPersistence::save(std::vector<Item*>) {}
 
 //Displayer
 void ItemTitleOrder::order(std::vector<Item *> &items) const {
@@ -228,11 +254,11 @@ void ConsoleItemDisplayer::display(std::vector<Item *> items, ItemOrder const *o
 }
 
 //Filters
-ItemRentalStatusFilterSpecification::ItemRentalStatusFilterSpecification(Item::RentalStatus const rental_status)
-        : rental_status(rental_status) {}
+ItemNumStockFilterSpecification::ItemNumStockFilterSpecification(unsigned int const number_in_stock)
+        : number_in_stock(number_in_stock) {}
 
-bool ItemRentalStatusFilterSpecification::is_satisfied(Item const *item) const {
-    return item->get_rental_status() == rental_status;
+bool ItemNumStockFilterSpecification::is_satisfied(Item const *item) const {
+    return item->get_number_in_stock() == number_in_stock;
 }
 
 bool ItemAllFilterSpecification::is_satisfied(Item const *item) const {
@@ -280,6 +306,10 @@ void ItemService::load() {
 
 void ItemService::save() {
     persistence->save(repository->get_items());
+}
+
+Item* ItemService::get(std::string const& id) {
+    return repository->get_item(id);
 }
 
 void ItemService::add(Item *item) {

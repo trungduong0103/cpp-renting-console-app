@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="cpp_renting_console_app"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cpp_renting_console_app">
+				<Option output="C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/cpp_renting_console_app.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 cpp_renting_console_app"/>
+					<CompileFile command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cpp_renting_console_app/fast">
+				<Option output="C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/cpp_renting_console_app.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 cpp_renting_console_app/fast"/>
+					<CompileFile command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw64/bin/mingw32-make.exe -f &quot;C:/Users/ryanz/Codes/School/cpp-renting-console-app/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/Customer.h">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/CustomerHelpers.h">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/CustomerRepository.h">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/FileReader.h">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/Item.h">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/ItemHelpers.h">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/ItemRepository.h">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/Menu.h">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/ServiceBuilder.h">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/main.cpp">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/sources/Customer.cpp">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/sources/CustomerHelpers.cpp">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/sources/CustomerRepository.cpp">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/sources/Item.cpp">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/sources/ItemHelpers.cpp">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/sources/ItemRepository.cpp">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/sources/Menu.cpp">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/sources/ServiceBuilder.cpp">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="C:/Users/ryanz/Codes/School/cpp-renting-console-app/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

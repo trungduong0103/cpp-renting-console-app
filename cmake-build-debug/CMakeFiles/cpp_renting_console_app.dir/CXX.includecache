@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/Item.h
+string
+-
+
+C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/ItemHelpers.h
+Item.h
+C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/Item.h
+iostream
+-
+string
+-
+vector
+-
+
+C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/ItemRepository.h
+Item.h
+C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/Item.h
+iostream
+-
+vector
+-
+
+C:/Users/ryanz/Codes/School/cpp-renting-console-app/sources/ItemRepository.cpp
+../headers/ItemRepository.h
+C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/ItemRepository.h
+../headers/ItemHelpers.h
+C:/Users/ryanz/Codes/School/cpp-renting-console-app/headers/ItemHelpers.h
+iostream
+-
+algorithm
+-
+fstream
+-
+string
+-
+
