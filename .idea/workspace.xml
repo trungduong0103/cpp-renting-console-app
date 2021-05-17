@@ -12,18 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c0098f5-fcea-499c-9eae-b108e08e5b2c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/cpp_renting_console_app.cbp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/Customer.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/Customer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/CustomerRepository.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/CustomerRepository.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/ItemRepository.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/ItemRepository.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/Menu.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/Menu.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/ServiceBuilder.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/ServiceBuilder.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/Customer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/Customer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/CustomerRepository.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/CustomerRepository.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sources/ItemRepository.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/ItemRepository.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/Menu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/Menu.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/ServiceBuilder.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/ServiceBuilder.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +70,7 @@
       <updated>1621204003417</updated>
       <workItem from="1621204005885" duration="1119000" />
       <workItem from="1621216015968" duration="1556000" />
-      <workItem from="1621260337906" duration="1725000" />
+      <workItem from="1621260337906" duration="1835000" />
     </task>
     <servers />
   </component>
