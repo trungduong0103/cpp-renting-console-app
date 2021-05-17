@@ -136,7 +136,16 @@ bool Menu::display_customer_menu(){
         }
             break;
         case 3:{
-            Customer* customer = nullptr;
+            std::string id;
+            std::cout << "Input customer ID that you want to edit:" << std::endl;
+            std::cin >> id;
+            Customer* customer = customer_service->get(id);
+            if ( customer != nullptr){
+                customer->promote();
+            }
+            else{
+                std::cerr << "Customer is not exist" << std::endl;
+            }
         }
             break;
         case 4: {
@@ -165,7 +174,28 @@ bool Menu::display_customer_menu(){
             }
         }
             break;
-        case 6:
+        case 6:{
+            std::string option;
+            std::cout << "1.Search by id" << std::endl;
+            std::cout << "2.Search by name" << std::endl;
+            std::cin >> option;
+            if (option == "1"){
+                std::string id;
+                std::cout << "Input id:" << std::endl;
+                std::cin >> id;
+                // Lam bieng lam roi
+
+            }
+            if (option == "2"){
+                std::string name;
+                std::cout << "Input name:" << std::endl;
+                std::cin >> name;
+                // Lam bieng lam roi
+            }
+            else{
+                std::cerr << "Invalid input" << std::endl;
+            }
+        }
             break;
         case 0:
             return 0;
@@ -218,10 +248,9 @@ bool Menu::display_item_menu(){
             std::string id;
             std::cout << "Input item ID that you want to edit:" << std::endl;
             std::cin >> id;
-            if (item_service->get(id) != nullptr){
-                modify_item(id)
-            }
-            else{
+            if (item_service->get(id) != nullptr) {
+                modify_item(id);
+            } else {
                 std::cerr << "Item is not exist" << std::endl;
             }
         }
@@ -233,9 +262,38 @@ bool Menu::display_item_menu(){
             item_service->remove(id);
         }
             break;
-        case 4:
+        case 4:{
+            std::string customer_id;
+            std::string item_id;
+            std::cout << "Input customer ID that you want to rent:" << std::endl;
+            std::cin >> customer_id;
+            std::cout << "Input item ID that you want to rent:" << std::endl;
+            std::cin >> item_id;
+            Customer* customer = customer_service->get(customer_id);
+            Item* item = item_service->get(item_id);
+            if (customer != nullptr && item != nullptr) {
+                customer ->borrow(*item);
+            } else {
+                std::cerr << "Item/Customer is not exist" << std::endl;
+            }
+
+        }
             break;
-        case 5:
+        case 5:{
+            std::string customer_id;
+            std::string item_id;
+            std::cout << "Input customer ID that you want to return:" << std::endl;
+            std::cin >> customer_id;
+            std::cout << "Input item ID that you want to return:" << std::endl;
+            std::cin >> item_id;
+            Customer* customer = customer_service->get(customer_id);
+            Item* item = item_service->get(item_id);
+            if (customer != nullptr && item != nullptr) {
+//                customer ->return(*item);
+            } else {
+                std::cerr << "Item/Customer is not exist" << std::endl;
+            }
+        }
             break;
         case 6:{
             ItemNoOrder no_order;
@@ -247,7 +305,28 @@ bool Menu::display_item_menu(){
             item_service -> filter(&spec);
         }
             break;
-        case 8:
+        case 8:{
+            std::string option;
+            std::cout << "1.Search by id" << std::endl;
+            std::cout << "2.Search by name" << std::endl;
+            std::cin >> option;
+            if (option == "1"){
+                std::string id;
+                std::cout << "Input id:" << std::endl;
+                std::cin >> id;
+                // Chua co function mai lam som
+
+            }
+            if (option == "2"){
+                std::string name;
+                std::cout << "Input name:" << std::endl;
+                std::cin >> name;
+                // Chua co function mai lam som
+            }
+            else{
+                std::cerr << "Invalid input" << std::endl;
+            }
+        }
             break;
         case 0:
             return 0;
