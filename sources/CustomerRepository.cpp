@@ -25,9 +25,21 @@ InMemoryCustomerRepository::InMemoryCustomerRepository(std::vector<Customer*> co
 void InMemoryCustomerRepository::set_customers(std::vector<Customer*> const& new_customers) {
 	customers = new_customers;
 }
+
+Customer* InMemoryCustomerRepository::get_customer(std::string const& id) {
+    for (auto customer_ptr : customers) {
+        if (customer_ptr != nullptr && customer_ptr->get_id() == id) {
+            return customer_ptr;
+        }
+    }
+    //No customer found
+    return nullptr;
+}
+
 void InMemoryCustomerRepository::add_customer(Customer* customer) {
 	customers.push_back(customer);
 }
+
 void InMemoryCustomerRepository::remove_customer(std::string const& customer_id) {
 	//Find the position of the customer
 	int position = -1;
@@ -160,6 +172,10 @@ void CustomerService::load() {
 
 void CustomerService::save() {
 	persistence->save(repository->get_customers());
+}
+
+Customer* CustomerService::get(std::string const& id) {
+    return repository->get_customer(id);
 }
 
 void CustomerService::add(Customer* customer) {

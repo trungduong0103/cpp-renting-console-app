@@ -36,6 +36,7 @@ struct PhoneModificationIntent : public ModificationIntent {
 
 struct CustomerRepository {
 	virtual void add_customer(Customer* customer) = 0;
+    virtual Customer* get_customer(std::string const&) = 0;
 	virtual void remove_customer(std::string const& customer_id) = 0;
 	virtual void update_customer(std::string const& customer_id, ModificationIntent& intent) = 0;
 	virtual std::vector<Customer*> get_customers() = 0;
@@ -47,6 +48,7 @@ struct InMemoryCustomerRepository : public CustomerRepository {
 public:
 	InMemoryCustomerRepository() = default;
 	InMemoryCustomerRepository(std::vector<Customer*> const& customers);
+	Customer* get_customer(std::string const&) override;
 	void set_customers(std::vector<Customer*> const& customers) override;
 	void add_customer(Customer* customer) override;
 	void remove_customer(std::string const& customer_id) override;
@@ -143,6 +145,7 @@ public:
 	//Methods
 	void load();
 	void save();
+	Customer* get(std::string const&);
 	void add(Customer* customer);
 	void remove(std::string const& id);
 	void update(std::string const& id, ModificationIntent& intent);
