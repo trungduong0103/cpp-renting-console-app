@@ -122,7 +122,7 @@ std::vector<std::string> get_item_as_vector(std::string &line) {
 
 //Text file persistence
 std::vector<Item *> TextFileItemPersistence::load() {
-    std::ifstream infile("../textfiles/items.txt");
+    std::ifstream infile("textfiles/items.txt");
     if (!infile) {
         std::cerr << "Cannot read file items.txt" << std::endl;
         return {};

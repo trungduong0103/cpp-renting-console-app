@@ -111,7 +111,7 @@ std::vector<std::string> get_customer_as_vector(std::string &line) {
 
 //Persistence
 std::vector<Customer *> MockCustomerPersistence::load() {
-    std::ifstream infile("../textfiles/customers.txt");
+    std::ifstream infile("textfiles/customers.txt");
     if (!infile) {
         std::cerr << "Cannot read file customers.txt" << std::endl;
         return {};
@@ -131,6 +131,7 @@ std::vector<Customer *> MockCustomerPersistence::load() {
         } else {
 
         }
+        count++;
     }
 }
 
