@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 
 #include "Item.h"
 #include <iostream>
@@ -22,6 +23,8 @@ void remove_whitespace(std::string &string);
 bool correct_info_length(const std::string &line);
 
 bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItems);
+
+bool item_id_is_valid(const std::string &id);
 
 bool item_type_and_genre_is_valid(const std::string &type, const std::string &genre, std::vector<std::string>::size_type item_info_length);
 

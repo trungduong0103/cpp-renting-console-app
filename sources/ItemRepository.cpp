@@ -1,9 +1,7 @@
 #include "../headers/ItemRepository.h"
-#include "../headers/Item.h"
 #include "../headers/ItemHelpers.h"
 #include <iostream>
 #include <algorithm>
-#include <utility>
 #include <fstream>
 #include <string>
 
@@ -61,7 +59,8 @@ void InMemoryItemRepository::remove_item(std::string const &item_id) {
     //Remove if element exists
     if (position != -1) {
         items.erase(items.begin() + position);
-    } else {
+    }
+    else {
         std::cerr << "User does not exist" << std::endl;
     }
 }
@@ -74,20 +73,23 @@ void InMemoryItemRepository::update_item(std::string const &item_id, ItemModific
     if (position != -1) {
         intent.set_item(items[position]);
         intent.modify();
-    } else {
+    }
+    else {
         std::cerr << "User does not exist" << std::endl;
     }
 }
 
-Item *InMemoryItemRepository::get_item(std::string const &id) {
+Item* InMemoryItemRepository::get_item(std::string const& id) {
     //Get the item position
     int position = get_item_index(id);
+
     //Then get item at that position
-    return items[position];
+    return position == -1 ? nullptr : items[position];
 }
 
 int InMemoryItemRepository::get_item_index(std::string const &item_id) {
     int position = 0;
+
     for (; position < items.size(); position++) {
         if (item_id == items[position]->get_id()) {
             return position;
@@ -121,8 +123,9 @@ std::vector<std::string> get_item_as_vector(std::string &line) {
 // TODO: customer file is incorrect in C003 & C004
 
 //Text file persistence
+// TODO: combine validations into a single function
 std::vector<Item *> TextFileItemPersistence::load() {
-    std::ifstream infile("textfiles/items.txt");
+    std::ifstream infile("../textfiles/items.txt");
     if (!infile) {
         std::cerr << "Cannot read file items.txt" << std::endl;
         return {};
@@ -209,7 +212,7 @@ void TextFileItemPersistence::save(std::vector<Item *> items) {
     std::ofstream outfile("../outfiles/items_out.txt", std::ios::trunc);
     if (!outfile) {
         std::cerr << "Cannot read file items.txt" << std::endl;
-        return;
+        return ;
     }
     unsigned int i = 0;
     for (; i < items.size(); i++) {
@@ -223,8 +226,7 @@ void TextFileItemPersistence::save(std::vector<Item *> items) {
 
 //Mock persistence
 std::vector<Item *> MockItemPersistence::load() { return {}; }
-
-void MockItemPersistence::save(std::vector<Item *>) {}
+void MockItemPersistence::save(std::vector<Item*>) {}
 
 //Displayer
 void ItemTitleOrder::order(std::vector<Item *> &items) const {
@@ -252,11 +254,11 @@ void ConsoleItemDisplayer::display(std::vector<Item *> items, ItemOrder const *o
 }
 
 //Filters
-ItemRentalStatusFilterSpecification::ItemRentalStatusFilterSpecification(Item::RentalStatus const rental_status)
-        : rental_status(rental_status) {}
+ItemNumStockFilterSpecification::ItemNumStockFilterSpecification(unsigned int const number_in_stock)
+        : number_in_stock(number_in_stock) {}
 
-bool ItemRentalStatusFilterSpecification::is_satisfied(Item const *item) const {
-    return item->get_rental_status() == rental_status;
+bool ItemNumStockFilterSpecification::is_satisfied(Item const *item) const {
+    return item->get_number_in_stock() == number_in_stock;
 }
 
 bool ItemAllFilterSpecification::is_satisfied(Item const *item) const {
@@ -306,7 +308,7 @@ void ItemService::save() {
     persistence->save(repository->get_items());
 }
 
-Item *ItemService::get(std::string const &id) {
+Item* ItemService::get(std::string const& id) {
     return repository->get_item(id);
 }
 
@@ -333,5 +335,4 @@ void ItemService::filter(ItemFilterSpecification const *spec) {
     ItemNoOrder order;
     displayer->display(filtered, &order);
 }
-
 

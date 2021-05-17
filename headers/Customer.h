@@ -70,7 +70,6 @@ public:
     virtual bool can_be_promoted() const = 0;
     virtual void promote() = 0;
 
-
     //Set the Context of the state - which is the customer itself
     virtual void set_context(Customer* customer) = 0;
 
@@ -147,6 +146,6 @@ public:
     void promote() override;
 
     //Get the State enum (guest, regular, VIP) and set context
-    void set_context(Customer* customer) override;
+    void set_context(Customer* customer);
     Category get_state() override;
 };

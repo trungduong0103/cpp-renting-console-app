@@ -6,17 +6,18 @@
 #include "CustomerHelpers.h"
 
 class Menu {
-  CustomerService* customer_service;
-  ItemService* item_service;
+    CustomerService* customer_service;
+    ItemService* item_service;
 
-  public:
+public:
     Menu();
     ~Menu();
     void start();
-    static int process_input(const std::string& option);
+    int process_input(std::string option);
     bool display_main_menu();
     bool display_customer_menu();
     bool display_item_menu();
-    static bool read_customer(Customer*& customer);
-    static bool read_item(Item*& item);
+    bool read_customer(Customer*& customer);
+    bool modify_customer(Customer*& customer);
+    bool read_item(Item*& item);
 };
