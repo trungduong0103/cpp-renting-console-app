@@ -25,9 +25,21 @@ InMemoryCustomerRepository::InMemoryCustomerRepository(std::vector<Customer*> co
 void InMemoryCustomerRepository::set_customers(std::vector<Customer*> const& new_customers) {
 	customers = new_customers;
 }
+
+Customer* InMemoryCustomerRepository::get_customer(std::string const& id) {
+    for (auto customer_ptr : customers) {
+        if (customer_ptr != nullptr && customer_ptr->get_id() == id) {
+            return customer_ptr;
+        }
+    }
+    //No customer found
+    return nullptr;
+}
+
 void InMemoryCustomerRepository::add_customer(Customer* customer) {
 	customers.push_back(customer);
 }
+
 void InMemoryCustomerRepository::remove_customer(std::string const& customer_id) {
 	//Find the position of the customer
 	int position = -1;
@@ -75,30 +87,30 @@ void MockCustomerPersistence::save(std::vector<Customer*>) {
 }
 
 //Displayer
-void NameOrder::order(std::vector<Customer*>& customers) const {
+void CustomerNameOrder::order(std::vector<Customer*>& customers) const {
 	std::sort(customers.begin(), customers.end(), [](Customer const* a, Customer const* b) {
 		return a->get_name() < b->get_name();
 	});
 }
 
-void IdOrder::order(std::vector<Customer*>& customers) const {
+void CustomerIdOrder::order(std::vector<Customer*>& customers) const {
 	std::sort(customers.begin(), customers.end(), [](Customer const* a, Customer const* b) {
 		return a->get_id() < b->get_id();
 	});
 }
 
-void LevelOrder::order(std::vector<Customer*>& customers) const {
+void CustomerLevelOrder::order(std::vector<Customer*>& customers) const {
 	std::sort(customers.begin(), customers.end(), [](Customer const* a, Customer const* b) {
 		return a->get_state() < b->get_state();
 	});
 }
 
-void NoOrder::order(std::vector<Customer*>& customers) const {
+void CustomerNoOrder::order(std::vector<Customer*>& customers) const {
 	//Do nothing
 }
 
 
-void ConsoleCustomerDisplayer::display(std::vector<Customer*> customers, Order const* order) {
+void ConsoleCustomerDisplayer::display(std::vector<Customer*> customers, CustomerOrder const* order) {
 	//Sort first
 	order->order(customers);
 	for (auto& customer : customers) {
@@ -162,6 +174,10 @@ void CustomerService::save() {
 	persistence->save(repository->get_customers());
 }
 
+Customer* CustomerService::get(std::string const& id) {
+    return repository->get_customer(id);
+}
+
 void CustomerService::add(Customer* customer) {
 	repository->add_customer(customer);
 }
@@ -174,14 +190,15 @@ void CustomerService::update(std::string const& id, ModificationIntent& intent) 
 	repository->update_customer(id, intent);
 }
 
-void CustomerService::display(Order const* order) {
+void CustomerService::display(CustomerOrder const* order) {
 	displayer->display(repository->get_customers(), order);
 }
 
 void CustomerService::filter(FilterSpecification const* spec) {
 	//Get filtered element
 	auto filtered = filterer->filter(repository->get_customers(), spec);
+
 	//Display
-	NoOrder order;
+	CustomerNoOrder order;
 	displayer->display(filtered, &order);
 }
