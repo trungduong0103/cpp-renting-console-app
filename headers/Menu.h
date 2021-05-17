@@ -12,7 +12,7 @@ public:
     Menu();
     ~Menu();
     void start();
-    int process_input(std::string option);
+    int process_input(const std::string& option);
     bool display_main_menu();
     bool display_customer_menu();
     bool display_item_menu();
