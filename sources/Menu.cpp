@@ -219,7 +219,7 @@ bool Menu::display_item_menu(){
             std::cout << "Input item ID that you want to edit:" << std::endl;
             std::cin >> id;
             if (item_service->get(id) != nullptr){
-
+                modify_item(id)
             }
             else{
                 std::cerr << "Item is not exist" << std::endl;
