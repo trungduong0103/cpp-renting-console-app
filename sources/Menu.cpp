@@ -29,44 +29,12 @@ Menu::~Menu() {
     delete customer_service;
 }
 
-//Constructor
-Menu::Menu() {
-  //Create customer service and item service using builder
-  StandardCustomerServiceBuilder customer_builder;
-  StandardItemServiceBuilder item_builder;
-  item_service = item_builder.create();
-  customer_service = customer_builder.create();
-
-  //Load in items and customer
-  item_service->load();
-  customer_service->load();
-}
-
-//Destructor
-Menu::~Menu() {
-  //Save items and customers
-  item_service->save();
-  customer_service->save();
-
-  //Clear memory
-  delete item_service;
-  delete customer_service;
-}
-
 void Menu::start(){
-<<<<<<< HEAD
     while(true){
         if(!display_main_menu()){
             break;
         };
     };
-=======
-  while(true){
-      if(!display_main_menu()){
-          break;
-      }; 
-  };
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
 }
 
 int Menu::process_input(std::string option_string){
@@ -143,28 +111,19 @@ bool Menu::display_customer_menu(){
     int option_int = process_input(option_string);
     switch(option_int)
     {
-<<<<<<< HEAD
         //
-=======
-        // 
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
         case 1: {
             Customer* customer = nullptr;
             bool successful = read_customer(customer);
             if(successful){
                 std::cout << "Add customer successful" << std::endl;
-<<<<<<< HEAD
                 customer_service->add(customer);
-=======
-                customer_service->add(customer);   
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
             }
             else{
                 std::cout << "Invalid input" << std::endl;
             }
         }
             break;
-<<<<<<< HEAD
         case 2: {
             std::string id;
             std::cout << "Input item ID that you want to edit:" << std::endl;
@@ -179,11 +138,6 @@ bool Menu::display_customer_menu(){
         case 3:{
             Customer* customer = nullptr;
         }
-=======
-        case 2: 
-            break;
-        case 3: 
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
             break;
         case 4: {
             CustomerNoOrder no_order;
@@ -248,22 +202,12 @@ bool Menu::display_item_menu(){
     int option_int = process_input(option_string);
     switch(option_int)
     {
-<<<<<<< HEAD
         case 1: {
-=======
-        // 
-        case 1:{
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
             Item* item = nullptr;
             bool successful = read_item(item);
             if(successful){
                 std::cout << "Add item successful" << std::endl;
-<<<<<<< HEAD
                 item_service->add(item);
-=======
-                std::cout << item << std::endl;
-                item_service->add(item);   
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
             }
             else{
                 std::cout << "Invalid input" << std::endl;
@@ -343,7 +287,6 @@ bool Menu::read_customer(Customer*& customer){
     return true;
 }
 
-<<<<<<< HEAD
 bool Menu::modify_customer(Customer*& customer){
     std::string id;
     std::string name;
@@ -380,8 +323,6 @@ bool Menu::modify_customer(Customer*& customer){
     return true;
 }
 
-=======
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
 bool Menu::read_item(Item*& item){
     std::string type;
     std::string id;
@@ -404,7 +345,6 @@ bool Menu::read_item(Item*& item){
             break;
         }
     }
-<<<<<<< HEAD
 
     while (true){
         std::cout << "Input item ID:" << std::endl;
@@ -425,24 +365,11 @@ bool Menu::read_item(Item*& item){
     std::getline(std::cin, title);
 
     while (true){
-=======
-    
-    std::cout << "Input item ID:" << std::endl;
-    std::cin >> id;
-
-    std::cout << "Input item title:" << std::endl;
-    std::cin >> title;
-
-    while (true){    
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
         std::cout << "Select item rental_type:" << std::endl;
         std::cout << "1.Two Day" << std::endl;
         std::cout << "2.One Week" << std::endl;
         std::cin >> rental_type;
-<<<<<<< HEAD
 
-=======
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
         if (rental_type != "1" && rental_type != "2") {
             std::cerr << "Invalid input" << std::endl;
         }
@@ -450,15 +377,9 @@ bool Menu::read_item(Item*& item){
             break;
         }
     }
-<<<<<<< HEAD
 
     int rental_type_int = std::stoi(rental_type);
 
-=======
-    int rental_type_int = std::stoi(rental_type);
-
-
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
     while (true){
         std::cout << "Input item number in stock:" << std::endl;
         std::cin >> stock;
@@ -490,11 +411,7 @@ bool Menu::read_item(Item*& item){
             std::cout << "1.Action" << std::endl;
             std::cout << "2.Horror" << std::endl;
             std::cout << "3.Drama" << std::endl;
-<<<<<<< HEAD
             std::cout << "4.Comedy" << std::endl;
-=======
-            std::cout << "4.Comedy" << std::endl; 
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
             std::cin >> genre;
             if (genre != "1" && genre != "2" && genre != "3" &&genre != "4") {
                 std::cerr << "Invalid input" << std::endl;
@@ -505,11 +422,7 @@ bool Menu::read_item(Item*& item){
         }
         genre_int = std::stoi(genre);
     }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
     Item::RentalStatus rental_status = Item::RentalStatus::Available;
 
     if(type == "1"){
@@ -523,9 +436,5 @@ bool Menu::read_item(Item*& item){
     }
 
     return true;
-<<<<<<< HEAD
 }
 
-=======
-}
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20

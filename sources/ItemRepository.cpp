@@ -209,7 +209,7 @@ std::vector<Item *> TextFileItemPersistence::load() {
 }
 
 void TextFileItemPersistence::save(std::vector<Item *> items) {
-    std::ofstream outfile("../textfiles/items_out.txt", std::ios::trunc);
+    std::ofstream outfile("../outfiles/items_out.txt", std::ios::trunc);
     if (!outfile) {
         std::cerr << "Cannot read file items.txt" << std::endl;
         return ;

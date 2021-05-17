@@ -20,8 +20,4 @@ public:
 class StandardCustomerServiceBuilder : CustomerServiceBuilder {
 public:
     CustomerService* create() override;
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20

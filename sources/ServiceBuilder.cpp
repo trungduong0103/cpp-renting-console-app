@@ -1,8 +1,4 @@
 #include "../headers/ServiceBuilder.h"
-<<<<<<< HEAD
-=======
-#include "../headers/CustomerRepository.h"
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
 #include "../headers/ItemRepository.h"
 
 

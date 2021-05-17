@@ -35,27 +35,17 @@ struct PhoneModificationIntent : public ModificationIntent {
 };
 
 struct CustomerRepository {
-<<<<<<< HEAD
     virtual void add_customer(Customer* customer) = 0;
     virtual Customer* get_customer(std::string const&) = 0;
     virtual void remove_customer(std::string const& customer_id) = 0;
     virtual void update_customer(std::string const& customer_id, ModificationIntent& intent) = 0;
     virtual std::vector<Customer*> get_customers() = 0;
     virtual void set_customers(std::vector<Customer*> const&) = 0;
-=======
-	virtual void add_customer(Customer* customer) = 0;
-    virtual Customer* get_customer(std::string const&) = 0;
-	virtual void remove_customer(std::string const& customer_id) = 0;
-	virtual void update_customer(std::string const& customer_id, ModificationIntent& intent) = 0;
-	virtual std::vector<Customer*> get_customers() = 0;
-	virtual void set_customers(std::vector<Customer*> const&) = 0;
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
 };
 
 struct InMemoryCustomerRepository : public CustomerRepository {
     std::vector<Customer*> customers;
 public:
-<<<<<<< HEAD
     InMemoryCustomerRepository() = default;
     InMemoryCustomerRepository(std::vector<Customer*> const& customers);
     Customer* get_customer(std::string const&) override;
@@ -64,16 +54,6 @@ public:
     void remove_customer(std::string const& customer_id) override;
     void update_customer(std::string const& customer_id, ModificationIntent& intent) override;
     std::vector<Customer*> get_customers() override { return customers; }
-=======
-	InMemoryCustomerRepository() = default;
-	InMemoryCustomerRepository(std::vector<Customer*> const& customers);
-	Customer* get_customer(std::string const&) override;
-	void set_customers(std::vector<Customer*> const& customers) override;
-	void add_customer(Customer* customer) override;
-	void remove_customer(std::string const& customer_id) override;
-	void update_customer(std::string const& customer_id, ModificationIntent& intent) override;
-	std::vector<Customer*> get_customers() override { return customers; }
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
 };
 
 //Persistence
@@ -88,19 +68,13 @@ struct MockCustomerPersistence : public CustomerPersistence {
 };
 
 struct TextFileCustomerPersistence : public CustomerPersistence {
-<<<<<<< HEAD
     std::vector<Customer*> load() override;
     void save(std::vector<Customer*>) override;
-=======
-	std::vector<Customer*> load() override;
-	void save(std::vector<Customer*>) override;
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
 };
 
 
 //Displayer
 struct CustomerOrder {
-<<<<<<< HEAD
     virtual void order(std::vector<Customer*>& customers) const = 0;
 };
 
@@ -126,33 +100,6 @@ struct CustomerDisplayer {
 
 struct ConsoleCustomerDisplayer : public CustomerDisplayer {
     void display(std::vector<Customer*> customers, CustomerOrder const* order) override;
-=======
-	virtual void order(std::vector<Customer*>& customers) const = 0;
-};
-
-struct CustomerNoOrder : public CustomerOrder {
-	void order(std::vector<Customer*>& customers) const override;
-};
-
-struct CustomerNameOrder : public CustomerOrder {
-	void order(std::vector<Customer*>& customers) const override;
-};
-
-struct CustomerIdOrder : public CustomerOrder {
-	void order(std::vector<Customer*>& customers) const override;
-};
-
-struct CustomerLevelOrder : public CustomerOrder {
-	void order(std::vector<Customer*>& customers) const override;
-};
-
-struct CustomerDisplayer {
-	virtual void display(std::vector<Customer*> customers, CustomerOrder const* order) = 0;
-};
-
-struct ConsoleCustomerDisplayer : public CustomerDisplayer {
-	void display(std::vector<Customer*> customers, CustomerOrder const* order) override;
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
 };
 
 //Filterer
@@ -191,7 +138,6 @@ class CustomerService {
     CustomerPersistence* persistence;
 
 public:
-<<<<<<< HEAD
     //Destruct and construct
     CustomerService(CustomerRepository* repo, CustomerDisplayer* display, CustomerFilterer* filterer, CustomerPersistence* persistence);
     ~CustomerService();
@@ -205,19 +151,4 @@ public:
     void update(std::string const& id, ModificationIntent& intent);
     void display(CustomerOrder const* order);
     void filter(FilterSpecification const* spec);
-=======
-	//Destruct and construct
-	CustomerService(CustomerRepository* repo, CustomerDisplayer* display, CustomerFilterer* filterer, CustomerPersistence* persistence);
-	~CustomerService();
-
-	//Methods
-	void load();
-	void save();
-	Customer* get(std::string const&);
-	void add(Customer* customer);
-	void remove(std::string const& id);
-	void update(std::string const& id, ModificationIntent& intent);
-	void display(CustomerOrder const* order);
-	void filter(FilterSpecification const* spec);
->>>>>>> d4656bbd62471ec1cedaa24d04e05cc2c2f5be20
 };
