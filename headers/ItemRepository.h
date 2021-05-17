@@ -73,11 +73,6 @@ struct ItemPersistence {
     virtual void save(std::vector<Item*>) = 0;
 };
 
-struct MockItemPersistence : public ItemPersistence {
-    std::vector<Item*> load() override;
-    void save(std::vector<Item*>) override;
-};
-
 struct TextFileItemPersistence : public ItemPersistence {
     std::vector<Item*> load() override;
     void save(std::vector<Item*>) override;
