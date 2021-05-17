@@ -36,7 +36,7 @@ void Menu::start(){
     };
 }
 
-int Menu::process_input(std::string option_string){
+int Menu::process_input(const std::string& option_string){
     try {
         return std::stoi(option_string);
     }
