@@ -13,6 +13,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4c0098f5-fcea-499c-9eae-b108e08e5b2c" name="Default Changelist" comment="updated Menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/Item.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/Item.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/ItemRepository.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/ItemRepository.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/Menu.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/Menu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/ItemRepository.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/ItemRepository.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/Menu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/Menu.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,8 +40,11 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
@@ -45,17 +53,17 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="cpp_renting_console_app" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_renting_console_app" TARGET_NAME="cpp_renting_console_app" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_renting_console_app" RUN_TARGET_NAME="cpp_renting_console_app">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="cpp_renting_console_app" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_renting_console_app" TARGET_NAME="cpp_renting_console_app" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_renting_console_app" RUN_TARGET_NAME="cpp_renting_console_app">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -73,6 +81,7 @@
       <workItem from="1621216015968" duration="1556000" />
       <workItem from="1621260337906" duration="2391000" />
       <workItem from="1621264590406" duration="91000" />
+      <workItem from="1621264999251" duration="2378000" />
     </task>
     <task id="LOCAL-00001" summary="updated Menu">
       <created>1621263814020</created>

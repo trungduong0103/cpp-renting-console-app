@@ -17,7 +17,21 @@ public:
 struct ItemTitleModificationIntent : public ItemModificationIntent {
     std::string title;
     ItemTitleModificationIntent() = default;
-    ItemTitleModificationIntent(std::string  name);
+    ItemTitleModificationIntent(std::string  title);
+    void modify() override;
+};
+
+struct ItemRentalTypeModificationIntent : public ItemModificationIntent {
+    Item::RentalType rental_type;
+    ItemRentalTypeModificationIntent() = default;
+    ItemRentalTypeModificationIntent(Item::RentalType rental_type);
+    void modify() override;
+};
+
+struct ItemFeeModificationIntent : public ItemModificationIntent {
+    float fee;
+    ItemFeeModificationIntent() = default;
+    ItemFeeModificationIntent(float fee);
     void modify() override;
 };
 

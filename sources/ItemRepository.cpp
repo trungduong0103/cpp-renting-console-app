@@ -14,6 +14,18 @@ void ItemTitleModificationIntent::modify() {
     item->set_title(title);
 }
 
+ItemRentalTypeModificationIntent::ItemRentalTypeModificationIntent(Item::RentalType rental_type) : rental_type(rental_type) {}
+
+void ItemRentalTypeModificationIntent::modify() {
+    item->set_rental_type(rental_type);
+}
+
+ItemFeeModificationIntent::ItemFeeModificationIntent(float fee) : fee(fee) {}
+
+void ItemFeeModificationIntent::modify() {
+    item->set_rental_fee(fee);
+}
+
 ItemNumberOfStockIncreaseIntent::ItemNumberOfStockIncreaseIntent(unsigned int value) : value(value) {}
 
 void ItemNumberOfStockIncreaseIntent::modify() {

@@ -23,6 +23,7 @@ struct Item {
 	inline void set_title(std::string const& new_title) { title = new_title; }
 	inline void set_rental_type(RentalType const new_rental_type) { rental_type = new_rental_type; }
 	inline void set_num_in_stock(unsigned int const new_num_in_stock) { number_in_stock = new_num_in_stock; }
+    inline void set_rental_fee(float fee) { rental_fee = fee ; }
     inline void set_rental_status(RentalStatus new_rental_status) { rental_status = new_rental_status ; }
     inline void increase_num_in_stock(unsigned int value) { number_in_stock += value ; }
     inline void decrease_num_in_stock(unsigned int value) { number_in_stock -=(number_in_stock > value) ? value : number_in_stock; }

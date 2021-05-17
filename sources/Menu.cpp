@@ -319,11 +319,12 @@ bool Menu::modify_customer(std::string id){
             break;
         }
     }
-    if (name == ""){
-        NameModificationIntent intent{name};
-        // customer_service->update("C123", intent);
-        std::cout << "hello" << std::endl;
-    }
+    NameModificationIntent intent_name{name};
+    customer_service->update(id, intent_name);
+    AddressModificationIntent intent_address{address};
+    customer_service->update(id, intent_address);
+    PhoneModificationIntent intent_phone{phone};
+    customer_service->update(id, intent_phone);
     return true;
 }
 
@@ -398,7 +399,7 @@ bool Menu::read_item(Item*& item){
     while (true){
         std::cout << "Input item fee:" << std::endl;
         std::cin >> fee;
-        if (!item_price_is_valid(stock)) {
+        if (!item_price_is_valid(fee)) {
             std::cerr << "Invalid input" << std::endl;
         }
         else {
@@ -439,5 +440,68 @@ bool Menu::read_item(Item*& item){
     }
 
     return true;
+}
+
+bool Menu::modify_item(std::string id){
+    std::string title;
+    std::string rental_type;
+    std::string fee;
+    std::string genre;
+
+    std::cout << "Input item title:" << std::endl;
+    std::getline(std::cin, title);
+
+    while (true){
+        std::cout << "Select item rental_type:" << std::endl;
+        std::cout << "1.Two Day" << std::endl;
+        std::cout << "2.One Week" << std::endl;
+        std::cin >> rental_type;
+
+        if (rental_type != "1" && rental_type != "2") {
+            std::cerr << "Invalid input" << std::endl;
+        }
+        else {
+            break;
+        }
+    }
+
+    int rental_type_int = std::stoi(rental_type);
+
+    while (true){
+        std::cout << "Input item fee:" << std::endl;
+        std::cin >> fee;
+        if (!item_price_is_valid(fee)) {
+            std::cerr << "Invalid input" << std::endl;
+        }
+        else {
+            break;
+        }
+    }
+    float fee_float = std::stof(fee);
+
+    int genre_int;
+//    if (type != "1"){
+//        while (true){
+//            std::cout << "Select genre:" << std::endl;
+//            std::cout << "1.Action" << std::endl;
+//            std::cout << "2.Horror" << std::endl;
+//            std::cout << "3.Drama" << std::endl;
+//            std::cout << "4.Comedy" << std::endl;
+//            std::cin >> genre;
+//            if (genre != "1" && genre != "2" && genre != "3" &&genre != "4") {
+//                std::cerr << "Invalid input" << std::endl;
+//            }
+//            else {
+//                break;
+//            }
+//        }
+//        genre_int = std::stoi(genre);
+//    }
+    ItemTitleModificationIntent intent_title{title};
+    item_service->update(id, intent_title);
+    ItemRentalTypeModificationIntent intent_rental_type{Item::RentalType(rental_type_int - 1)};
+    item_service->update(id, intent_rental_type);
+    ItemFeeModificationIntent intent_fee{fee_float};
+    item_service->update(id, intent_fee);
 }
 
