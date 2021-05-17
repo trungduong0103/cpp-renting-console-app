@@ -308,6 +308,10 @@ void ItemService::save() {
 	persistence->save(repository->get_items());
 }
 
+Item* ItemService::get(std::string const& id) {
+    return repository->get_item(id);
+}
+
 void ItemService::add(Item *item) {
 	repository->add_item(item);
 }

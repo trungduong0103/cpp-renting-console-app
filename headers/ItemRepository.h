@@ -144,6 +144,7 @@ public:
 	//Methods
 	void load();
 	void save();
+	Item* get(std::string const&);
 	void add(Item* item);
 	void remove(std::string const& id);
 	void update(std::string const& id, ItemModificationIntent& intent);
