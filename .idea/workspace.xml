@@ -12,26 +12,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c0098f5-fcea-499c-9eae-b108e08e5b2c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/count.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/count.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/main.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/sources/Customer.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/sources/Customer.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/sources/CustomerRepository.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/sources/CustomerRepository.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/sources/ItemRepository.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/sources/ItemRepository.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/sources/Menu.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/sources/Menu.cpp.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/CustomerRepository.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/CustomerRepository.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/ItemRepository.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/ItemRepository.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cpp_renting_console_app.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/headers/Menu.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/Menu.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/ServiceBuilder.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/ServiceBuilder.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/CustomerRepository.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/CustomerRepository.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/ItemRepository.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/ItemRepository.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outfiles/items_out.txt" beforeDir="false" afterPath="$PROJECT_DIR$/outfiles/items_out.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sources/Menu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/Menu.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/ServiceBuilder.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/ServiceBuilder.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +33,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1sdYbAzFs0EkRl6QkELslbLiyHa" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />

@@ -1,9 +1,8 @@
 #include <iostream>
 #include <string>
 #include "../headers/Menu.h"
-#include "../headers/ServiceBuilder.h"
-#include "../headers/ItemHelpers.h"
 #include "../headers/CustomerHelpers.h"
+#include "../headers/ItemHelpers.h"
 
 //Constructor
 Menu::Menu() {
@@ -126,9 +125,10 @@ bool Menu::display_customer_menu(){
             break;
         case 2: {
             std::string id;
-            std::cout << "Input item ID that you want to edit:" << std::endl;
+            std::cout << "Input customer ID that you want to edit:" << std::endl;
+            std::cin >> id;
             if (customer_service->get(id) != nullptr){
-
+                modify_customer(id);
             }
             else{
                 std::cerr << "Customer is not exist" << std::endl;
@@ -214,7 +214,17 @@ bool Menu::display_item_menu(){
             }
         }
             break;
-        case 2:
+        case 2:{
+            std::string id;
+            std::cout << "Input item ID that you want to edit:" << std::endl;
+            std::cin >> id;
+            if (item_service->get(id) != nullptr){
+
+            }
+            else{
+                std::cerr << "Item is not exist" << std::endl;
+            }
+        }
             break;
         case 3:{
             std::string id;
@@ -287,14 +297,11 @@ bool Menu::read_customer(Customer*& customer){
     return true;
 }
 
-bool Menu::modify_customer(Customer*& customer){
-    std::string id;
+bool Menu::modify_customer(std::string id){
     std::string name;
     std::string address;
     std::string phone;
 
-    std::cout << "Input user ID:" << std::endl;
-    std::cin >> id;
 
     std::cout << "Input user name:" << std::endl;
     std::cin >> name;
@@ -312,14 +319,11 @@ bool Menu::modify_customer(Customer*& customer){
             break;
         }
     }
-
-
-    int number_of_rentals = 0;
-    std::vector<std::string> items;
-    CustomerState* state = new GuestState;
-
-    customer = new Customer(id, name, address, phone, number_of_rentals, items, state);
-
+    if (name == ""){
+        NameModificationIntent intent{name};
+        // customer_service->update("C123", intent);
+        std::cout << "hello" << std::endl;
+    }
     return true;
 }
 
@@ -345,7 +349,6 @@ bool Menu::read_item(Item*& item){
             break;
         }
     }
-
     while (true){
         std::cout << "Input item ID:" << std::endl;
         std::cin >> id;

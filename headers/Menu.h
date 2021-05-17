@@ -2,8 +2,7 @@
 #include "ServiceBuilder.h"
 #include "Customer.h"
 #include "Item.h"
-#include "ItemHelpers.h"
-#include "CustomerHelpers.h"
+
 
 class Menu {
     CustomerService* customer_service;
@@ -18,6 +17,6 @@ public:
     bool display_customer_menu();
     bool display_item_menu();
     bool read_customer(Customer*& customer);
-    bool modify_customer(Customer*& customer);
+    bool modify_customer(std::string id);
     bool read_item(Item*& item);
 };
