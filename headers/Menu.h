@@ -13,10 +13,10 @@ class Menu {
     Menu();
     ~Menu();
     void start();
-    int process_input(std::string option);
+    static int process_input(const std::string& option);
     bool display_main_menu();
     bool display_customer_menu();
     bool display_item_menu();
-    bool read_customer(Customer*& customer);
-    bool read_item(Item*& item);
+    static bool read_customer(Customer*& customer);
+    static bool read_item(Item*& item);
 };

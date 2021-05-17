@@ -1,5 +1,17 @@
 #include "../headers/CustomerHelpers.h"
 
+bool correct_customer_info_length(const std::string &line) {
+    const unsigned int comma_count = std::count(line.begin(), line.end(), ',');
+    if (comma_count != 5) {
+        return false;
+    }
+    return true;
+}
+
+bool customer_id_is_valid(const std::string &customer_id) {
+
+}
+
 bool is_not_digit(const std::string &str) {
     const std::string allowed = "0123456789";
     if (str[0] == '-') {

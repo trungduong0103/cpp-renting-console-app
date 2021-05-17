@@ -58,7 +58,8 @@ GenredItem::Genre string_to_genre(const std::string &string_genre) {
     } else if (string_genre == "Horror") {
         return GenredItem::Genre::Horror;
     } else {
-        std::cerr << "Genre must either be 'Action', 'Comedy', 'Drama', or 'Horror'! Received: " << string_genre
+        std::cerr << "Genre must either be 'Action', 'Comedy', 'Drama', or 'Horror'! Received: "
+                  << string_genre
                   << std::endl;
         return GenredItem::Genre::Action;
     }
@@ -94,7 +95,6 @@ bool correct_info_length(const std::string &line) {
     if (comma_count < 5 || comma_count > 6) {
         return false;
     }
-
     return true;
 }
 

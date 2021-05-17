@@ -16,21 +16,21 @@ public:
 struct NameModificationIntent : public ModificationIntent {
 	std::string name;
 	NameModificationIntent() = default;
-	NameModificationIntent(std::string const& name);
+	NameModificationIntent(std::string  name);
 	void modify() override;
 };
 
 struct AddressModificationIntent : public ModificationIntent {
 	std::string address;
 	AddressModificationIntent() = default;
-	AddressModificationIntent(std::string const& address);
+	AddressModificationIntent(std::string  address);
 	void modify() override;
 };
 
 struct PhoneModificationIntent : public ModificationIntent {
 	std::string phone;
 	PhoneModificationIntent() = default;
-	PhoneModificationIntent(std::string const& phone);
+	PhoneModificationIntent(std::string  phone);
 	void modify() override;
 };
 
@@ -47,7 +47,7 @@ struct InMemoryCustomerRepository : public CustomerRepository {
 	std::vector<Customer*> customers;
 public:
 	InMemoryCustomerRepository() = default;
-	InMemoryCustomerRepository(std::vector<Customer*> const& customers);
+	InMemoryCustomerRepository(std::vector<Customer*>  customers);
 	Customer* get_customer(std::string const&) override;
 	void set_customers(std::vector<Customer*> const& customers) override;
 	void add_customer(Customer* customer) override;
@@ -110,14 +110,14 @@ struct FilterSpecification {
 struct IdFilterSpecification : public FilterSpecification {
 	std::string id;
 
-	IdFilterSpecification(std::string const& id);
+	IdFilterSpecification(std::string  id);
 	bool is_satisfied(Customer const* customer) const override;
 };
 
 struct NameFilterSpecification : public FilterSpecification {
 	std::string name;
 
-	NameFilterSpecification(std::string const& name);
+	NameFilterSpecification(std::string  name);
 	bool is_satisfied(Customer const* customer) const override;
 };
 
