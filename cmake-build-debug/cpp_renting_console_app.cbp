@@ -101,10 +101,16 @@
 		<Unit filename="/Users/trung/CLionProjects/cpp-renting-console-app/headers/Menu.h">
 			<Option target="cpp_renting_console_app"/>
 		</Unit>
+		<Unit filename="/Users/trung/CLionProjects/cpp-renting-console-app/headers/ServiceBuilder.h">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
 		<Unit filename="/Users/trung/CLionProjects/cpp-renting-console-app/main.cpp">
 			<Option target="cpp_renting_console_app"/>
 		</Unit>
 		<Unit filename="/Users/trung/CLionProjects/cpp-renting-console-app/sources/Customer.cpp">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="/Users/trung/CLionProjects/cpp-renting-console-app/sources/CustomerHelpers.cpp">
 			<Option target="cpp_renting_console_app"/>
 		</Unit>
 		<Unit filename="/Users/trung/CLionProjects/cpp-renting-console-app/sources/CustomerRepository.cpp">
@@ -120,6 +126,9 @@
 			<Option target="cpp_renting_console_app"/>
 		</Unit>
 		<Unit filename="/Users/trung/CLionProjects/cpp-renting-console-app/sources/Menu.cpp">
+			<Option target="cpp_renting_console_app"/>
+		</Unit>
+		<Unit filename="/Users/trung/CLionProjects/cpp-renting-console-app/sources/ServiceBuilder.cpp">
 			<Option target="cpp_renting_console_app"/>
 		</Unit>
 		<Unit filename="/Users/trung/CLionProjects/cpp-renting-console-app/CMakeLists.txt">

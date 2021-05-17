@@ -197,6 +197,33 @@ sources/Customer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_renting_console_app.dir/build.make CMakeFiles/cpp_renting_console_app.dir/sources/Customer.cpp.s
 .PHONY : sources/Customer.cpp.s
 
+sources/CustomerHelpers.o: sources/CustomerHelpers.cpp.o
+
+.PHONY : sources/CustomerHelpers.o
+
+# target to build an object file
+sources/CustomerHelpers.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_renting_console_app.dir/build.make CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.o
+.PHONY : sources/CustomerHelpers.cpp.o
+
+sources/CustomerHelpers.i: sources/CustomerHelpers.cpp.i
+
+.PHONY : sources/CustomerHelpers.i
+
+# target to preprocess a source file
+sources/CustomerHelpers.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_renting_console_app.dir/build.make CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.i
+.PHONY : sources/CustomerHelpers.cpp.i
+
+sources/CustomerHelpers.s: sources/CustomerHelpers.cpp.s
+
+.PHONY : sources/CustomerHelpers.s
+
+# target to generate assembly for a file
+sources/CustomerHelpers.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_renting_console_app.dir/build.make CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.s
+.PHONY : sources/CustomerHelpers.cpp.s
+
 sources/CustomerRepository.o: sources/CustomerRepository.cpp.o
 
 .PHONY : sources/CustomerRepository.o
@@ -332,6 +359,33 @@ sources/Menu.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_renting_console_app.dir/build.make CMakeFiles/cpp_renting_console_app.dir/sources/Menu.cpp.s
 .PHONY : sources/Menu.cpp.s
 
+sources/ServiceBuilder.o: sources/ServiceBuilder.cpp.o
+
+.PHONY : sources/ServiceBuilder.o
+
+# target to build an object file
+sources/ServiceBuilder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_renting_console_app.dir/build.make CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.o
+.PHONY : sources/ServiceBuilder.cpp.o
+
+sources/ServiceBuilder.i: sources/ServiceBuilder.cpp.i
+
+.PHONY : sources/ServiceBuilder.i
+
+# target to preprocess a source file
+sources/ServiceBuilder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_renting_console_app.dir/build.make CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.i
+.PHONY : sources/ServiceBuilder.cpp.i
+
+sources/ServiceBuilder.s: sources/ServiceBuilder.cpp.s
+
+.PHONY : sources/ServiceBuilder.s
+
+# target to generate assembly for a file
+sources/ServiceBuilder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_renting_console_app.dir/build.make CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.s
+.PHONY : sources/ServiceBuilder.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -347,6 +401,9 @@ help:
 	@echo "... sources/Customer.o"
 	@echo "... sources/Customer.i"
 	@echo "... sources/Customer.s"
+	@echo "... sources/CustomerHelpers.o"
+	@echo "... sources/CustomerHelpers.i"
+	@echo "... sources/CustomerHelpers.s"
 	@echo "... sources/CustomerRepository.o"
 	@echo "... sources/CustomerRepository.i"
 	@echo "... sources/CustomerRepository.s"
@@ -362,6 +419,9 @@ help:
 	@echo "... sources/Menu.o"
 	@echo "... sources/Menu.i"
 	@echo "... sources/Menu.s"
+	@echo "... sources/ServiceBuilder.o"
+	@echo "... sources/ServiceBuilder.i"
+	@echo "... sources/ServiceBuilder.s"
 .PHONY : help
 
 

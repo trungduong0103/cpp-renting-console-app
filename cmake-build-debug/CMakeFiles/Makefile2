@@ -94,12 +94,12 @@ clean: CMakeFiles/cpp_renting_console_app.dir/clean
 CMakeFiles/cpp_renting_console_app.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_renting_console_app.dir/build.make CMakeFiles/cpp_renting_console_app.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpp_renting_console_app.dir/build.make CMakeFiles/cpp_renting_console_app.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/trung/CLionProjects/cpp-renting-console-app/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target cpp_renting_console_app"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/trung/CLionProjects/cpp-renting-console-app/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target cpp_renting_console_app"
 .PHONY : CMakeFiles/cpp_renting_console_app.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/cpp_renting_console_app.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/trung/CLionProjects/cpp-renting-console-app/cmake-build-debug/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/trung/CLionProjects/cpp-renting-console-app/cmake-build-debug/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/cpp_renting_console_app.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/trung/CLionProjects/cpp-renting-console-app/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/cpp_renting_console_app.dir/rule

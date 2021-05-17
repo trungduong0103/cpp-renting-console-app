@@ -1,11 +1,13 @@
 file(REMOVE_RECURSE
   "CMakeFiles/cpp_renting_console_app.dir/main.cpp.o"
   "CMakeFiles/cpp_renting_console_app.dir/sources/Customer.cpp.o"
+  "CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.o"
   "CMakeFiles/cpp_renting_console_app.dir/sources/CustomerRepository.cpp.o"
   "CMakeFiles/cpp_renting_console_app.dir/sources/Item.cpp.o"
   "CMakeFiles/cpp_renting_console_app.dir/sources/ItemHelpers.cpp.o"
   "CMakeFiles/cpp_renting_console_app.dir/sources/ItemRepository.cpp.o"
   "CMakeFiles/cpp_renting_console_app.dir/sources/Menu.cpp.o"
+  "CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.o"
   "cpp_renting_console_app"
   "cpp_renting_console_app.pdb"
 )

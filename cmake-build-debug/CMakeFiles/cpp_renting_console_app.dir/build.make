@@ -168,6 +168,32 @@ CMakeFiles/cpp_renting_console_app.dir/sources/ItemHelpers.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpp_renting_console_app.dir/sources/ItemHelpers.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/trung/CLionProjects/cpp-renting-console-app/sources/ItemHelpers.cpp -o CMakeFiles/cpp_renting_console_app.dir/sources/ItemHelpers.cpp.s
 
+CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.o: CMakeFiles/cpp_renting_console_app.dir/flags.make
+CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.o: ../sources/ServiceBuilder.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/trung/CLionProjects/cpp-renting-console-app/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.o -c /Users/trung/CLionProjects/cpp-renting-console-app/sources/ServiceBuilder.cpp
+
+CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/trung/CLionProjects/cpp-renting-console-app/sources/ServiceBuilder.cpp > CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.i
+
+CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/trung/CLionProjects/cpp-renting-console-app/sources/ServiceBuilder.cpp -o CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.s
+
+CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.o: CMakeFiles/cpp_renting_console_app.dir/flags.make
+CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.o: ../sources/CustomerHelpers.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/trung/CLionProjects/cpp-renting-console-app/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.o -c /Users/trung/CLionProjects/cpp-renting-console-app/sources/CustomerHelpers.cpp
+
+CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/trung/CLionProjects/cpp-renting-console-app/sources/CustomerHelpers.cpp > CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.i
+
+CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/trung/CLionProjects/cpp-renting-console-app/sources/CustomerHelpers.cpp -o CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.s
+
 # Object files for target cpp_renting_console_app
 cpp_renting_console_app_OBJECTS = \
 "CMakeFiles/cpp_renting_console_app.dir/main.cpp.o" \
@@ -176,7 +202,9 @@ cpp_renting_console_app_OBJECTS = \
 "CMakeFiles/cpp_renting_console_app.dir/sources/Item.cpp.o" \
 "CMakeFiles/cpp_renting_console_app.dir/sources/ItemRepository.cpp.o" \
 "CMakeFiles/cpp_renting_console_app.dir/sources/Menu.cpp.o" \
-"CMakeFiles/cpp_renting_console_app.dir/sources/ItemHelpers.cpp.o"
+"CMakeFiles/cpp_renting_console_app.dir/sources/ItemHelpers.cpp.o" \
+"CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.o" \
+"CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.o"
 
 # External object files for target cpp_renting_console_app
 cpp_renting_console_app_EXTERNAL_OBJECTS =
@@ -188,9 +216,11 @@ cpp_renting_console_app: CMakeFiles/cpp_renting_console_app.dir/sources/Item.cpp
 cpp_renting_console_app: CMakeFiles/cpp_renting_console_app.dir/sources/ItemRepository.cpp.o
 cpp_renting_console_app: CMakeFiles/cpp_renting_console_app.dir/sources/Menu.cpp.o
 cpp_renting_console_app: CMakeFiles/cpp_renting_console_app.dir/sources/ItemHelpers.cpp.o
+cpp_renting_console_app: CMakeFiles/cpp_renting_console_app.dir/sources/ServiceBuilder.cpp.o
+cpp_renting_console_app: CMakeFiles/cpp_renting_console_app.dir/sources/CustomerHelpers.cpp.o
 cpp_renting_console_app: CMakeFiles/cpp_renting_console_app.dir/build.make
 cpp_renting_console_app: CMakeFiles/cpp_renting_console_app.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/trung/CLionProjects/cpp-renting-console-app/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable cpp_renting_console_app"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/trung/CLionProjects/cpp-renting-console-app/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable cpp_renting_console_app"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cpp_renting_console_app.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
