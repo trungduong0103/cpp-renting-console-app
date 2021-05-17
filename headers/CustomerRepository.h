@@ -9,7 +9,7 @@ protected:
 public:
 	ModificationIntent() = default;
 	ModificationIntent(Customer*);
-	inline void set_customer(Customer* cust) { customer = cust; }
+	inline void set_customer(Customer* custm) { customer = custm; }
 	virtual void modify() = 0;
 };
 
