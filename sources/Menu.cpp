@@ -445,6 +445,7 @@ bool Menu::read_item(Item*& item){
 bool Menu::modify_item(std::string id){
     std::string title;
     std::string rental_type;
+    std::string stock;
     std::string fee;
     std::string genre;
 
@@ -466,6 +467,18 @@ bool Menu::modify_item(std::string id){
     }
 
     int rental_type_int = std::stoi(rental_type);
+
+    while (true){
+        std::cout << "Input item number in stock:" << std::endl;
+        std::cin >> stock;
+        if (!item_stock_is_valid(stock)) {
+            std::cerr << "Invalid input" << std::endl;
+        }
+        else {
+            break;
+        }
+    }
+    int stock_int = std::stoi(stock);
 
     while (true){
         std::cout << "Input item fee:" << std::endl;

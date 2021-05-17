@@ -26,6 +26,12 @@ void ItemFeeModificationIntent::modify() {
     item->set_rental_fee(fee);
 }
 
+ItemNumStockModificationIntent::ItemNumStockModificationIntent(unsigned int number_in_stock) : number_in_stock(number_in_stock) {}
+
+void ItemNumStockModificationIntent::modify() {
+    item->set_num_in_stock(number_in_stock);
+}
+
 ItemNumberOfStockIncreaseIntent::ItemNumberOfStockIncreaseIntent(unsigned int value) : value(value) {}
 
 void ItemNumberOfStockIncreaseIntent::modify() {

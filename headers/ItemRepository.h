@@ -35,6 +35,14 @@ struct ItemFeeModificationIntent : public ItemModificationIntent {
     void modify() override;
 };
 
+struct ItemNumStockModificationIntent : public ItemModificationIntent {
+    unsigned int number_in_stock;
+    ItemNumStockModificationIntent() = default;
+    ItemNumStockModificationIntent(unsigned int number_in_stock);
+    void modify() override;
+};
+
+
 struct ItemNumberOfStockIncreaseIntent : public ItemModificationIntent {
     unsigned int value = 1;
     ItemNumberOfStockIncreaseIntent() = default;
