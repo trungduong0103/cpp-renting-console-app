@@ -224,10 +224,6 @@ void TextFileItemPersistence::save(std::vector<Item *> items) {
     outfile.close();
 }
 
-//Mock persistence
-std::vector<Item *> MockItemPersistence::load() { return {}; }
-void MockItemPersistence::save(std::vector<Item*>) {}
-
 //Displayer
 void ItemTitleOrder::order(std::vector<Item *> &items) const {
     std::sort(items.begin(), items.end(), [](Item const *a, Item const *b) {

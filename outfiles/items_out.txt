@@ -3,3 +3,4 @@ I002-1988,White Castle,Record,1-week,1,3.000000,Comedy
 I003-1992,Alpha Dog,Record,1-week,1,3.000000,Action
 I004-1999,Rat Race,DVD,1-week,1,3.000000,Horror
 I005-2015,Halo,Game,2-day,2,4.990000
+I001-2020,John Cena rocks,DVD,2-day,17,10.990000,Action
