@@ -133,8 +133,9 @@ bool NameFilterSpecification::is_satisfied(Customer const *customer) const {
     return customer->get_name() == name;
 }
 
-StateFilterSpecification::StateFilterSpecification(Category state): state(state) {}
-bool StateFilterSpecification::is_satisfied(Customer const* customer) const {
+StateFilterSpecification::StateFilterSpecification(Category state) : state(state) {}
+
+bool StateFilterSpecification::is_satisfied(Customer const *customer) const {
     return customer->get_state() == state;
 }
 
@@ -237,37 +238,50 @@ std::vector<Customer *> TextFileCustomerPersistence::load() {
 
     unsigned int count = 1;
     unsigned int num_rentals = 0;
-    unsigned int i = 0;
+    unsigned int x, y = 0;
     std::vector<Customer *> mockCustomers;
     std::vector<std::string> rentals;
     std::string line;
     const std::string default_ignore = "Ignoring line ";
-    std::string prev;
     std::vector<std::string> lines;
     std::vector<std::string> customer_vector;
-    std::vector<std::string> rental_vectors;
+    std::vector<std::string> rentals_vector;
 
     while (getline(infile, line)) {
         lines.push_back(line);
     }
 
-    for (int x = 0; x < lines.size(); x++) {
+    for (x = 0; x < lines.size(); x++) {
         if (lines[x][0] == 'C') {
-            std::cout << "Customer: " << lines[x] << std::endl;
             customer_vector = split(lines[x], ",");
             num_rentals = std::stoi(customer_vector[4]);
-            for (int y = 0; y < num_rentals; y++) {
-                std::cout << "Item: " << lines[x + y + 1] << std::endl;
+            // 2 cases for invalid data:
+            // number of rental in customer info is smaller than the items
+            // number of rental in customer info is bigger than the items
+            for (y = 0; y < num_rentals; y++) {
+                // all of the lines following the Customer info must begin with I, for Item id
                 if (lines[x + y + 1][0] != 'I') {
-                    std::cout << "Invalid rental data: " << lines[x + y + 1] << std::endl;
+                    std::cout << "Invalid rental data for " << customer_vector[0] << ": " << lines[x + y + 1]
+                              << std::endl;
+                    x++;
                 } else {
-                    rental_vectors.push_back(lines[x + y + 1]);
+                    rentals_vector.push_back(lines[x + y + 1]);
                 }
             }
-            std::cout << "Cust v: " << customer_vector[0] << std::endl;
-            std::cout << "Rent v size: " << rental_vectors.size() << std::endl;
+            std::cout << "---Customer: " << customer_vector[0] << ", rentals size (adjusted if error): "
+                      << rentals_vector.size();
+            // after the loop to get all items that are rented by a Customer, the next line should
+            // begin with C, for Customer
+            std::cout << ", with items: " << std::endl;
+            for (const std::string &rental : rentals_vector) {
+                std::cout << "+ Item: " << rental << std::endl;
+            }
+            if (lines[x + y + 1][0] != 'C' && !lines[x + y + 1].empty()) {
+                std::cout << "More items than num of rentals in customer info " << "(" << customer_vector[0] << "): "
+                          << lines[x + y + 1] << std::endl;
+            }
             customer_vector.clear();
-            rental_vectors.clear();
+            rentals_vector.clear();
         }
     }
 
