@@ -276,7 +276,7 @@ bool Menu::display_item_menu(){
             Customer* customer = customer_service->get(customer_id);
             Item* item = item_service->get(item_id);
             if (customer != nullptr && item != nullptr) {
-                customer ->borrow(*item);
+                customer -> borrow(item);
             } else {
                 std::cerr << "Item/Customer is not exist" << std::endl;
             }
@@ -293,7 +293,7 @@ bool Menu::display_item_menu(){
             Customer* customer = customer_service->get(customer_id);
             Item* item = item_service->get(item_id);
             if (customer != nullptr && item != nullptr) {
-//                customer ->return(*item);
+                customer -> return_item(item);
             } else {
                 std::cerr << "Item/Customer is not exist" << std::endl;
             }
