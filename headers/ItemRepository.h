@@ -176,6 +176,7 @@ public:
     void load();
     void save();
     Item* get(std::string const&);
+    bool check_if_exists(std::string const&);
     std::vector<Item*> get_all();
     void add(Item* item);
     void remove(std::string const& id);

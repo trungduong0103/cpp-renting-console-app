@@ -339,6 +339,10 @@ Item* ItemService::get(std::string const& id) {
     return repository->get_item(id);
 }
 
+bool ItemService::check_if_exists(const std::string & id) {
+    return get(id) != nullptr;
+}
+
 std::vector<Item*> ItemService::get_all() {
     return repository->get_items();
 }
