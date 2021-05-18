@@ -17,9 +17,31 @@ public:
 struct ItemTitleModificationIntent : public ItemModificationIntent {
     std::string title;
     ItemTitleModificationIntent() = default;
-    ItemTitleModificationIntent(std::string  name);
+    ItemTitleModificationIntent(std::string  title);
     void modify() override;
 };
+
+struct ItemRentalTypeModificationIntent : public ItemModificationIntent {
+    Item::RentalType rental_type;
+    ItemRentalTypeModificationIntent() = default;
+    ItemRentalTypeModificationIntent(Item::RentalType rental_type);
+    void modify() override;
+};
+
+struct ItemFeeModificationIntent : public ItemModificationIntent {
+    float fee;
+    ItemFeeModificationIntent() = default;
+    ItemFeeModificationIntent(float fee);
+    void modify() override;
+};
+
+struct ItemNumStockModificationIntent : public ItemModificationIntent {
+    unsigned int number_in_stock;
+    ItemNumStockModificationIntent() = default;
+    ItemNumStockModificationIntent(unsigned int number_in_stock);
+    void modify() override;
+};
+
 
 struct ItemNumberOfStockIncreaseIntent : public ItemModificationIntent {
     unsigned int value = 1;
@@ -112,6 +134,20 @@ struct ItemNumStockFilterSpecification : public ItemFilterSpecification {
     int number_in_stock;
 
     ItemNumStockFilterSpecification(unsigned int const number_in_stock);
+    bool is_satisfied(Item const* item) const override;
+};
+
+struct ItemIdFilterSpecification : public ItemFilterSpecification {
+    std::string id;
+
+    ItemIdFilterSpecification(std::string);
+    bool is_satisfied(Item const* item) const override;
+};
+
+struct ItemTitleFilterSpecification : public ItemFilterSpecification {
+    std::string title;
+
+    ItemTitleFilterSpecification(std::string title);
     bool is_satisfied(Item const* item) const override;
 };
 

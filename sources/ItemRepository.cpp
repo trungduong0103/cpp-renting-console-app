@@ -14,6 +14,24 @@ void ItemTitleModificationIntent::modify() {
     item->set_title(title);
 }
 
+ItemRentalTypeModificationIntent::ItemRentalTypeModificationIntent(Item::RentalType rental_type) : rental_type(rental_type) {}
+
+void ItemRentalTypeModificationIntent::modify() {
+    item->set_rental_type(rental_type);
+}
+
+ItemFeeModificationIntent::ItemFeeModificationIntent(float fee) : fee(fee) {}
+
+void ItemFeeModificationIntent::modify() {
+    item->set_rental_fee(fee);
+}
+
+ItemNumStockModificationIntent::ItemNumStockModificationIntent(unsigned int number_in_stock) : number_in_stock(number_in_stock) {}
+
+void ItemNumStockModificationIntent::modify() {
+    item->set_num_in_stock(number_in_stock);
+}
+
 ItemNumberOfStockIncreaseIntent::ItemNumberOfStockIncreaseIntent(unsigned int value) : value(value) {}
 
 void ItemNumberOfStockIncreaseIntent::modify() {
@@ -254,6 +272,20 @@ ItemNumStockFilterSpecification::ItemNumStockFilterSpecification(unsigned int co
 
 bool ItemNumStockFilterSpecification::is_satisfied(Item const *item) const {
     return item->get_number_in_stock() == number_in_stock;
+}
+
+ItemIdFilterSpecification::ItemIdFilterSpecification(std::string id)
+        : id(id) {}
+
+bool ItemIdFilterSpecification::is_satisfied(Item const *item) const {
+    return item->get_id() == id;
+}
+
+ItemTitleFilterSpecification::ItemTitleFilterSpecification(std::string title)
+        : title(title) {}
+
+bool ItemTitleFilterSpecification::is_satisfied(Item const *item) const {
+    return item->get_title() == title;
 }
 
 bool ItemAllFilterSpecification::is_satisfied(Item const *item) const {
