@@ -15,7 +15,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c0098f5-fcea-499c-9eae-b108e08e5b2c" name="Default Changelist" comment="tested customers.txt import">
-      <change beforePath="$PROJECT_DIR$/sources/CustomerHelpers.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/CustomerHelpers.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/Menu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/Menu.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +26,6 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
@@ -47,8 +47,10 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
@@ -58,14 +60,9 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="cpp_renting_console_app" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_renting_console_app" TARGET_NAME="cpp_renting_console_app" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_renting_console_app" RUN_TARGET_NAME="cpp_renting_console_app">
+    <configuration name="cpp_renting_console_app" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_renting_console_app" TARGET_NAME="cpp_renting_console_app" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_renting_console_app" RUN_TARGET_NAME="cpp_renting_console_app">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -85,6 +82,7 @@
       <workItem from="1621318637381" duration="930000" />
       <workItem from="1621323820557" duration="7639000" />
       <workItem from="1621335365595" duration="546000" />
+      <workItem from="1621349229713" duration="1072000" />
     </task>
     <task id="LOCAL-00001" summary="updated Menu">
       <created>1621263814020</created>
