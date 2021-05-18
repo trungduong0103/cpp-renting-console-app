@@ -339,6 +339,10 @@ Item* ItemService::get(std::string const& id) {
     return repository->get_item(id);
 }
 
+std::vector<Item*> ItemService::get_all() {
+    return repository->get_items();
+}
+
 void ItemService::add(Item *item) {
     repository->add_item(item);
 }
