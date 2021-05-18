@@ -14,7 +14,7 @@ Menu::Menu() {
 
     //Load in items and customer
     item_service->load();
-    customer_service->load();
+    customer_service->load(item_service->get_all());
 }
 
 //Destructor

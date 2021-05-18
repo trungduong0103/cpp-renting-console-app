@@ -4,6 +4,7 @@
 #include "../headers/CustomerHelpers.h"
 #include <algorithm>
 #include <string>
+#include <utility>
 #include <vector>
 #include <fstream>
 #include <iostream>
@@ -179,8 +180,8 @@ CustomerService::~CustomerService() {
     }
 }
 
-void CustomerService::load() {
-    repository->set_customers(persistence->load());
+void CustomerService::load(std::vector<Item *> items) {
+    repository->set_customers(persistence->load(std::move(items)));
 }
 
 void CustomerService::save() {
@@ -229,7 +230,7 @@ std::vector<std::string> split(const std::string &str, const std::string &delim)
     return tokens;
 }
 
-std::vector<Customer *> TextFileCustomerPersistence::load() {
+std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> items) {
     std::ifstream infile("../textfiles/customers.txt");
     if (!infile) {
         std::cerr << "Cannot read file customers.txt" << std::endl;

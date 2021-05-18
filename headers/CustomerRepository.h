@@ -1,155 +1,195 @@
 #pragma once
+
 #include "Customer.h"
 #include <iostream>
 
 //Repository
 struct ModificationIntent {
 protected:
-    Customer* customer;
+    Customer *customer;
 public:
     ModificationIntent() = default;
-    ModificationIntent(Customer*);
-    inline void set_customer(Customer* custm) { customer = custm; }
+
+    ModificationIntent(Customer *);
+
+    inline void set_customer(Customer *custm) { customer = custm; }
+
     virtual void modify() = 0;
 };
 
 struct NameModificationIntent : public ModificationIntent {
     std::string name;
+
     NameModificationIntent() = default;
-    NameModificationIntent(std::string const& name);
+
+    NameModificationIntent(std::string const &name);
+
     void modify() override;
 };
 
 struct AddressModificationIntent : public ModificationIntent {
     std::string address;
+
     AddressModificationIntent() = default;
-    AddressModificationIntent(std::string const& address);
+
+    AddressModificationIntent(std::string const &address);
+
     void modify() override;
 };
 
 struct PhoneModificationIntent : public ModificationIntent {
     std::string phone;
+
     PhoneModificationIntent() = default;
-    PhoneModificationIntent(std::string const& phone);
+
+    PhoneModificationIntent(std::string const &phone);
+
     void modify() override;
 };
 
 struct CustomerRepository {
-    virtual void add_customer(Customer* customer) = 0;
-    virtual Customer* get_customer(std::string const&) = 0;
-    virtual void remove_customer(std::string const& customer_id) = 0;
-    virtual void update_customer(std::string const& customer_id, ModificationIntent& intent) = 0;
-    virtual std::vector<Customer*> get_customers() = 0;
-    virtual void set_customers(std::vector<Customer*> const&) = 0;
+    virtual void add_customer(Customer *customer) = 0;
+
+    virtual Customer *get_customer(std::string const &) = 0;
+
+    virtual void remove_customer(std::string const &customer_id) = 0;
+
+    virtual void update_customer(std::string const &customer_id, ModificationIntent &intent) = 0;
+
+    virtual std::vector<Customer *> get_customers() = 0;
+
+    virtual void set_customers(std::vector<Customer *> const &) = 0;
 };
 
 struct InMemoryCustomerRepository : public CustomerRepository {
-    std::vector<Customer*> customers;
+    std::vector<Customer *> customers;
 public:
     InMemoryCustomerRepository() = default;
-    InMemoryCustomerRepository(std::vector<Customer*> const& customers);
-    Customer* get_customer(std::string const&) override;
-    void set_customers(std::vector<Customer*> const& customers) override;
-    void add_customer(Customer* customer) override;
-    void remove_customer(std::string const& customer_id) override;
-    void update_customer(std::string const& customer_id, ModificationIntent& intent) override;
-    std::vector<Customer*> get_customers() override { return customers; }
+
+    InMemoryCustomerRepository(std::vector<Customer *> const &customers);
+
+    Customer *get_customer(std::string const &) override;
+
+    void set_customers(std::vector<Customer *> const &customers) override;
+
+    void add_customer(Customer *customer) override;
+
+    void remove_customer(std::string const &customer_id) override;
+
+    void update_customer(std::string const &customer_id, ModificationIntent &intent) override;
+
+    std::vector<Customer *> get_customers() override { return customers; }
 };
 
 //Persistence
 struct CustomerPersistence {
-    virtual std::vector<Customer*> load() = 0;
-    virtual void save(std::vector<Customer*>) = 0;
+    virtual std::vector<Customer *> load(std::vector<Item *>) = 0;
+
+    virtual void save(std::vector<Customer *>) = 0;
 };
 
 struct TextFileCustomerPersistence : public CustomerPersistence {
-    std::vector<Customer*> load() override;
-    void save(std::vector<Customer*>) override;
+    std::vector<Customer *> load(std::vector<Item *>) override;
+
+    void save(std::vector<Customer *>) override;
 };
 
 //Displayer
 struct CustomerOrder {
-    virtual void order(std::vector<Customer*>& customers) const = 0;
+    virtual void order(std::vector<Customer *> &customers) const = 0;
 };
 
 struct CustomerNoOrder : public CustomerOrder {
-    void order(std::vector<Customer*>& customers) const override;
+    void order(std::vector<Customer *> &customers) const override;
 };
 
 struct CustomerNameOrder : public CustomerOrder {
-    void order(std::vector<Customer*>& customers) const override;
+    void order(std::vector<Customer *> &customers) const override;
 };
 
 struct CustomerIdOrder : public CustomerOrder {
-    void order(std::vector<Customer*>& customers) const override;
+    void order(std::vector<Customer *> &customers) const override;
 };
 
 struct CustomerLevelOrder : public CustomerOrder {
-    void order(std::vector<Customer*>& customers) const override;
+    void order(std::vector<Customer *> &customers) const override;
 };
 
 struct CustomerDisplayer {
-    virtual void display(std::vector<Customer*> customers, CustomerOrder const* order) = 0;
+    virtual void display(std::vector<Customer *> customers, CustomerOrder const *order) = 0;
 };
 
 struct ConsoleCustomerDisplayer : public CustomerDisplayer {
-    void display(std::vector<Customer*> customers, CustomerOrder const* order) override;
+    void display(std::vector<Customer *> customers, CustomerOrder const *order) override;
 };
 
 //Filterer
 struct FilterSpecification {
-    virtual bool is_satisfied(Customer const* customer) const = 0;
+    virtual bool is_satisfied(Customer const *customer) const = 0;
 };
 
 struct IdFilterSpecification : public FilterSpecification {
     std::string id;
 
-    IdFilterSpecification(std::string const& id);
-    bool is_satisfied(Customer const* customer) const override;
+    IdFilterSpecification(std::string const &id);
+
+    bool is_satisfied(Customer const *customer) const override;
 };
 
 struct NameFilterSpecification : public FilterSpecification {
     std::string name;
 
-    NameFilterSpecification(std::string const& name);
-    bool is_satisfied(Customer const* customer) const override;
+    NameFilterSpecification(std::string const &name);
+
+    bool is_satisfied(Customer const *customer) const override;
 };
 
 struct StateFilterSpecification : public FilterSpecification {
     Category state;
 
     StateFilterSpecification(Category state);
-    bool is_satisfied(Customer const* customer) const override;
+
+    bool is_satisfied(Customer const *customer) const override;
 };
 
 struct AllFilterSpecification : public FilterSpecification {
     AllFilterSpecification() = default;
-    bool is_satisfied(Customer const* customer) const override;
+
+    bool is_satisfied(Customer const *customer) const override;
 };
 
 struct CustomerFilterer {
-    std::vector<Customer*> filter(std::vector<Customer*> const& customers, FilterSpecification const*);
+    std::vector<Customer *> filter(std::vector<Customer *> const &customers, FilterSpecification const *);
 };
 
 //Aggregated class
 class CustomerService {
-    CustomerRepository* repository;
-    CustomerDisplayer* displayer;
-    CustomerFilterer* filterer;
-    CustomerPersistence* persistence;
+    CustomerRepository *repository;
+    CustomerDisplayer *displayer;
+    CustomerFilterer *filterer;
+    CustomerPersistence *persistence;
 
 public:
     //Destruct and construct
-    CustomerService(CustomerRepository* repo, CustomerDisplayer* display, CustomerFilterer* filterer, CustomerPersistence* persistence);
+    CustomerService(CustomerRepository *repo, CustomerDisplayer *display, CustomerFilterer *filterer,
+                    CustomerPersistence *persistence);
+
     ~CustomerService();
 
     //Methods
-    void load();
+    void load(std::vector<Item *>);
+
     void save();
-    Customer* get(std::string const& id);
-    void add(Customer* customer);
-    void remove(std::string const& id);
-    void update(std::string const& id, ModificationIntent& intent);
-    void display(CustomerOrder const* order);
-    void filter(FilterSpecification const* spec);
+
+    Customer *get(std::string const &id);
+
+    void add(Customer *customer);
+
+    void remove(std::string const &id);
+
+    void update(std::string const &id, ModificationIntent &intent);
+
+    void display(CustomerOrder const *order);
+
+    void filter(FilterSpecification const *spec);
 };

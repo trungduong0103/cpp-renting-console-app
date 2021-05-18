@@ -16,8 +16,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4c0098f5-fcea-499c-9eae-b108e08e5b2c" name="Default Changelist" comment="validated customer rental number and items">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/ItemRepository.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/ItemRepository.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/ItemRepository.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/ItemRepository.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/CustomerRepository.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/CustomerRepository.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/CustomerRepository.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/CustomerRepository.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/Menu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/Menu.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/textfiles/items.txt" beforeDir="false" afterPath="$PROJECT_DIR$/textfiles/items.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621335064124</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="temp">
+      <created>1621351969415</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1621351969415</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,6 +139,7 @@
     <MESSAGE value="added .vscode and .idea to .gitignore" />
     <MESSAGE value="tested customers.txt import" />
     <MESSAGE value="validated customer rental number and items" />
-    <option name="LAST_COMMIT_MESSAGE" value="validated customer rental number and items" />
+    <MESSAGE value="temp" />
+    <option name="LAST_COMMIT_MESSAGE" value="temp" />
   </component>
 </project>
