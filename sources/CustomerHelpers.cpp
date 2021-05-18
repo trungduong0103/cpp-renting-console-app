@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "../headers/CustomerHelpers.h"
 
 bool correct_customer_info_length(const std::string &line) {
