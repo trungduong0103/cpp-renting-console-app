@@ -13,7 +13,7 @@ Menu::Menu() {
     customer_service = customer_builder.create();
 
     //Load in items and customer
-    item_service->load();
+//    item_service->load();
     customer_service->load();
 }
 

@@ -120,10 +120,9 @@ std::vector<std::string> get_item_as_vector(std::string &line) {
 
     return item_as_vector;
 }
-// TODO: customer file is incorrect in C003 & C004
+
 
 //Text file persistence
-// TODO: combine validations into a single function
 std::vector<Item *> TextFileItemPersistence::load() {
     std::ifstream infile("../textfiles/items.txt");
     if (!infile) {

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
       <config projectName="cpp_renting_console_app" targetName="cpp_renting_console_app" />
@@ -11,8 +14,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c0098f5-fcea-499c-9eae-b108e08e5b2c" name="Default Changelist" comment="updated Menu">
+    <list default="true" id="4c0098f5-fcea-499c-9eae-b108e08e5b2c" name="Default Changelist" comment="added .vscode and .idea to .gitignore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/CustomerHelpers.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/CustomerHelpers.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/CustomerRepository.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/CustomerRepository.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outfiles/items_out.txt" beforeDir="false" afterPath="$PROJECT_DIR$/outfiles/items_out.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/CustomerHelpers.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/CustomerHelpers.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/CustomerRepository.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/CustomerRepository.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/ItemRepository.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/ItemRepository.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/Menu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/Menu.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/ServiceBuilder.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/ServiceBuilder.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/textfiles/customers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/textfiles/customers.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +38,15 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1sdYbAzFs0EkRl6QkELslbLiyHa" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -45,19 +67,9 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="cpp_renting_console_app" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_renting_console_app" TARGET_NAME="cpp_renting_console_app" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_renting_console_app" RUN_TARGET_NAME="cpp_renting_console_app">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -73,6 +85,9 @@
       <workItem from="1621216015968" duration="1556000" />
       <workItem from="1621260337906" duration="2391000" />
       <workItem from="1621264590406" duration="91000" />
+      <workItem from="1621265217055" duration="5893000" />
+      <workItem from="1621318637381" duration="930000" />
+      <workItem from="1621323820557" duration="7324000" />
     </task>
     <task id="LOCAL-00001" summary="updated Menu">
       <created>1621263814020</created>
@@ -81,7 +96,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621263814020</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added .vscode and .idea to .gitignore">
+      <created>1621265145839</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1621265145839</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -101,6 +123,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="updated Menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated Menu" />
+    <MESSAGE value="added .vscode and .idea to .gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="added .vscode and .idea to .gitignore" />
   </component>
 </project>

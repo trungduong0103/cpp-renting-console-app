@@ -13,7 +13,7 @@ CustomerService* StandardCustomerServiceBuilder::create() {
     CustomerFilterer* filterer = new CustomerFilterer();
 
     //Create persistence
-    CustomerPersistence* persistence = new MockCustomerPersistence();
+    CustomerPersistence* persistence = new TextFileCustomerPersistence();
 
     //Create customer service
     CustomerService* service = new CustomerService(repo, displayer, filterer, persistence);

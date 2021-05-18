@@ -62,16 +62,10 @@ struct CustomerPersistence {
     virtual void save(std::vector<Customer*>) = 0;
 };
 
-struct MockCustomerPersistence : public CustomerPersistence {
-    std::vector<Customer*> load() override;
-    void save(std::vector<Customer*>) override;
-};
-
 struct TextFileCustomerPersistence : public CustomerPersistence {
     std::vector<Customer*> load() override;
     void save(std::vector<Customer*>) override;
 };
-
 
 //Displayer
 struct CustomerOrder {
