@@ -121,6 +121,13 @@ struct NameFilterSpecification : public FilterSpecification {
     bool is_satisfied(Customer const* customer) const override;
 };
 
+struct StateFilterSpecification : public FilterSpecification {
+    Category state;
+
+    StateFilterSpecification(Category state);
+    bool is_satisfied(Customer const* customer) const override;
+};
+
 struct AllFilterSpecification : public FilterSpecification {
     AllFilterSpecification() = default;
     bool is_satisfied(Customer const* customer) const override;

@@ -128,6 +128,11 @@ bool NameFilterSpecification::is_satisfied(Customer const* customer) const {
     return customer->get_name() == name;
 }
 
+StateFilterSpecification::StateFilterSpecification(Category state): state(state) {}
+bool StateFilterSpecification::is_satisfied(Customer const* customer) const {
+    return customer->get_state() == state;
+}
+
 bool AllFilterSpecification::is_satisfied(Customer const* customer) const {
     return true;
 }
