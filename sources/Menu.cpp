@@ -48,9 +48,9 @@ int Menu::process_input(const std::string& option_string){
 bool Menu::display_main_menu(){
     // Display menu
     std::cout << "MAIN MENU" << std::endl;
-    std::cout << "1. Access item functions." << std::endl;
-    std::cout << "2. Access customer functions." << std::endl;
-    std::cout << "0. Exit the menu." << std::endl;
+    std::cout << "1. Access item functions" << std::endl;
+    std::cout << "2. Access customer functions" << std::endl;
+    std::cout << "0. Exit the menu" << std::endl;
     std::cout << "Select option:" << std::endl;
 
     // Get input
@@ -98,7 +98,7 @@ bool Menu::display_customer_menu(){
     std::cout << "4. Display all customers" << std::endl;
     std::cout << "5. Display group of customers" << std::endl;
     std::cout << "6. Search customers" << std::endl;
-    std::cout << "0. Exit." << std::endl;
+    std::cout << "0. Exit" << std::endl;
     std::cout << "Select option:" << std::endl;
 
     // Get input
@@ -115,7 +115,7 @@ bool Menu::display_customer_menu(){
             Customer* customer = nullptr;
             bool successful = read_customer(customer);
             if(successful){
-                std::cout << "Add customer successful" << std::endl;
+                std::cout << "Add customer successful." << std::endl;
                 customer_service->add(customer);
             }
             else {
@@ -132,7 +132,7 @@ bool Menu::display_customer_menu(){
                 modify_customer(id);
             }
             else{
-                std::cerr << "Customer is not exist" << std::endl;
+                std::cerr << "Customer is not exist." << std::endl;
             }
         }
             break;
@@ -145,7 +145,7 @@ bool Menu::display_customer_menu(){
                 customer->promote();
             }
             else{
-                std::cerr << "Customer is not exist" << std::endl;
+                std::cerr << "Customer is not exist." << std::endl;
             }
         }
             break;
@@ -156,7 +156,7 @@ bool Menu::display_customer_menu(){
             break;
         case 5:{
             std::string option;
-            std::cout << "Select group of customer:" << std::endl;
+            std::cout << "Select group of customers:" << std::endl;
             std::cout << "1. Guest customer" << std::endl;
             std::cout << "2. Regular customer" << std::endl;
             std::cout << "3. VIP customer" << std::endl;
@@ -174,7 +174,7 @@ bool Menu::display_customer_menu(){
                 customer_service -> filter(&state_spec);
             }
             else{
-                std::cout << "Invalid input" << std::endl;
+                std::cout << "Invalid input." << std::endl;
             }
         }
             break;
@@ -182,6 +182,7 @@ bool Menu::display_customer_menu(){
             std::string option;
             std::cout << "1.Search by id" << std::endl;
             std::cout << "2.Search by name" << std::endl;
+            std::cout << "Search option:" << std::endl;
             std::cin >> option;
             std::cin.ignore();
 
@@ -200,7 +201,7 @@ bool Menu::display_customer_menu(){
                 customer_service -> filter(&name_spec);
             }
             else{
-                std::cerr << "Invalid input" << std::endl;
+                std::cerr << "Invalid input." << std::endl;
             }
         }
             break;
@@ -223,11 +224,11 @@ bool Menu::display_item_menu(){
     std::cout << "2. Update an existing item" << std::endl;
     std::cout << "3. Delete an existing item" << std::endl;
     std::cout << "4. Rent an item" << std::endl;
-    std::cout << "5. Renturn an item" << std::endl;
+    std::cout << "5. Return an item" << std::endl;
     std::cout << "6. Display all items" << std::endl;
     std::cout << "7. Display out of stock item" << std::endl;
     std::cout << "8. Search items" << std::endl;
-    std::cout << "0. Exit." << std::endl;
+    std::cout << "0. Exit" << std::endl;
     std::cout << "Select option:" << std::endl;
 
     // Get input
