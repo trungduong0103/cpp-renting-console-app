@@ -275,6 +275,20 @@ bool ItemNumStockFilterSpecification::is_satisfied(Item const *item) const {
     return item->get_number_in_stock() == number_in_stock;
 }
 
+ItemIdFilterSpecification::ItemIdFilterSpecification(std::string id)
+        : id(id) {}
+
+bool ItemIdFilterSpecification::is_satisfied(Item const *item) const {
+    return item->get_id() == id;
+}
+
+ItemTitleFilterSpecification::ItemTitleFilterSpecification(std::string title)
+        : title(title) {}
+
+bool ItemTitleFilterSpecification::is_satisfied(Item const *item) const {
+    return item->get_title() == title;
+}
+
 bool ItemAllFilterSpecification::is_satisfied(Item const *item) const {
     return true;
 }

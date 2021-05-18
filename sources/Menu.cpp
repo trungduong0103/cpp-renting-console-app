@@ -118,7 +118,7 @@ bool Menu::display_customer_menu(){
                 std::cout << "Add customer successful" << std::endl;
                 customer_service->add(customer);
             }
-            else{
+            else {
                 std::cout << "Invalid input" << std::endl;
             }
         }
@@ -161,13 +161,16 @@ bool Menu::display_customer_menu(){
             std::cout << "3. VIP customer" << std::endl;
             std::cin >> option;
             if (option == "1"){
-
+                StateFilterSpecification state_spec{Category::guest};
+                customer_service -> filter(&state_spec);
             }
             else if (option == "2"){
-
+                StateFilterSpecification state_spec{Category::regular};
+                customer_service -> filter(&state_spec);
             }
             else if (option == "3"){
-
+                StateFilterSpecification state_spec{Category::vip};
+                customer_service -> filter(&state_spec);
             }
             else{
                 std::cout << "Invalid input" << std::endl;
@@ -183,14 +186,15 @@ bool Menu::display_customer_menu(){
                 std::string id;
                 std::cout << "Input id:" << std::endl;
                 std::cin >> id;
-                // Lam bieng lam roi
-
+                IdFilterSpecification id_spec{id};
+                customer_service -> filter(&id_spec);
             }
             if (option == "2"){
                 std::string name;
                 std::cout << "Input name:" << std::endl;
                 std::cin >> name;
-                // Lam bieng lam roi
+                NameFilterSpecification name_spec{name};
+                customer_service -> filter(&name_spec);
             }
             else{
                 std::cerr << "Invalid input" << std::endl;
@@ -308,20 +312,21 @@ bool Menu::display_item_menu(){
         case 8:{
             std::string option;
             std::cout << "1.Search by id" << std::endl;
-            std::cout << "2.Search by name" << std::endl;
+            std::cout << "2.Search by title" << std::endl;
             std::cin >> option;
             if (option == "1"){
                 std::string id;
                 std::cout << "Input id:" << std::endl;
                 std::cin >> id;
-                // Chua co function mai lam som
-
+                ItemIdFilterSpecification id_spec{id};
+                item_service -> filter(&id_spec);
             }
             if (option == "2"){
-                std::string name;
-                std::cout << "Input name:" << std::endl;
-                std::cin >> name;
-                // Chua co function mai lam som
+                std::string title;
+                std::cout << "Input title:" << std::endl;
+                std::cin >> title;
+                ItemTitleFilterSpecification title_spec{title};
+                item_service -> filter(&title_spec);
             }
             else{
                 std::cerr << "Invalid input" << std::endl;

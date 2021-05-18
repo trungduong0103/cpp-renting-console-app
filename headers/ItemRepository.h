@@ -137,6 +137,20 @@ struct ItemNumStockFilterSpecification : public ItemFilterSpecification {
     bool is_satisfied(Item const* item) const override;
 };
 
+struct ItemIdFilterSpecification : public ItemFilterSpecification {
+    std::string id;
+
+    ItemIdFilterSpecification(std::string);
+    bool is_satisfied(Item const* item) const override;
+};
+
+struct ItemTitleFilterSpecification : public ItemFilterSpecification {
+    std::string title;
+
+    ItemTitleFilterSpecification(std::string title);
+    bool is_satisfied(Item const* item) const override;
+};
+
 struct ItemAllFilterSpecification : public ItemFilterSpecification {
     ItemAllFilterSpecification() = default;
     bool is_satisfied(Item const* item) const override;
