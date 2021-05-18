@@ -244,7 +244,7 @@ bool Menu::display_item_menu(){
             Item* item = nullptr;
             bool successful = read_item(item);
             if(successful){
-                std::cout << "Added item successful\n" << std::endl;
+                std::cout << "Added item successful.\n" << std::endl;
                 item_service->add(item);
             }
             else{
@@ -260,7 +260,7 @@ bool Menu::display_item_menu(){
 
             if (item_service->get(id) != nullptr) {
                 modify_item(id);
-                std::cout << "Updated item successfully\n" << std::endl;
+                std::cout << "Updated item successfully.\n" << std::endl;
             } else {
                 std::cerr << "Item is not exist" << std::endl;
             }
@@ -319,6 +319,7 @@ bool Menu::display_item_menu(){
             std::string option;
             std::cout << "1.Search by id" << std::endl;
             std::cout << "2.Search by title" << std::endl;
+            std::cout << "Search option:" << std::endl;
             std::cin >> option;
             std::cin.ignore();
 
@@ -336,7 +337,7 @@ bool Menu::display_item_menu(){
                 item_service -> filter(&title_spec);
             }
             else{
-                std::cerr << "Invalid input" << std::endl;
+                std::cerr << "Invalid input." << std::endl;
             }
         }
             break;
@@ -371,7 +372,7 @@ bool Menu::read_customer(Customer*& customer){
         std::cout << "Input user phone:" << std::endl;
         std::cin >> phone;
         if (!customer_phone_is_valid(phone)) {
-            std::cerr << "Invalid input" << std::endl;
+            std::cerr << "Invalid input." << std::endl;
         }
         else {
             break;
@@ -446,7 +447,7 @@ bool Menu::read_item(Item*& item){
         std::cin >> id;
         std::cin.ignore();
         if (!item_id_is_valid(id)) {
-            std::cerr << "Invalid input" << std::endl;
+            std::cerr << "Invalid input." << std::endl;
         }
         else if (item_service->get(id) != nullptr){
             std::cerr << "Duplicate" << std::endl;
