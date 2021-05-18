@@ -183,17 +183,19 @@ bool Menu::display_customer_menu(){
             std::cout << "1.Search by id" << std::endl;
             std::cout << "2.Search by name" << std::endl;
             std::cin >> option;
+            std::cin.ignore();
+
             if (option == "1"){
                 std::string id;
                 std::cout << "Input id:" << std::endl;
-                std::cin >> id;
+                std::getline(std::cin, id);
                 IdFilterSpecification id_spec{id};
                 customer_service -> filter(&id_spec);
             }
-            if (option == "2"){
+            else if (option == "2"){
                 std::string name;
                 std::cout << "Input name:" << std::endl;
-                std::cin >> name;
+                std::getline(std::cin, name);
                 NameFilterSpecification name_spec{name};
                 customer_service -> filter(&name_spec);
             }
@@ -336,6 +338,8 @@ bool Menu::display_item_menu(){
             else{
                 std::cerr << "Invalid input" << std::endl;
             }
+
+            std::cin.ignore();
         }
             break;
         case 0:
