@@ -40,9 +40,9 @@ void GuestState::promote() {
 }
 
 //Method to borrow an item
-void GuestState::borrow(Item& item) {
+void GuestState::borrow(Item* item) {
     //Check if item is in stock
-    if (!item.is_in_stock()) {
+    if (!item->is_in_stock()) {
         std::cerr << "Item is currently out of stock, can not be borrowed" << std::endl;
         return;
     }
@@ -56,7 +56,7 @@ void GuestState::borrow(Item& item) {
 
     //Check the type of item
     //Guest can not borrow TwoDay items
-    if (item.get_rental_type() == Item::RentalType::TwoDay) {
+    if (item->get_rental_type() == Item::RentalType::TwoDay) {
         std::cerr << "Can not borrow two-day item (for guest account)" << std::endl;
         return;
     }
@@ -66,8 +66,8 @@ void GuestState::borrow(Item& item) {
     context->increase_number_of_rentals();
 
     //Decrease number of stock
-    item.decrease_num_in_stock(1);
-    item.set_rental_status(Item::RentalStatus::Borrowed);
+    item->decrease_num_in_stock(1);
+    item->set_rental_status(Item::RentalStatus::Borrowed);
 
     //Display successfuly message
     std::cout << "Item rented successfully" << std::endl;
@@ -96,9 +96,9 @@ void RegularState::promote() {
 }
 
 //Method to borrow an item
-void RegularState::borrow(Item& item) {
+void RegularState::borrow(Item* item) {
     //Check if the item is already borrowed
-    if (!item.is_in_stock()) {
+    if (!item->is_in_stock()) {
         std::cerr << "Item is currently out of stock, can not be borrowed" << std::endl;
         return;
     }
@@ -109,8 +109,8 @@ void RegularState::borrow(Item& item) {
     context->increase_number_of_rentals();
 
     //Decrease number of stock
-    item.decrease_num_in_stock(1);
-    item.set_rental_status(Item::RentalStatus::Borrowed);
+    item->decrease_num_in_stock(1);
+    item->set_rental_status(Item::RentalStatus::Borrowed);
 
     //Display successful message
     std::cout << "Item rented successfully" << std::endl;
@@ -130,9 +130,9 @@ void VIPState::promote() {
     return;
 }
 
-void VIPState::borrow(Item& item) {
+void VIPState::borrow(Item* item) {
     //Check if the item is borrowed or not
-    if (!item.is_in_stock()) {
+    if (!item->is_in_stock()) {
         std::cerr << "Item is currently out of stock, can not be borrowed" << std::endl;
         return;
     }
@@ -143,8 +143,8 @@ void VIPState::borrow(Item& item) {
     context->add_rental(item);
 
     //Decrease number of stock
-    item.decrease_num_in_stock(1);
-    item.set_rental_status(Item::RentalStatus::Borrowed);
+    item->decrease_num_in_stock(1);
+    item->set_rental_status(Item::RentalStatus::Borrowed);
 
     //If current point is over 100
     //Item will be rented for free
@@ -211,8 +211,32 @@ Category Customer::get_state() const {
 
 //Customer borrowing an item
 //By calling the method on item
-void Customer::borrow(Item& item) {
+void Customer::borrow(Item* item) {
     state->borrow(item);
+}
+
+//Customer returning an item
+void Customer::return_item(Item *item) {
+    //Check if item id in rental
+    int position = -1;
+    for (int i = 0; i != items.size(); ++i) {
+        if (items[i] == item->get_id()) {
+            position = i;
+            break;
+        }
+    }
+
+    //Display message if not exist
+    if (position == -1) {
+        std::cerr << "Item is not borrowed by user" << std::endl;
+        return;
+    }
+
+    //Increase item count
+    item->increase_num_in_stock(1);
+
+    //Remove from the borrow list
+    items.erase(items.begin() + position);
 }
 
 //Increase the number of rental items
@@ -221,8 +245,8 @@ void Customer::increase_number_of_rentals() {
 }
 
 //Add item id to rental list
-void Customer::add_rental(Item& item) {
-    items.push_back(item.id);
+void Customer::add_rental(Item* item) {
+    items.push_back(item->id);
 }
 
 //Display the customer

@@ -49,9 +49,10 @@ public:
     void promote();
 
     //Methods to borrow an item
-    void borrow(Item& item);
+    void borrow(Item* item);
+    void return_item(Item* item);
     void increase_number_of_rentals();
-    void add_rental(Item& item);
+    void add_rental(Item* item);
 
     //Methods for printing the items
     friend std::ostream& operator<<(std::ostream& os, Customer const&);
@@ -63,7 +64,7 @@ public:
 class CustomerState {
 public:
     //Methods to borrow an items
-    virtual void borrow(Item& item) = 0;
+    virtual void borrow(Item* item) = 0;
 
     //Method to promote to next state
     //Guest -> Regular or Regula -> VIP
@@ -110,7 +111,7 @@ public:
     GuestState(Customer*, bool);
 
     //Methods to borrow and promote customer
-    void borrow(Item& item) override;
+    void borrow(Item* item) override;
     void promote() override;
 
     //Method to get the State (Guest, VIP, Regular)
@@ -125,7 +126,7 @@ public:
     RegularState(Customer*, bool);
 
     //Methods to borrow and promote customer
-    void borrow(Item& item) override;
+    void borrow(Item* item) override;
     void promote() override;
 
     //Get the State enum (guest, regular, VIP)
@@ -142,7 +143,7 @@ public:
     VIPState(Customer*, bool);
 
     //Methods to borrow and promote customer
-    void borrow(Item& item) override;
+    void borrow(Item* item) override;
     void promote() override;
 
     //Get the State enum (guest, regular, VIP) and set context
