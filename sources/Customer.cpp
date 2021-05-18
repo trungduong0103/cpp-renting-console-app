@@ -237,11 +237,18 @@ void Customer::return_item(Item *item) {
 
     //Remove from the borrow list
     items.erase(items.begin() + position);
+
+    //Reduce user's item count
+    decrease_number_of_rentals();
 }
 
-//Increase the number of rental items
+//Increase and decrease the number of rental items
 void Customer::increase_number_of_rentals() {
     number_of_rentals += 1;
+}
+
+void Customer::decrease_number_of_rentals() {
+    number_of_rentals -=1;
 }
 
 //Add item id to rental list

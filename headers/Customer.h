@@ -52,6 +52,7 @@ public:
     void borrow(Item* item);
     void return_item(Item* item);
     void increase_number_of_rentals();
+    void decrease_number_of_rentals();
     void add_rental(Item* item);
 
     //Methods for printing the items
