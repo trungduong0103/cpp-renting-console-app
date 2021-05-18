@@ -327,8 +327,7 @@ bool Menu::display_item_menu(){
                 std::getline(std::cin, id);
                 ItemIdFilterSpecification id_spec{id};
                 item_service -> filter(&id_spec);
-            }
-            if (option == "2"){
+            } else if (option == "2"){
                 std::string title;
                 std::cout << "Input title:" << std::endl;
                 std::getline(std::cin, title);
@@ -338,8 +337,6 @@ bool Menu::display_item_menu(){
             else{
                 std::cerr << "Invalid input" << std::endl;
             }
-
-            std::cin.ignore();
         }
             break;
         case 0:
