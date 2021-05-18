@@ -127,6 +127,7 @@ bool Menu::display_customer_menu(){
             std::string id;
             std::cout << "Input customer ID that you want to edit:" << std::endl;
             std::cin >> id;
+
             if (customer_service->get(id) != nullptr){
                 modify_customer(id);
             }
@@ -240,11 +241,11 @@ bool Menu::display_item_menu(){
             Item* item = nullptr;
             bool successful = read_item(item);
             if(successful){
-                std::cout << "Add item successful" << std::endl;
+                std::cout << "Added item successful\n" << std::endl;
                 item_service->add(item);
             }
             else{
-                std::cout << "Invalid input" << std::endl;
+                std::cout << "Invalid input\n" << std::endl;
             }
         }
             break;
@@ -252,8 +253,11 @@ bool Menu::display_item_menu(){
             std::string id;
             std::cout << "Input item ID that you want to edit:" << std::endl;
             std::cin >> id;
+            std::cin.ignore();
+
             if (item_service->get(id) != nullptr) {
                 modify_item(id);
+                std::cout << "Updated item successfully\n" << std::endl;
             } else {
                 std::cerr << "Item is not exist" << std::endl;
             }
@@ -278,9 +282,8 @@ bool Menu::display_item_menu(){
             if (customer != nullptr && item != nullptr) {
                 customer -> borrow(item);
             } else {
-                std::cerr << "Item/Customer is not exist" << std::endl;
+                std::cerr << "Item/Customer is not exist\n" << std::endl;
             }
-
         }
             break;
         case 5:{
@@ -295,7 +298,7 @@ bool Menu::display_item_menu(){
             if (customer != nullptr && item != nullptr) {
                 customer -> return_item(item);
             } else {
-                std::cerr << "Item/Customer is not exist" << std::endl;
+                std::cerr << "Item/Customer is not exist\n" << std::endl;
             }
         }
             break;
@@ -337,8 +340,7 @@ bool Menu::display_item_menu(){
             return 0;
             break;
         default:
-            std::cerr << "Invalid option. Please try again." << std::endl;
-            std::cout << std::endl;
+            std::cerr << "Invalid option. Please try again.\n" << std::endl;
             break;
     }
 
@@ -353,12 +355,13 @@ bool Menu::read_customer(Customer*& customer){
 
     std::cout << "Input user ID:" << std::endl;
     std::cin >> id;
+    std::cin.ignore();
 
     std::cout << "Input user name:" << std::endl;
-    std::cin >> name;
+    std::getline(std::cin, name);
 
     std::cout << "Input user address:" << std::endl;
-    std::cin >> address;
+    std::getline(std::cin, address);
 
     while (true){
         std::cout << "Input user phone:" << std::endl;
@@ -386,12 +389,12 @@ bool Menu::modify_customer(std::string id){
     std::string address;
     std::string phone;
 
-
+    std::cin.ignore();
     std::cout << "Input user name:" << std::endl;
-    std::cin >> name;
+    std::getline(std::cin, name);
 
     std::cout << "Input user address:" << std::endl;
-    std::cin >> address;
+    std::getline(std::cin, address);
 
     while (true){
         std::cout << "Input user phone:" << std::endl;
@@ -600,5 +603,5 @@ bool Menu::modify_item(std::string id){
     item_service->update(id, intent_rental_type);
     ItemFeeModificationIntent intent_fee{fee_float};
     item_service->update(id, intent_fee);
-}
+};
 

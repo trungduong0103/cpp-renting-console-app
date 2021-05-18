@@ -19,5 +19,5 @@ public:
     bool read_customer(Customer*& customer);
     bool modify_customer(std::string id);
     bool read_item(Item*& item);
-    bool modify_item(std::string id)
+    bool modify_item(std::string id);
 };
