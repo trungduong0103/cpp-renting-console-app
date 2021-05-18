@@ -317,17 +317,19 @@ bool Menu::display_item_menu(){
             std::cout << "1.Search by id" << std::endl;
             std::cout << "2.Search by title" << std::endl;
             std::cin >> option;
+            std::cin.ignore();
+
             if (option == "1"){
                 std::string id;
                 std::cout << "Input id:" << std::endl;
-                std::cin >> id;
+                std::getline(std::cin, id);
                 ItemIdFilterSpecification id_spec{id};
                 item_service -> filter(&id_spec);
             }
             if (option == "2"){
                 std::string title;
                 std::cout << "Input title:" << std::endl;
-                std::cin >> title;
+                std::getline(std::cin, title);
                 ItemTitleFilterSpecification title_spec{title};
                 item_service -> filter(&title_spec);
             }
