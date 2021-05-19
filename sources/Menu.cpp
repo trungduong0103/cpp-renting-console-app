@@ -78,15 +78,14 @@ bool Menu::display_main_menu(){
             };
             break;
         case 0:
-            return 0;
-            break;
+            return false;
         default:
             std::cerr << "Invalid option. Please try again." << std::endl;
             std::cout << std::endl;
             break;
     }
 
-    return 1;
+    return true;
 }
 
 bool Menu::display_customer_menu(){
@@ -206,15 +205,14 @@ bool Menu::display_customer_menu(){
         }
             break;
         case 0:
-            return 0;
-            break;
+            return false;
         default:
             std::cerr << "Invalid option. Please try again." << std::endl;
             std::cout << std::endl;
             break;
     }
 
-    return 1;
+    return true;
 }
 
 bool Menu::display_item_menu(){
@@ -342,14 +340,13 @@ bool Menu::display_item_menu(){
         }
             break;
         case 0:
-            return 0;
-            break;
+            return false;
         default:
             std::cerr << "Invalid option. Please try again.\n" << std::endl;
             break;
     }
 
-    return 1;
+    return true;
 }
 
 bool Menu::read_customer(Customer*& customer){
@@ -486,7 +483,7 @@ bool Menu::read_item(Item*& item){
             break;
         }
     }
-    int stock_int = std::stoi(stock);
+    unsigned int stock_int = std::stoi(stock);
 
     while (true){
         std::cout << "Input item fee:" << std::endl;
@@ -570,7 +567,7 @@ bool Menu::modify_item(std::string id){
             break;
         }
     }
-    int stock_int = std::stoi(stock);
+    unsigned int stock_int = std::stoi(stock);
 
     while (true){
         std::cout << "Input item fee:" << std::endl;
@@ -606,6 +603,8 @@ bool Menu::modify_item(std::string id){
     item_service->update(id, intent_title);
     ItemRentalTypeModificationIntent intent_rental_type{Item::RentalType(rental_type_int - 1)};
     item_service->update(id, intent_rental_type);
+    ItemNumStockModificationIntent intent_stock{stock_int};
+    item_service->update(id, intent_stock);
     ItemFeeModificationIntent intent_fee{fee_float};
     item_service->update(id, intent_fee);
 

@@ -14,8 +14,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c0098f5-fcea-499c-9eae-b108e08e5b2c" name="Default Changelist" comment="validated customer rental number and items">
-      <change beforePath="$PROJECT_DIR$/headers/CustomerRepository.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/CustomerRepository.h" afterDir="false" />
+    <list default="true" id="4c0098f5-fcea-499c-9eae-b108e08e5b2c" name="Default Changelist" comment="fix vector subscript out of range error, return true for menu modify item">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/Menu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/Menu.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +61,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="cpp_renting_console_app" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_renting_console_app" TARGET_NAME="cpp_renting_console_app" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_renting_console_app" RUN_TARGET_NAME="cpp_renting_console_app">
+    <configuration name="cpp_renting_console_app" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_renting_console_app" TARGET_NAME="cpp_renting_console_app" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_renting_console_app" RUN_TARGET_NAME="cpp_renting_console_app">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
