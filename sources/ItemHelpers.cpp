@@ -111,14 +111,14 @@ bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItem
     if (!format_only) {
         for (Item *item : mockItems) {
             if (item != nullptr && item->get_id() == id) {
-                std::cout << default_error << "(already exists)!" << std::endl;
+                std::cout << default_error << "(already exists), received: " << id << std::endl;
                 return false;
             }
         }
     }
     // id length of item must be 9
     if (id.length() != 9) {
-        std::cout << default_error << "(wrong length)!" << std::endl;
+        std::cout << default_error << "(wrong length), received: " << id << std::endl;
         return false;
     }
 
@@ -129,19 +129,19 @@ bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItem
 
     // first letter must be "I" (‘I’ is the capital letter I).
     if (first_letter != 'I') {
-        std::cout << default_error << "(must begin with 'I')!" << std::endl;
+        std::cout << default_error << "(must begin with 'I'), received: " << id << std::endl;
         return false;
     }
 
     // ‘xxx’ is a unique code of 3 digits (e.g. 123)
     if (id_number_is_not_numeric(id_number)) {
-        std::cout << default_error << "(ID number in Item ID must be numerics)!" << std::endl;
+        std::cout << default_error << "(ID number in Item ID must be numerics), received: " << id << std::endl;
         return false;
     }
 
     // ‘-‘ is a single hyphen character
     if (hyphen != '-') {
-        std::cout << default_error << "(hyphen is missing)!" << std::endl;
+        std::cout << default_error << "(hyphen is missing), received: " << id << std::endl;
         return false;
     }
 
@@ -151,11 +151,11 @@ bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItem
     try {
         const unsigned int int_year = std::stoi(year, nullptr, 10);
         if (int_year < MIN_YEAR || int_year > MAX_YEAR) {
-            std::cout << default_error << "(year must be between 1888 and 2021)!" << std::endl;
+            std::cout << default_error << "(year must be between 1888 and 2021), received" << id << std::endl;
             return false;
         }
     } catch (const std::invalid_argument &e) {
-        std::cout << default_error << "(year is in invalid format)!" << std::endl;
+        std::cout << default_error << "(year is in invalid format), received" << id << std::endl;
         return false;
     }
 
@@ -213,7 +213,7 @@ bool item_type_and_genre_is_valid(
 
         return true;
     } else {
-        std::cout << default_error << "(item info length is invalid)!" << std::endl;
+        std::cout << default_error << "(item info length is invalid), received" << genre << " - " << type << std::endl;
         return false;
     }
 

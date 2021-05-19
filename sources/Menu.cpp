@@ -365,7 +365,7 @@ void Menu::read_customer(Customer*& customer){
         std::cout << "Input customer ID:" << std::endl;
         std::cin >> id;
         std::cin.ignore();
-        if (!customer_id_is_valid_menu(id)) {
+        if (!customer_id_is_valid(id)) {
             std::cerr << "Invalid input." << std::endl;
         }
         else if (customer_service->get(id) != nullptr){

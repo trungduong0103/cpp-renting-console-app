@@ -22,9 +22,13 @@ void remove_whitespace(std::string &string);
 
 bool correct_info_length(const std::string &line);
 
-bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItems, bool format_only);
+bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItems = {}, bool format_only = true);
 
-bool item_type_and_genre_is_valid(const std::string &type, const std::string &genre, std::vector<std::string>::size_type item_info_length);
+bool item_type_and_genre_is_valid(
+        const std::string &type,
+        const std::string &genre,
+        std::vector<std::string>::size_type item_info_length
+);
 
 bool item_loan_type_is_valid(const std::string &loan_type);
 
