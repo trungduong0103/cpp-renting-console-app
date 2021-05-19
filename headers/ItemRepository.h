@@ -3,7 +3,23 @@
 #include <iostream>
 #include <vector>
 
-//Repository
+/*
+	This class contains the Item Service class
+	which is responsible for all CRUD operation on items
+	This class is aggragated by combining different classes such as ItemRepository (for CRUD operation)
+	- Repository design pattern will be used here, ItemPersistence (for reading and writing files),
+	ItemFilterer (for filtering customer based on their attributes) and ItemDisplayer
+	(for displaying purposes)
+
+	This is to follow open-closed principle: whenever a specification changes, we can switch
+	out ItemRepository and replace by a new implementation, for instance,
+	to make the ItemService more robust to changes
+*/
+
+
+//Intent pattern
+//This intent is used for updating a user attributes using the
+//repository update method
 struct ItemModificationIntent {
 protected:
     Item* item;
@@ -14,6 +30,8 @@ public:
     virtual void modify() = 0;
 };
 
+//Child of Modification intent
+//Used when we want to change an item's title
 struct ItemTitleModificationIntent : public ItemModificationIntent {
     std::string title;
     ItemTitleModificationIntent() = default;
@@ -21,12 +39,15 @@ struct ItemTitleModificationIntent : public ItemModificationIntent {
     void modify() override;
 };
 
+//Child of Modification intent
+//Used when we want to change an item's stock
 struct ItemRentalTypeModificationIntent : public ItemModificationIntent {
     Item::RentalType rental_type;
     ItemRentalTypeModificationIntent() = default;
     ItemRentalTypeModificationIntent(Item::RentalType rental_type);
     void modify() override;
 };
+
 
 struct ItemFeeModificationIntent : public ItemModificationIntent {
     float fee;
@@ -35,6 +56,8 @@ struct ItemFeeModificationIntent : public ItemModificationIntent {
     void modify() override;
 };
 
+//Child of Modification intent
+//Used when we want to change an item's stock
 struct ItemNumStockModificationIntent : public ItemModificationIntent {
     unsigned int number_in_stock;
     ItemNumStockModificationIntent() = default;
@@ -42,7 +65,8 @@ struct ItemNumStockModificationIntent : public ItemModificationIntent {
     void modify() override;
 };
 
-
+//Child of Modification intent
+//Used when we want to change an item's stock
 struct ItemNumberOfStockIncreaseIntent : public ItemModificationIntent {
     unsigned int value = 1;
     ItemNumberOfStockIncreaseIntent() = default;
@@ -50,6 +74,8 @@ struct ItemNumberOfStockIncreaseIntent : public ItemModificationIntent {
     void modify() override;
 };
 
+//Child of Modification intent
+//Used when we want to change an item's stock
 struct ItemNumberOfStockDecreaseIntent : public ItemModificationIntent {
     unsigned int value = 1;
     ItemNumberOfStockDecreaseIntent() = default;
@@ -57,6 +83,8 @@ struct ItemNumberOfStockDecreaseIntent : public ItemModificationIntent {
     void modify() override;
 };
 
+//A blue print of repository pattern
+//containing methods such as CRUD of customers
 struct ItemRepository {
     virtual void add_item(Item* item) = 0;
     virtual void remove_item(std::string const& item_id) = 0;
@@ -70,6 +98,8 @@ struct ItemRepository {
 //  If an item is currently borrowed, a delete action with that item will fail with an error message
 //  A customer can only be removed from the system once he/she returned all borrowed items
 
+//Implementation of Repository pattern
+//Where all CRUD operation will be done using an in-memory vector
 struct InMemoryItemRepository : public ItemRepository {
     std::vector<Item*> items;
     unsigned int starting_index = 0;
@@ -89,47 +119,64 @@ public:
     int get_item_index(std::string const &item_id);
 };
 
-//Persistence
+//Blueprint for Item persistence
+//Containing two methods: load() for loading item data
+//save() for saving item data
 struct ItemPersistence {
     virtual std::vector<Item*> load() = 0;
     virtual void save(std::vector<Item*>) = 0;
 };
 
+//Implementation of ItemPersistence
+//This is responsible for loading and saving
+//customers from and to a text file
 struct TextFileItemPersistence : public ItemPersistence {
     std::vector<Item*> load() override;
     void save(std::vector<Item*>) override;
 };
 
-//Displayer
+//Order classes
+//These classes are responsible for
+//Sorting an items list based on their attributes
 struct ItemOrder {
     virtual void order(std::vector<Item*>& items) const = 0;
 };
 
+//No order: This class will do nothing
 struct ItemNoOrder : public ItemOrder {
     void order(std::vector<Item*>& items) const override;
 };
 
+//Order by name: This class will sort the items based on their titles
 struct ItemTitleOrder : public ItemOrder {
     void order(std::vector<Item*>& items) const override;
 };
 
+//Order by id: This class will sort the items based on their ids
 struct ItemIdOrder : public ItemOrder {
     void order(std::vector<Item*>& items) const override;
 };
 
+//Blueprint for CustomerDisplayer
+//Which is used to display customer through an interface
 struct ItemDisplayer {
     virtual void display(std::vector<Item*> items, ItemOrder const* order) = 0;
 };
 
+//Implementation of ItemDisplayer
+//Responsible for displaying the items through the console
 struct ConsoleItemDisplayer : public ItemDisplayer {
     void display(std::vector<Item*> items, ItemOrder const* order) override;
 };
 
-//Filterer
+
+//Specification Design Pattern for filtering
+//Each speficification class will check if an item satisfies a credential for filtering
 struct ItemFilterSpecification {
     virtual bool is_satisfied(Item const* item) const = 0;
 };
 
+//Filter item based on their number of stock
 struct ItemNumStockFilterSpecification : public ItemFilterSpecification {
     int number_in_stock;
 
@@ -137,12 +184,14 @@ struct ItemNumStockFilterSpecification : public ItemFilterSpecification {
     bool is_satisfied(Item const* item) const override;
 };
 
+//Filter item based on their number of stock
 struct ItemIdFilterSpecification : public ItemFilterSpecification {
     std::string id;
 
     ItemIdFilterSpecification(std::string);
     bool is_satisfied(Item const* item) const override;
 };
+
 
 struct ItemTitleFilterSpecification : public ItemFilterSpecification {
     std::string title;
@@ -151,16 +200,22 @@ struct ItemTitleFilterSpecification : public ItemFilterSpecification {
     bool is_satisfied(Item const* item) const override;
 };
 
+//Filter base on no conditions -> Every item is satisfied
 struct ItemAllFilterSpecification : public ItemFilterSpecification {
     ItemAllFilterSpecification() = default;
     bool is_satisfied(Item const* item) const override;
 };
 
+//This class uses a spefication class (TitleSpec, StockSpec or all Spec)
+//to filter the list of items and include only those which satistfies the spec
 struct ItemFilterer {
     std::vector<Item*> filter(std::vector<Item*> const& items, ItemFilterSpecification const*);
 };
 
 //Aggregated class
+//Each attributes: repo, displayer, filterer and persistence
+//can be switched out and replaced by another implementation
+//to satisfy the Open-Closed principle
 class ItemService {
     ItemRepository* repository;
     ItemDisplayer* displayer;

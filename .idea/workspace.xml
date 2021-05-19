@@ -14,12 +14,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c0098f5-fcea-499c-9eae-b108e08e5b2c" name="Default Changelist" comment="validated customer rental number and items">
+    <list default="true" id="4c0098f5-fcea-499c-9eae-b108e08e5b2c" name="Default Changelist" comment="fix vector subscript out of range error, return true for menu modify item">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/CustomerRepository.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/CustomerRepository.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/CustomerRepository.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/CustomerRepository.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/CustomerHelpers.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/CustomerHelpers.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/CustomerHelpers.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/CustomerHelpers.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sources/Menu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/Menu.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textfiles/items.txt" beforeDir="false" afterPath="$PROJECT_DIR$/textfiles/items.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +54,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
@@ -64,9 +64,19 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="cpp_renting_console_app" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_renting_console_app" TARGET_NAME="cpp_renting_console_app" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_renting_console_app" RUN_TARGET_NAME="cpp_renting_console_app">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="cpp_renting_console_app" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_renting_console_app" TARGET_NAME="cpp_renting_console_app" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_renting_console_app" RUN_TARGET_NAME="cpp_renting_console_app">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -87,6 +97,8 @@
       <workItem from="1621323820557" duration="7639000" />
       <workItem from="1621335365595" duration="546000" />
       <workItem from="1621349229713" duration="1072000" />
+      <workItem from="1621408764829" duration="511000" />
+      <workItem from="1621415067423" duration="559000" />
     </task>
     <task id="LOCAL-00001" summary="updated Menu">
       <created>1621263814020</created>

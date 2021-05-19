@@ -16,8 +16,8 @@ public:
     bool display_main_menu();
     bool display_customer_menu();
     bool display_item_menu();
-    bool read_customer(Customer*& customer);
-    bool modify_customer(std::string id);
-    bool read_item(Item*& item);
-    bool modify_item(std::string id);
+    void read_customer(Customer*& customer);
+    void modify_customer(std::string id);
+    void read_item(Item*& item);
+    void modify_item(std::string id);
 };
