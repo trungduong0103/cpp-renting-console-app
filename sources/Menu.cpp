@@ -361,18 +361,29 @@ void Menu::read_customer(Customer*& customer){
     std::string address;
     std::string phone;
 
-    std::cout << "Input user ID:" << std::endl;
-    std::cin >> id;
-    std::cin.ignore();
+    while (true){
+        std::cout << "Input customer ID:" << std::endl;
+        std::cin >> id;
+        std::cin.ignore();
+        if (!customer_id_is_valid_menu(id)) {
+            std::cerr << "Invalid input." << std::endl;
+        }
+        else if (customer_service->get(id) != nullptr){
+            std::cerr << "Duplicated." << std::endl;
+        }
+        else {
+            break;
+        }
+    }
 
-    std::cout << "Input user name:" << std::endl;
+    std::cout << "Input customer name:" << std::endl;
     std::getline(std::cin, name);
 
-    std::cout << "Input user address:" << std::endl;
+    std::cout << "Input customer address:" << std::endl;
     std::getline(std::cin, address);
 
     while (true){
-        std::cout << "Input user phone:" << std::endl;
+        std::cout << "Input customer phone:" << std::endl;
         std::cin >> phone;
         if (!customer_phone_is_valid(phone)) {
             std::cerr << "Invalid input." << std::endl;
@@ -388,8 +399,6 @@ void Menu::read_customer(Customer*& customer){
     CustomerState* state = new GuestState;
 
     customer = new Customer(id, name, address, phone, number_of_rentals, items, state);
-
-    return true;
 }
 
 void Menu::modify_customer(std::string id){
@@ -398,17 +407,17 @@ void Menu::modify_customer(std::string id){
     std::string phone;
 
     std::cin.ignore();
-    std::cout << "Input user name:" << std::endl;
+    std::cout << "Input customer name:" << std::endl;
     std::getline(std::cin, name);
 
-    std::cout << "Input user address:" << std::endl;
+    std::cout << "Input customer address:" << std::endl;
     std::getline(std::cin, address);
 
     while (true){
-        std::cout << "Input user phone:" << std::endl;
+        std::cout << "Input customer phone:" << std::endl;
         std::cin >> phone;
         if (!customer_phone_is_valid(phone)) {
-            std::cerr << "Invalid input" << std::endl;
+            std::cerr << "Invalid input." << std::endl;
         }
         else {
             break;
@@ -420,7 +429,6 @@ void Menu::modify_customer(std::string id){
     customer_service->update(id, intent_address);
     PhoneModificationIntent intent_phone{phone};
     customer_service->update(id, intent_phone);
-    return true;
 }
 
 void Menu::read_item(Item*& item){
@@ -439,7 +447,7 @@ void Menu::read_item(Item*& item){
         std::cout << "3.DVD" << std::endl;
         std::cin >> type;
         if (type != "1" && type != "2" && type != "3") {
-            std::cerr << "Invalid input" << std::endl;
+            std::cerr << "Invalid input." << std::endl;
         }
         else {
             break;
@@ -453,7 +461,7 @@ void Menu::read_item(Item*& item){
             std::cerr << "Invalid input." << std::endl;
         }
         else if (item_service->get(id) != nullptr){
-            std::cerr << "Duplicate" << std::endl;
+            std::cerr << "Duplicated." << std::endl;
         }
         else {
             break;
@@ -470,7 +478,7 @@ void Menu::read_item(Item*& item){
         std::cin >> rental_type;
 
         if (rental_type != "1" && rental_type != "2") {
-            std::cerr << "Invalid input" << std::endl;
+            std::cerr << "Invalid input." << std::endl;
         }
         else {
             break;
@@ -483,7 +491,7 @@ void Menu::read_item(Item*& item){
         std::cout << "Input item number in stock:" << std::endl;
         std::cin >> stock;
         if (!item_stock_is_valid(stock)) {
-            std::cerr << "Invalid input" << std::endl;
+            std::cerr << "Invalid input." << std::endl;
         }
         else {
             break;
@@ -495,7 +503,7 @@ void Menu::read_item(Item*& item){
         std::cout << "Input item fee:" << std::endl;
         std::cin >> fee;
         if (!item_price_is_valid(fee)) {
-            std::cerr << "Invalid input" << std::endl;
+            std::cerr << "Invalid input." << std::endl;
         }
         else {
             break;
@@ -513,7 +521,7 @@ void Menu::read_item(Item*& item){
             std::cout << "4.Comedy" << std::endl;
             std::cin >> genre;
             if (genre != "1" && genre != "2" && genre != "3" &&genre != "4") {
-                std::cerr << "Invalid input" << std::endl;
+                std::cerr << "Invalid input." << std::endl;
             }
             else {
                 break;
@@ -554,7 +562,7 @@ void Menu::modify_item(std::string id){
         std::cin >> rental_type;
 
         if (rental_type != "1" && rental_type != "2") {
-            std::cerr << "Invalid input" << std::endl;
+            std::cerr << "Invalid input." << std::endl;
         }
         else {
             break;
@@ -567,7 +575,7 @@ void Menu::modify_item(std::string id){
         std::cout << "Input item number in stock:" << std::endl;
         std::cin >> stock;
         if (!item_stock_is_valid(stock)) {
-            std::cerr << "Invalid input" << std::endl;
+            std::cerr << "Invalid input." << std::endl;
         }
         else {
             break;
@@ -579,7 +587,7 @@ void Menu::modify_item(std::string id){
         std::cout << "Input item fee:" << std::endl;
         std::cin >> fee;
         if (!item_price_is_valid(fee)) {
-            std::cerr << "Invalid input" << std::endl;
+            std::cerr << "Invalid input." << std::endl;
         }
         else {
             break;
@@ -587,24 +595,6 @@ void Menu::modify_item(std::string id){
     }
     float fee_float = std::stof(fee);
 
-    int genre_int;
-//    if (type != "1"){
-//        while (true){
-//            std::cout << "Select genre:" << std::endl;
-//            std::cout << "1.Action" << std::endl;
-//            std::cout << "2.Horror" << std::endl;
-//            std::cout << "3.Drama" << std::endl;
-//            std::cout << "4.Comedy" << std::endl;
-//            std::cin >> genre;
-//            if (genre != "1" && genre != "2" && genre != "3" &&genre != "4") {
-//                std::cerr << "Invalid input" << std::endl;
-//            }
-//            else {
-//                break;
-//            }
-//        }
-//        genre_int = std::stoi(genre);
-//    }
     ItemTitleModificationIntent intent_title{title};
     item_service->update(id, intent_title);
     ItemRentalTypeModificationIntent intent_rental_type{Item::RentalType(rental_type_int - 1)};
