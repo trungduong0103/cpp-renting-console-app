@@ -85,7 +85,8 @@ bool customer_id_is_valid(const std::string &id, bool from_menu) {
 }
 
 bool customer_name_is_valid(const std::string &name) {
-    const std::string
+//    const std::string
+return false;
 }
 
 bool valid_customer_data(const std::string &line, const std::string &id) {
