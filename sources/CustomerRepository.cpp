@@ -223,7 +223,7 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
         std::cerr << "Cannot read file customers.txt" << std::endl;
         return {};
     }
-    std::cout << "Loading customers from customer.txt..." << std::endl;
+    std::cout << "[INFO] Loading customers from customer.txt..." << std::endl;
     unsigned int count = 1;
     unsigned int x = 0;
     std::vector<Customer *> mockCustomers;
@@ -231,9 +231,10 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
     std::vector<std::string> lines;
     std::vector<std::string> customer_vector;
     std::vector<std::string> rentals_vector;
+    std::string items_quantity_msg;
 
     while (getline(infile, line)) {
-        remove_whitespace(line);
+        remove_carriage_return(line);
         lines.push_back(line);
     }
 
@@ -244,7 +245,16 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
         } else if (lines[x][0] == 'C') {
             // customer and items have been loaded
             if (!customer_vector.empty()) {
-                std::cout << "Customer: " << customer_vector[0] << std::endl;
+                items_quantity_msg = rentals_vector.empty() ? " with no items" : " with item(s)";
+                if (std::stoi(customer_vector[4]) != rentals_vector.size()) {
+                    std::cout << "[LOG] Customer's number of rentals and actual items do not match! Will only store "
+                              << rentals_vector.size()
+                              << " item(s) after customer info."
+                              << std::endl;
+                    std::cout << "[LOG] Number of rentals: " << customer_vector[4] << std::endl;
+                    std::cout << "[LOG] Actual items: " << rentals_vector.size() << std::endl;
+                }
+                std::cout << "[INFO] Customer: " << customer_vector[0] << items_quantity_msg << std::endl;
                 for (const std::string &item : rentals_vector) {
                     std::cout << "+ " << item << ::std::endl;
                 }
@@ -253,7 +263,13 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
             customer_vector.clear();
             rentals_vector.clear();
             // change customer into a customer vector
-            if (correct_customer_info_length(lines[x])) customer_vector = get_customer_as_vector(lines[x]);
+            if (valid_customer_data(lines[x])) customer_vector = get_customer_as_vector(lines[x]);
+            else
+                std::cout << "Invalid customer info at line ["
+                          << x + 1
+                          << "]. Any dangling items or info that is not a customer info will be ignored."
+                          << std::endl;
+
         } else if (lines[x][0] == 'I') {
             if (item_id_is_valid(lines[x])) rentals_vector.push_back(lines[x]);
         }
@@ -265,7 +281,8 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
             }
         }
     }
-
+    std::cout << "[INFO] Done loading customers!" << std::endl;
+    infile.close();
     return {};
 }
 

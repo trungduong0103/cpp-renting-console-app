@@ -18,7 +18,7 @@ GenredItem::Genre string_to_genre(const std::string &string_genre);
 
 std::string genre_to_string(GenredItem::Genre genre);
 
-void remove_whitespace(std::string &string);
+void remove_carriage_return(std::string &string);
 
 bool correct_info_length(const std::string &line);
 

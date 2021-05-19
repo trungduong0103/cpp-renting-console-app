@@ -80,7 +80,7 @@ std::string genre_to_string(GenredItem::Genre genre) {
     }
 }
 
-void remove_whitespace(std::string &string) {
+void remove_carriage_return(std::string &string) {
     int index = 0;
     for (char i : string) {
         if (i == 13) {

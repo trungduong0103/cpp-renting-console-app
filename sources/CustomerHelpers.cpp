@@ -11,6 +11,7 @@ std::vector<std::string> get_customer_as_vector(const std::string &str) {
         pos = str.find(',', prev);
         if (pos == std::string::npos) pos = str.length();
         std::string token = str.substr(prev, pos - prev);
+        if (token[token.length() - 1] == 32) token.erase(token.length() - 1, 1);
         if (!token.empty()) tokens.push_back(token);
         prev = pos + 1;
     } while (pos < str.length() && prev < str.length());
@@ -57,12 +58,12 @@ bool customer_id_number_is_not_numeric(const std::string &id_number) {
 bool customer_id_is_valid(const std::string &id, bool from_menu) {
     // format: Cxxx
     std::vector<std::string> id_pool;
-    std::string default_error = "Customer ID is incorrect format ";
+    std::string default_error = "[ERROR] Customer ID is incorrect format ";
     std::string custom_text = from_menu ? "" : ", received: " + id;
 
     // id length of item must be 4
     if (id.length() != 4) {
-        std::cerr << default_error << "(wrong length)" << custom_text << std::endl;
+        std::cout << default_error << "(wrong length)" << custom_text << std::endl;
         return false;
     }
 
@@ -71,13 +72,13 @@ bool customer_id_is_valid(const std::string &id, bool from_menu) {
 
     // first letter must be "C".
     if (first_letter != 'C') {
-        std::cerr << default_error << "(must begin with 'C')!" << std::endl;
+        std::cout << default_error << "(must begin with 'C')!" << std::endl;
         return false;
     }
 
     // ‘xxx’ is a unique code of 3 digits (e.g. 123)
     if (customer_id_number_is_not_numeric(id_number)) {
-        std::cerr << default_error << "(ID number in Item ID must be numerics)!" << std::endl;
+        std::cout << default_error << "(ID number in Item ID must be numerics)!" << std::endl;
         return false;
     }
 
@@ -85,15 +86,50 @@ bool customer_id_is_valid(const std::string &id, bool from_menu) {
 }
 
 bool customer_name_is_valid(const std::string &name) {
-//    const std::string
-return false;
+    if (name.length() < 4) {
+        std::cout << "[LOG] Customer name must have at least 4 characters." << std::endl;
+        return false;
+    }
+    for (char c : name) {
+        if (!std::isalnum(c) && c != 32) {
+            std::cout << "[LOG] Customer name must not have special characters/digits, received " << name << std::endl;
+            return false;
+        }
+    }
+    return true;
 }
 
-bool valid_customer_data(const std::string &line, const std::string &id) {
+bool customer_address_is_valid(const std::string &address) {
+    if (address.length() < 6) {
+        std::cout << "[LOG] Customer address must have at least 6 characters." << std::endl;
+        return false;
+    }
+    for (char c : address) {
+        if (!std::isalnum(c) && c != 32) {
+            std::cout << "[LOG] Customer address must not have special characters/digits, received: " << address
+                      << std::endl;
+            return false;
+        }
+    }
+    return true;
+}
+
+bool customer_type_is_valid(const std::string &type) {
+    if (type != "Guest" && type != "Regular" && type != "VIP") {
+        std::cout << "Customer must be either Guest, Regular, or VIP, received: " << type << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool valid_customer_data(const std::string &line) {
     if (!correct_customer_info_length(line)) {
         return false;
     }
     const std::vector<std::string> customer_vector = get_customer_as_vector(line);
-
-    return true;
+    return customer_id_is_valid(customer_vector[0], false) &&
+           customer_name_is_valid(customer_vector[1]) &&
+           customer_address_is_valid(customer_vector[2]) &&
+           customer_type_is_valid(customer_vector[5]);
 }

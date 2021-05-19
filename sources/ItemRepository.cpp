@@ -128,11 +128,11 @@ std::vector<std::string> get_item_as_vector(std::string &line) {
         if (token.empty()) {
             return {};
         }
-        remove_whitespace(token);
+        remove_carriage_return(token);
         item_as_vector.push_back(token);
         line.erase(0, pos + delimiter.length());
     }
-    remove_whitespace(line);
+    remove_carriage_return(line);
     item_as_vector.push_back(line.substr(0, line.length()));
     return item_as_vector;
 }
@@ -145,19 +145,19 @@ std::vector<Item *> TextFileItemPersistence::load() {
         std::cerr << "Cannot read file items.txt..." << std::endl;
         return {};
     }
-    std::cout << "Loading items from items.txt..." << std::endl;
+    std::cout << "[INFO] Loading items from items.txt..." << std::endl;
     unsigned int count = 1;
     std::vector<Item *> mockItems;
     std::string line;
-    const std::string default_ignore = "Ignoring line ";
+    const std::string default_ignore = "[LOG] Ignoring line ";
     while (std::getline(infile, line)) {
-        std::cout << "LINE " << "[" << count << "]: " << line << std::endl;
+        std::cout << "[LOG] LINE " << "[" << count << "]: " << line << std::endl;
         if (line[0] == '#') {
             std::cout << default_ignore << count << " (has # in the beginning)" << std::endl;
         } else if (line.empty()) {
             std::cout << default_ignore << count << " (line is empty)." << std::endl;
         } else if (!correct_info_length(line)) {
-            std::cout << "Ignoring line " << count << " (line can only have 5-6 commas)." << std::endl;
+            std::cout << default_ignore << count << " (line can only have 5-6 commas)." << std::endl;
         } else {
             std::vector<std::string> item_vector = get_item_as_vector(line);
             if (item_vector.empty()) {
@@ -173,7 +173,7 @@ std::vector<Item *> TextFileItemPersistence::load() {
                         item_vector[4],
                         item_vector[5]
                 )) {
-                    std::cout << "Line is OK" << std::endl;
+                    std::cout << "[LOG] Item is OK" << std::endl;
                     // 6 means video game
                     if (item_vector.size() == 6) {
                         Item *game = new Game(
@@ -221,6 +221,7 @@ std::vector<Item *> TextFileItemPersistence::load() {
         }
         count++;
     }
+    std::cout << "[INFO] Done loading items!" << std::endl;
     infile.close();
     return mockItems;
 }
