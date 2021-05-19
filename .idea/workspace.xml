@@ -15,8 +15,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c0098f5-fcea-499c-9eae-b108e08e5b2c" name="Default Changelist" comment="validated customer rental number and items">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/ItemRepository.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/ItemRepository.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/CustomerRepository.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/CustomerRepository.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +83,7 @@
       <workItem from="1621323820557" duration="7639000" />
       <workItem from="1621335365595" duration="546000" />
       <workItem from="1621349229713" duration="1072000" />
-      <workItem from="1621408764829" duration="418000" />
+      <workItem from="1621408764829" duration="511000" />
     </task>
     <task id="LOCAL-00001" summary="updated Menu">
       <created>1621263814020</created>
