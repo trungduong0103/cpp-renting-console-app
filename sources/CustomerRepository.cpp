@@ -280,19 +280,20 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
             // after the loop to get all items that are rented by a Customer, the next line should
             // begin with C, for Customer
             // but it will not be added to the rentals_vector array
-            if (lines[x + y + 1][0] != 'C' && !lines[x + y + 1].empty()) {
-                std::cout << "More items than num of rentals in customer info "
-                          << "(" << customer_vector[0]
-                          << "): "
-                          << lines[x + y + 1]
-                          << std::endl;
+            if (x+y+1 < count) {
+                if (lines[x + y + 1][0] != 'C' && !lines[x + y + 1].empty()) {
+                    std::cout << "More items than num of rentals in customer info " << "(" << customer_vector[0] << "): "
+                              << lines[x + y + 1] << std::endl;
+                }
             }
+
             customer_vector.clear();
             rentals_vector.clear();
         }
-
         count++;
     }
+
+    std::cout << "LINES COUNT: " << count << std::endl;
 
 
     return {};

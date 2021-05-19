@@ -608,5 +608,8 @@ bool Menu::modify_item(std::string id){
     item_service->update(id, intent_rental_type);
     ItemFeeModificationIntent intent_fee{fee_float};
     item_service->update(id, intent_fee);
+
+    // TODO: Fix this ??
+    return true;
 };
 
