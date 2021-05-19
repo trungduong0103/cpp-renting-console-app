@@ -217,33 +217,18 @@ void CustomerService::filter(FilterSpecification const *spec) {
     displayer->display(filtered, &order);
 }
 
-std::vector<std::string> split(const std::string &str, const std::string &delim) {
-    std::vector<std::string> tokens;
-    size_t prev = 0, pos = 0;
-    do {
-        pos = str.find(delim, prev);
-        if (pos == std::string::npos) pos = str.length();
-        std::string token = str.substr(prev, pos - prev);
-        if (!token.empty()) tokens.push_back(token);
-        prev = pos + delim.length();
-    } while (pos < str.length() && prev < str.length());
-    return tokens;
-}
-
 std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> items) {
     std::ifstream infile("../textfiles/customers.txt");
     if (!infile) {
         std::cerr << "Cannot read file customers.txt" << std::endl;
         return {};
     }
-
+    std::cout << "Loading customers from customer.txt..." << std::endl;
     unsigned int count = 1;
     unsigned int num_rentals = 0;
     unsigned int x, y = 0;
     std::vector<Customer *> mockCustomers;
-    std::vector<std::string> rentals;
     std::string line;
-    const std::string default_ignore = "Ignoring line ";
     std::vector<std::string> lines;
     std::vector<std::string> customer_vector;
     std::vector<std::string> rentals_vector;
@@ -253,8 +238,19 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
     }
 
     for (x = 0; x < lines.size(); x++) {
-        if (lines[x][0] == 'C') {
-            customer_vector = split(lines[x], ",");
+        // search file until C is reached, ignore the rest of data
+        if (lines[x][0] == '#') {
+            std::cout << "Ignoring line " << count << " (starts with #): " << lines[x] << std::endl;
+        } else if (lines[x][0] == 'C') {
+            if (lines[x].empty()) {
+
+            }
+            if (!correct_customer_info_length(lines[x])) {
+                std::cout << "Ignoring line " << count << " (line can only have 5 commas)." << std::endl;
+                continue;
+            }
+            customer_vector = get_customer_as_vector(lines[x], ",");
+
             num_rentals = std::stoi(customer_vector[4]);
             // 2 cases for invalid data:
             // number of rental in customer info is smaller than the items
@@ -262,17 +258,22 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
             for (y = 0; y < num_rentals; y++) {
                 // all of the lines following the Customer info must begin with I, for Item id
                 if (lines[x + y + 1][0] != 'I') {
-                    std::cout << "Invalid rental data for " << customer_vector[0] << ": " << lines[x + y + 1]
+                    std::cout << "Invalid rental data for "
+                              << customer_vector[0] << ": "
+                              << lines[x + y + 1]
                               << std::endl;
                     x++;
                 } else {
                     rentals_vector.push_back(lines[x + y + 1]);
                 }
             }
-            std::cout << "---Customer: " << customer_vector[0] << ", rentals size (adjusted if error): "
-                      << rentals_vector.size();
 
+            std::cout << "--- Customer: "
+                      << customer_vector[0]
+                      << ", rentals size (adjusted if error): "
+                      << rentals_vector.size();
             std::cout << ", with items: " << std::endl;
+
             for (const std::string &rental : rentals_vector) {
                 std::cout << "+ Item: " << rental << std::endl;
             }
@@ -280,12 +281,17 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
             // begin with C, for Customer
             // but it will not be added to the rentals_vector array
             if (lines[x + y + 1][0] != 'C' && !lines[x + y + 1].empty()) {
-                std::cout << "More items than num of rentals in customer info " << "(" << customer_vector[0] << "): "
-                          << lines[x + y + 1] << std::endl;
+                std::cout << "More items than num of rentals in customer info "
+                          << "(" << customer_vector[0]
+                          << "): "
+                          << lines[x + y + 1]
+                          << std::endl;
             }
             customer_vector.clear();
             rentals_vector.clear();
         }
+
+        count++;
     }
 
 
