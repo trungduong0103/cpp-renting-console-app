@@ -304,6 +304,7 @@ bool Menu::display_item_menu(){
         case 6:{
             ItemNoOrder no_order;
             item_service->display(&no_order);
+            std::cout << std::endl;
         }
             break;
         case 7:{

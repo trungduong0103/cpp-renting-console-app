@@ -16,9 +16,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4c0098f5-fcea-499c-9eae-b108e08e5b2c" name="Default Changelist" comment="fix vector subscript out of range error, return true for menu modify item">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/CustomerHelpers.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/CustomerHelpers.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/CustomerHelpers.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/CustomerHelpers.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sources/Menu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/Menu.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
