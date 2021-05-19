@@ -225,76 +225,72 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
     }
     std::cout << "Loading customers from customer.txt..." << std::endl;
     unsigned int count = 1;
-    unsigned int num_rentals = 0;
-    unsigned int x, y = 0;
+    unsigned int x = 0;
     std::vector<Customer *> mockCustomers;
     std::string line;
     std::vector<std::string> lines;
     std::vector<std::string> customer_vector;
     std::vector<std::string> rentals_vector;
 
+//    while (getline(infile, line)) {
+//        if (!line.empty() && line[0] != 13) {
+//            remove_whitespace(line);
+//            lines.push_back(line);
+//        }
+//    }
+
     while (getline(infile, line)) {
-        lines.push_back(line);
-    }
-
-    for (x = 0; x < lines.size(); x++) {
-        // search file until C is reached, ignore the rest of data
-        if (lines[x][0] == '#') {
-            std::cout << "Ignoring line " << count << " (starts with #): " << lines[x] << std::endl;
-        } else if (lines[x][0] == 'C') {
-            if (lines[x].empty()) {
-
-            }
-            if (!correct_customer_info_length(lines[x])) {
-                std::cout << "Ignoring line " << count << " (line can only have 5 commas)." << std::endl;
-                continue;
-            }
-            customer_vector = get_customer_as_vector(lines[x], ",");
-
-            num_rentals = std::stoi(customer_vector[4]);
-            // 2 cases for invalid data:
-            // number of rental in customer info is smaller than the items
-            // number of rental in customer info is bigger than the items
-            for (y = 0; y < num_rentals; y++) {
-                // all of the lines following the Customer info must begin with I, for Item id
-                if (lines[x + y + 1][0] != 'I') {
-                    std::cout << "Invalid rental data for "
-                              << customer_vector[0] << ": "
-                              << lines[x + y + 1]
-                              << std::endl;
-                    x++;
-                } else {
-                    rentals_vector.push_back(lines[x + y + 1]);
+        if (line[0] == '#') {
+            std::cout << "no" << std::endl;
+        } else if (line.empty() || line[0] == 13) {
+            std::cout << "also no" << std::endl;
+        } else if (line[0] == 'C') {
+            if (!customer_vector.empty()) {
+                // TODO: validate customer and items
+                std::cout << "Customer: " << customer_vector[0] << std::endl;
+                for (const std::string &item : rentals_vector) {
+                    std::cout << "+ " << item << ::std::endl;
                 }
-            }
 
-            std::cout << "--- Customer: "
-                      << customer_vector[0]
-                      << ", rentals size (adjusted if error): "
-                      << rentals_vector.size();
-            std::cout << ", with items: " << std::endl;
-
-            for (const std::string &rental : rentals_vector) {
-                std::cout << "+ Item: " << rental << std::endl;
+                // clear for new customer
+                customer_vector.clear();
+                rentals_vector.clear();
             }
-            // after the loop to get all items that are rented by a Customer, the next line should
-            // begin with C, for Customer
-            // but it will not be added to the rentals_vector array
-            if (x+y+1 < count) {
-                if (lines[x + y + 1][0] != 'C' && !lines[x + y + 1].empty()) {
-                    std::cout << "More items than num of rentals in customer info " << "(" << customer_vector[0] << "): "
-                              << lines[x + y + 1] << std::endl;
-                }
-            }
-
-            customer_vector.clear();
-            rentals_vector.clear();
+            // TODO: validate customer
+            customer_vector = get_customer_as_vector(line, ",");
+        } else if (line[0] == 'I') {
+            // TODO: validate customer items
+            // only allow IDs with valid format
+            if (item_id_is_valid(line, {}, true)) rentals_vector.push_back(line);
         }
-        count++;
     }
 
-    std::cout << "LINES COUNT: " << count << std::endl;
-
+//    for (x = 0; x < lines.size(); x++) {
+//        // search file until C is reached, ignore the rest of data
+//        if (lines[x][0] == '#') {
+//            std::cout << "[LOG] Ignoring line " << count << " (starts with #): " << lines[x] << std::endl;
+//        } else if (lines[x][0] == 'C') {
+//            // customer and items have been loaded
+//            if (!customer_vector.empty()) {
+//                std::cout << "Customer: " << customer_vector[0] << std::endl;
+//                for (const std::string& item : rentals_vector) {
+//                    std::cout << "+ " << item << ::std::endl;
+//                }
+//            }
+//            customer_vector.clear();
+//            rentals_vector.clear();
+//            if (!correct_customer_info_length(lines[x])) {
+//                std::cout << "[LOG] Ignoring line " << count << " (line can only have 5 commas)." << std::endl;
+//                continue;
+//            }
+//
+//
+//        } else if (lines[x][0] == 'I') {
+//            rentals_vector.push_back(lines[x]);
+//        }
+//
+//        count++;
+//    }
 
     return {};
 }

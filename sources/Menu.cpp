@@ -446,7 +446,7 @@ bool Menu::read_item(Item*& item){
         std::cout << "Input item ID:" << std::endl;
         std::cin >> id;
         std::cin.ignore();
-        if (!item_id_is_valid(id)) {
+        if (!item_id_is_valid(id, {}, true)) {
             std::cerr << "Invalid input." << std::endl;
         }
         else if (item_service->get(id) != nullptr){
@@ -611,5 +611,4 @@ bool Menu::modify_item(std::string id){
 
     // TODO: Fix this ??
     return true;
-};
-
+}

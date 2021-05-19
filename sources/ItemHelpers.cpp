@@ -11,7 +11,7 @@ Item::RentalType string_to_rental_type(const std::string &string_rental_type) {
         return Item::RentalType::OneWeek;
     }
 
-    std::cerr << "Must only be 2-day or 1-week" << std::endl;
+    std::cout << "Must only be 2-day or 1-week" << std::endl;
     return Item::RentalType::TwoDay;
 }
 
@@ -33,7 +33,7 @@ Item::RentalStatus string_to_rental_status(const std::string &string_rental_stat
         return Item::RentalStatus::Borrowed;
     }
 
-    std::cerr << "Must only be available or borrowed!" << std::endl;
+    std::cout << "Must only be available or borrowed!" << std::endl;
     return Item::RentalStatus::Borrowed;
 }
 
@@ -58,7 +58,7 @@ GenredItem::Genre string_to_genre(const std::string &string_genre) {
     } else if (string_genre == "Horror") {
         return GenredItem::Genre::Horror;
     } else {
-        std::cerr << "Genre must either be 'Action', 'Comedy', 'Drama', or 'Horror'! Received: "
+        std::cout << "Genre must either be 'Action', 'Comedy', 'Drama', or 'Horror'! Received: "
                   << string_genre
                   << std::endl;
         return GenredItem::Genre::Action;
@@ -103,20 +103,22 @@ bool id_number_is_not_numeric(const std::string &id_number) {
     return id_number.find_first_not_of(numerics) != std::string::npos;
 }
 
-bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItems) {
+bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItems, bool format_only) {
     // format: Ixxx-yyyy
     std::vector<std::string> id_pool;
-    std::string default_error = "Item ID is incorrect format ";
+    std::string default_error = "[ERROR] Item ID is incorrect format ";
     // id must be unique
-    for (Item *item : mockItems) {
-        if (item != nullptr && item->get_id() == id) {
-            std::cerr << default_error << "(already exists)!" << std::endl;
-            return false;
+    if (!format_only) {
+        for (Item *item : mockItems) {
+            if (item != nullptr && item->get_id() == id) {
+                std::cout << default_error << "(already exists)!" << std::endl;
+                return false;
+            }
         }
     }
     // id length of item must be 9
     if (id.length() != 9) {
-        std::cerr << default_error << "(wrong length)!" << std::endl;
+        std::cout << default_error << "(wrong length)!" << std::endl;
         return false;
     }
 
@@ -127,19 +129,19 @@ bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItem
 
     // first letter must be "I" (‘I’ is the capital letter I).
     if (first_letter != 'I') {
-        std::cerr << default_error << "(must begin with 'I')!" << std::endl;
+        std::cout << default_error << "(must begin with 'I')!" << std::endl;
         return false;
     }
 
     // ‘xxx’ is a unique code of 3 digits (e.g. 123)
     if (id_number_is_not_numeric(id_number)) {
-        std::cerr << default_error << "(ID number in Item ID must be numerics)!" << std::endl;
+        std::cout << default_error << "(ID number in Item ID must be numerics)!" << std::endl;
         return false;
     }
 
     // ‘-‘ is a single hyphen character
     if (hyphen != '-') {
-        std::cerr << default_error << "(hyphen is missing)!" << std::endl;
+        std::cout << default_error << "(hyphen is missing)!" << std::endl;
         return false;
     }
 
@@ -149,63 +151,11 @@ bool item_id_is_valid(const std::string &id, const std::vector<Item *> &mockItem
     try {
         const unsigned int int_year = std::stoi(year, nullptr, 10);
         if (int_year < MIN_YEAR || int_year > MAX_YEAR) {
-            std::cerr << default_error << "(year must be between 1888 and 2021)!" << std::endl;
+            std::cout << default_error << "(year must be between 1888 and 2021)!" << std::endl;
             return false;
         }
     } catch (const std::invalid_argument &e) {
-        std::cerr << default_error << "(year is in invalid format)!" << std::endl;
-        return false;
-    }
-
-    return true;
-}
-
-
-bool item_id_is_valid(const std::string &id) {
-    // format: Ixxx-yyyy
-    std::vector<std::string> id_pool;
-    std::string default_error = "Item ID is incorrect format ";
-
-    // id length of item must be 9
-    if (id.length() != 9) {
-        std::cerr << default_error << "(wrong length)!" << std::endl;
-        return false;
-    }
-
-    char first_letter = id[0];
-    const std::string id_number = id.substr(1, 3);
-    char hyphen = id[4];
-    const std::string year = id.substr(5, 4);
-
-    // first letter must be "I" (‘I’ is the capital letter I).
-    if (first_letter != 'I') {
-        std::cerr << default_error << "(must begin with 'I')!" << std::endl;
-        return false;
-    }
-
-    // ‘xxx’ is a unique code of 3 digits (e.g. 123)
-    if (id_number_is_not_numeric(id_number)) {
-        std::cerr << default_error << "(ID number in Item ID must be numerics)!" << std::endl;
-        return false;
-    }
-
-    // ‘-‘ is a single hyphen character
-    if (hyphen != '-') {
-        std::cerr << default_error << "(hyphen is missing)!" << std::endl;
-        return false;
-    }
-
-    // `yyyy` is the year the item was published (e.g. 1980)
-    // first year ever made was in 1888, current year is 2021
-    const unsigned int MAX_YEAR = 2021, MIN_YEAR = 1888;
-    try {
-        const unsigned int int_year = std::stoi(year, nullptr, 10);
-        if (int_year < MIN_YEAR || int_year > MAX_YEAR) {
-            std::cerr << default_error << "(year must be between 1888 and 2021)!" << std::endl;
-            return false;
-        }
-    } catch (const std::invalid_argument &e) {
-        std::cerr << default_error << "(year is in invalid format)!" << std::endl;
+        std::cout << default_error << "(year is in invalid format)!" << std::endl;
         return false;
     }
 
@@ -217,7 +167,7 @@ bool item_type_and_genre_is_valid(
         const std::string &genre,
         std::vector<std::string>::size_type item_info_length
 ) {
-    const std::string &default_error = "Item Type/Genre is in invalid ";
+    const std::string &default_error = "[ERROR] Item Type/Genre is in invalid ";
     const std::vector<std::string> allowed_games = {"Game", "game"};
     const std::vector<std::string> allowed_videos_dvds = {"Record", "record", "DVD", "dvd"};
     const std::vector<std::string> allowed_genres = {
@@ -263,7 +213,7 @@ bool item_type_and_genre_is_valid(
 
         return true;
     } else {
-        std::cerr << default_error << "(item info length is invalid)!" << std::endl;
+        std::cout << default_error << "(item info length is invalid)!" << std::endl;
         return false;
     }
 
@@ -271,7 +221,7 @@ bool item_type_and_genre_is_valid(
 
 bool item_loan_type_is_valid(const std::string &loan_type) {
     if (loan_type != "1-week" && loan_type != "2-day") {
-        std::cerr << "Item loan type is invalid, received: " << loan_type << std::endl;
+        std::cout << "Item loan type is invalid, received: " << loan_type << std::endl;
         return false;
     }
     return true;
@@ -287,20 +237,20 @@ bool is_not_numeric(const std::string &str) {
 }
 
 bool item_stock_is_valid(const std::string &stock) {
-    const std::string default_error = "Item stock is invalid";
+    const std::string default_error = "[ERROR] Item stock is invalid";
     try {
         if (is_not_numeric(stock)) {
-            std::cerr << default_error << ", received: " << stock << std::endl;
+            std::cout << default_error << ", received: " << stock << std::endl;
             return false;
         }
         const int int_stock = std::stoi(stock, nullptr, 10);
         if (int_stock < 0) {
-            std::cerr << default_error << ", stock must be bigger than 0, received: " << stock << std::endl;
+            std::cout << default_error << ", stock must be bigger than 0, received: " << stock << std::endl;
             return false;
         }
         return true;
     } catch (std::invalid_argument &e) {
-        std::cerr << default_error << ", received: " << stock << std::endl;
+        std::cout << default_error << ", received: " << stock << std::endl;
         return false;
     }
 }
@@ -310,20 +260,20 @@ bool has_more_than_one_decimal(const std::string &price) {
 }
 
 bool item_price_is_valid(const std::string &price) {
-    const std::string default_error = "Item price is invalid";
+    const std::string default_error = "[ERROR] Item price is invalid";
     try {
         if (has_more_than_one_decimal(price) || is_not_numeric(price)) {
-            std::cerr << default_error << ", received: " << price << std::endl;
+            std::cout << default_error << ", received: " << price << std::endl;
             return false;
         }
         const float float_price = std::stof(price);
         if (float_price < 0) {
-            std::cerr << default_error << ", price must be greater than 0, received: " << float_price << std::endl;
+            std::cout << default_error << ", price must be greater than 0, received: " << float_price << std::endl;
             return false;
         }
         return true;
     } catch (std::invalid_argument &e) {
-        std::cerr << default_error << ", received: " << price << std::endl;
+        std::cout << default_error << ", received: " << price << std::endl;
         return false;
     }
 }
@@ -338,9 +288,15 @@ bool valid_item_data(
         const std::string &stock,
         const std::string &price
 ) {
-    return item_id_is_valid(id, mockItems)
+    return item_id_is_valid(id, mockItems, false)
            && item_type_and_genre_is_valid(type, genre, item_info_length)
            && item_loan_type_is_valid(loan_type)
            && item_stock_is_valid(stock)
            && item_price_is_valid(price);
 }
+
+//bool item_exists_with_id(const std::string &id, std::vector<Item *> items) {
+//    const int count = std::count(items.begin(), items.end(), id);
+//    std::cout << count << std::endl;
+//    return true;
+//}
