@@ -47,4 +47,6 @@ bool valid_item_data(
         const std::string &price
 );
 
-//bool item_exists_with_id(const std::string &id, const std::vector<Item *> &items);
+Item * get_item_with_id(const std::vector<Item *> &items, const std::string &id);
+
+bool item_exists_with_id(std::vector<Item *> &items, const std::string &id);

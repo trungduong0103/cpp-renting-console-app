@@ -295,8 +295,21 @@ bool valid_item_data(
            && item_price_is_valid(price);
 }
 
-//bool item_exists_with_id(const std::string &id, std::vector<Item *> items) {
-//    const int count = std::count(items.begin(), items.end(), id);
-//    std::cout << count << std::endl;
-//    return true;
-//}
+Item * get_item_with_id(const std::vector<Item *> &items, const std::string &id) {
+    for (Item *item : items) {
+        if (item->get_id() == id) {
+            return item;
+        }
+    }
+
+    return nullptr;
+}
+
+bool item_exists_with_id(std::vector<Item *> &items, const std::string &id) {
+    for (Item *item : items) {
+        if (item->get_id() == id) {
+            return true;
+        }
+    }
+    return false;
+}

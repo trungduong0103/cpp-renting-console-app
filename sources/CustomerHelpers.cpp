@@ -21,7 +21,7 @@ std::vector<std::string> get_customer_as_vector(const std::string &str) {
 bool correct_customer_info_length(const std::string &line) {
     const unsigned int comma_count = std::count(line.begin(), line.end(), ',');
     if (comma_count != 5) {
-        std::cout << "[LOG] Customer info must have 5 commas, received: " << line << std::endl;
+        std::cout << "[ERROR] Customer info must have 5 commas, received: " << line << std::endl;
         return false;
     }
     return true;
@@ -87,12 +87,12 @@ bool customer_id_is_valid(const std::string &id, bool from_menu) {
 
 bool customer_name_is_valid(const std::string &name) {
     if (name.length() < 4) {
-        std::cout << "[LOG] Customer name must have at least 4 characters." << std::endl;
+        std::cout << "[ERROR] Customer name must have at least 4 characters." << std::endl;
         return false;
     }
     for (char c : name) {
         if (!std::isalnum(c) && c != 32) {
-            std::cout << "[LOG] Customer name must not have special characters/digits, received " << name << std::endl;
+            std::cout << "[ERROR] Customer name must not have special characters/digits, received " << name << std::endl;
             return false;
         }
     }
@@ -101,12 +101,12 @@ bool customer_name_is_valid(const std::string &name) {
 
 bool customer_address_is_valid(const std::string &address) {
     if (address.length() < 6) {
-        std::cout << "[LOG] Customer address must have at least 6 characters." << std::endl;
+        std::cout << "[ERROR] Customer address must have at least 6 characters." << std::endl;
         return false;
     }
     for (char c : address) {
         if (!std::isalnum(c) && c != 32) {
-            std::cout << "[LOG] Customer address must not have special characters/digits, received: " << address
+            std::cout << "[ERROR] Customer address must not have special characters/digits, received: " << address
                       << std::endl;
             return false;
         }

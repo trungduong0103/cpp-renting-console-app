@@ -217,6 +217,11 @@ void CustomerService::filter(FilterSpecification const *spec) {
     displayer->display(filtered, &order);
 }
 
+template<typename Base, typename T>
+inline bool instanceof(const T *) {
+    return std::is_base_of<Base, T>::value;
+}
+
 std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> items) {
     std::ifstream infile("../textfiles/customers.txt");
     if (!infile) {
@@ -246,14 +251,43 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
             // customer and items have been loaded
             if (!customer_vector.empty()) {
                 items_quantity_msg = rentals_vector.empty() ? " with no items" : " with item(s)";
-                if (std::stoi(customer_vector[4]) != rentals_vector.size()) {
-                    std::cout << "[LOG] Customer's number of rentals and actual items do not match! Will only store "
-                              << rentals_vector.size()
-                              << " item(s) after customer info."
-                              << std::endl;
+                // TODO: CHECK GUEST MAX VIDEO RENTAL NUM !!! (and negative rental num)
+                // may be duplicate item too ? idk
+//                if (customer_vector[5] == "Guest") {
+//                    for (const std::string &item_id : rentals_vector) {
+//                        Item *item = get_item_with_id(items, item_id);
+//                        std::cout << item->to_string_console() << std::endl;
+//                        if (instanceof<VideoRecord>(item)) {
+//                            std::cout << "Video!" << std::endl;
+//                        }
+//                    }
+//                }
+
+                if (std::stoi(customer_vector[4]) < rentals_vector.size()) {
+                    std::cout
+                            << "[ERROR] "
+                            << customer_vector[0]
+                            << "'s number of rentals is smaller than actual items after customer info!"
+                            << std::endl;
+                    std::cout << "[LOG] Number of rentals: " << customer_vector[4] << std::endl;
+                    std::cout << "[LOG] Actual items: " << rentals_vector.size() << std::endl;
+                    unsigned int difference = rentals_vector.size() - std::stoi(customer_vector[4]), i = 0;
+                    for (; i < difference; i++) {
+                        rentals_vector.pop_back();
+                    }
+                    std::cout << "[LOG] Will only store " << rentals_vector.size() << " item(s): " << std::endl;
+                    for (const std::string &item : rentals_vector) {
+                        std::cout << "+ " << item << ::std::endl;
+                    }
+                } else if (std::stoi(customer_vector[4]) > rentals_vector.size()) {
+                    std::cout
+                            << "[ERROR] Customer's number of rentals is bigger than actual items after customer info! "
+                            << rentals_vector.size()
+                            << std::endl;
                     std::cout << "[LOG] Number of rentals: " << customer_vector[4] << std::endl;
                     std::cout << "[LOG] Actual items: " << rentals_vector.size() << std::endl;
                 }
+
                 std::cout << "[INFO] Customer: " << customer_vector[0] << items_quantity_msg << std::endl;
                 for (const std::string &item : rentals_vector) {
                     std::cout << "+ " << item << ::std::endl;
@@ -265,7 +299,7 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
             // change customer into a customer vector
             if (valid_customer_data(lines[x])) customer_vector = get_customer_as_vector(lines[x]);
             else
-                std::cout << "Invalid customer info at line ["
+                std::cout << "[ERROR] Invalid customer info at line ["
                           << x + 1
                           << "]. Any dangling items or info that is not a customer info will be ignored."
                           << std::endl;
@@ -275,7 +309,32 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
         }
 
         if (!customer_vector.empty() && x == lines.size() - 1) {
-            std::cout << "Customer: " << customer_vector[0] << std::endl;
+            items_quantity_msg = rentals_vector.empty() ? " with no items" : " with item(s)";
+            if (std::stoi(customer_vector[4]) < rentals_vector.size()) {
+                std::cout
+                        << "[ERROR] "
+                        << customer_vector[0]
+                        << "'s number of rentals is smaller than actual items after customer info!"
+                        << std::endl;
+                std::cout << "[LOG] Number of rentals: " << customer_vector[4] << std::endl;
+                std::cout << "[LOG] Actual items: " << rentals_vector.size() << std::endl;
+                unsigned int difference = rentals_vector.size() - std::stoi(customer_vector[4]), i = 0;
+                for (; i < difference; i++) {
+                    rentals_vector.pop_back();
+                }
+                std::cout << "[LOG] Will only store " << rentals_vector.size() << " item(s): " << std::endl;
+                for (const std::string &item : rentals_vector) {
+                    std::cout << "+ " << item << ::std::endl;
+                }
+            } else if (std::stoi(customer_vector[4]) > rentals_vector.size()) {
+                std::cout
+                        << "[ERROR] Customer's number of rentals is bigger than actual items after customer info! "
+                        << std::endl;
+                std::cout << "[LOG] Number of rentals: " << customer_vector[4] << std::endl;
+                std::cout << "[LOG] Actual items: " << rentals_vector.size() << std::endl;
+            }
+
+            std::cout << "[INFO] Customer: " << customer_vector[0] << items_quantity_msg << std::endl;
             for (const std::string &item : rentals_vector) {
                 std::cout << "+ " << item << ::std::endl;
             }
