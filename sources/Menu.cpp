@@ -113,7 +113,6 @@ bool Menu::display_customer_menu(){
         case 1: {
             Customer* customer = nullptr;
             read_customer(customer);
-            std::cout << "Add customer successful. \n" << std::endl;
             customer_service->add(customer);
             std::cout << "Invalid input. \n" << std::endl;
         }
@@ -125,7 +124,6 @@ bool Menu::display_customer_menu(){
 
             if (customer_service->get(id) != nullptr){
                 modify_customer(id);
-                std::cerr << "Modify customer successful. \n" << std::endl;
             }
             else{
                 std::cerr << "Customer is not exist. \n" << std::endl;
@@ -249,7 +247,6 @@ bool Menu::display_item_menu(){
             Item* item = nullptr;
             read_item(item);
             item_service->add(item);
-            std::cout << "Added item successful.\n" << std::endl;
         }
             break;
         case 2:{
@@ -260,7 +257,6 @@ bool Menu::display_item_menu(){
 
             if (item_service->get(id) != nullptr) {
                 modify_item(id);
-                std::cout << "Updated item successfully.\n" << std::endl;
             } else {
                 std::cerr << "Item is not exist.\n" << std::endl;
             }
@@ -308,6 +304,7 @@ bool Menu::display_item_menu(){
         case 6:{
             ItemNoOrder no_order;
             item_service->display(&no_order);
+            std::cout << std::endl;
         }
             break;
         case 7:{
@@ -367,9 +364,25 @@ void Menu::read_customer(Customer*& customer){
         std::cin.ignore();
         if (!customer_id_is_valid(id)) {
             std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::cin >> option;
+            if (option == "2"){
+                return;
+            }
         }
         else if (customer_service->get(id) != nullptr){
             std::cerr << "Duplicated." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::cin >> option;
+            if (option == "2"){
+                return;
+            }
         }
         else {
             break;
@@ -387,6 +400,14 @@ void Menu::read_customer(Customer*& customer){
         std::cin >> phone;
         if (!customer_phone_is_valid(phone)) {
             std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::cin >> option;
+            if (option == "2"){
+                return;
+            }
         }
         else {
             break;
@@ -399,6 +420,7 @@ void Menu::read_customer(Customer*& customer){
     CustomerState* state = new GuestState;
 
     customer = new Customer(id, name, address, phone, number_of_rentals, items, state);
+    std::cout << "Added item successful.\n" << std::endl;
 }
 
 void Menu::modify_customer(std::string id){
@@ -418,6 +440,14 @@ void Menu::modify_customer(std::string id){
         std::cin >> phone;
         if (!customer_phone_is_valid(phone)) {
             std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::cin >> option;
+            if (option == "2"){
+                return;
+            }
         }
         else {
             break;
@@ -429,6 +459,7 @@ void Menu::modify_customer(std::string id){
     customer_service->update(id, intent_address);
     PhoneModificationIntent intent_phone{phone};
     customer_service->update(id, intent_phone);
+    std::cerr << "Modify customer successful. \n" << std::endl;
 }
 
 void Menu::read_item(Item*& item){
@@ -448,6 +479,14 @@ void Menu::read_item(Item*& item){
         std::cin >> type;
         if (type != "1" && type != "2" && type != "3") {
             std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::cin >> option;
+            if (option == "2"){
+                return;
+            }
         }
         else {
             break;
@@ -459,9 +498,25 @@ void Menu::read_item(Item*& item){
         std::cin.ignore();
         if (!item_id_is_valid(id, {}, true)) {
             std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::cin >> option;
+            if (option == "2"){
+                return;
+            }
         }
         else if (item_service->get(id) != nullptr){
             std::cerr << "Duplicated." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::cin >> option;
+            if (option == "2"){
+                return;
+            }
         }
         else {
             break;
@@ -479,6 +534,14 @@ void Menu::read_item(Item*& item){
 
         if (rental_type != "1" && rental_type != "2") {
             std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::cin >> option;
+            if (option == "2"){
+                return;
+            }
         }
         else {
             break;
@@ -492,6 +555,14 @@ void Menu::read_item(Item*& item){
         std::cin >> stock;
         if (!item_stock_is_valid(stock)) {
             std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::cin >> option;
+            if (option == "2"){
+                return;
+            }
         }
         else {
             break;
@@ -504,6 +575,14 @@ void Menu::read_item(Item*& item){
         std::cin >> fee;
         if (!item_price_is_valid(fee)) {
             std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::cin >> option;
+            if (option == "2"){
+                return;
+            }
         }
         else {
             break;
@@ -522,6 +601,14 @@ void Menu::read_item(Item*& item){
             std::cin >> genre;
             if (genre != "1" && genre != "2" && genre != "3" &&genre != "4") {
                 std::cerr << "Invalid input." << std::endl;
+                std::string option;
+                std::cout << "Try again" << std::endl;
+                std::cout << "1.Yes" << std::endl;
+                std::cout << "2.No" << std::endl;
+                std::cin >> option;
+                if (option == "2"){
+                    return;
+                }
             }
             else {
                 break;
@@ -541,8 +628,7 @@ void Menu::read_item(Item*& item){
     else if(type == "3"){
         item = new VideoRecord(id, title, Item::RentalType(rental_type_int-1), stock_int, fee_float, rental_status, GenredItem::Genre(genre_int - 1));
     }
-
-//    return true;
+    std::cout << "Add customer successful. \n" << std::endl;
 }
 
 void Menu::modify_item(std::string id){
@@ -563,6 +649,14 @@ void Menu::modify_item(std::string id){
 
         if (rental_type != "1" && rental_type != "2") {
             std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::cin >> option;
+            if (option == "2"){
+                return;
+            }
         }
         else {
             break;
@@ -576,6 +670,14 @@ void Menu::modify_item(std::string id){
         std::cin >> stock;
         if (!item_stock_is_valid(stock)) {
             std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::cin >> option;
+            if (option == "2"){
+                return;
+            }
         }
         else {
             break;
@@ -588,6 +690,14 @@ void Menu::modify_item(std::string id){
         std::cin >> fee;
         if (!item_price_is_valid(fee)) {
             std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::cin >> option;
+            if (option == "2"){
+                return;
+            }
         }
         else {
             break;
@@ -603,5 +713,6 @@ void Menu::modify_item(std::string id){
     item_service->update(id, intent_stock);
     ItemFeeModificationIntent intent_fee{fee_float};
     item_service->update(id, intent_fee);
+    std::cout << "Updated item successfully.\n" << std::endl;
 };
 
