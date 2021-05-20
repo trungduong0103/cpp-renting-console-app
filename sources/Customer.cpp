@@ -5,7 +5,7 @@
 //Promotable
 bool ThreeItemPromotableCustomer::can_be_promoted() const {
     //User can only be promoted if the number of rentals >= 3 and has not been promoted yet
-    return get_number_of_videos(context) - ThreeItemPromotableCustomer::minimum_promotion_rentals * promoted >= 3;
+    return get_number_of_videos_rented() - ThreeItemPromotableCustomer::minimum_promotion_rentals * promoted >= 3;
 }
 
 //Constructor for ThreeItemPromotableCustomer
@@ -17,7 +17,7 @@ void ThreeItemPromotableCustomer::set_context(Customer* customer) {
 }
 
 //Get number of videos rented
-int ThreeItemPromotableCustomer::get_number_of_videos_rented() { return number_of_video_rented; }
+int ThreeItemPromotableCustomer::get_number_of_videos_rented() const { return number_of_video_rented; }
 void ThreeItemPromotableCustomer::increase_number_of_videos_rented() { number_of_video_rented += 1; }
 
 //Guest state
@@ -42,6 +42,7 @@ void GuestState::promote() {
     //Promote to Regular customer by changing the state of
     //Customer context (State design pattern)
     context->change_state(new RegularState{ nullptr, true });
+    std::cout << "Customer promoted to Regular customer" << std::endl;
 }
 
 //Method to borrow an item
@@ -104,6 +105,7 @@ void RegularState::promote() {
 
     //Set the State attribute of Customer context to VIP (State design pattern)
     context->change_state(new VIPState{ nullptr, true });
+    std::cout << "Customer promoted to VIP customer" << std::endl;
 }
 
 //Method to borrow an item
@@ -235,20 +237,22 @@ Category Customer::get_state() const {
 
 //Customer borrowing an item
 //By calling the method on item
-void Customer::borrow(Item* item) {
+bool Customer::borrow(Item* item) {
     //Check if item is already borrowed
     for (int i = 0; i != items.size(); ++i) {
         if (items[i]->get_id() == item->get_id()) {
             std::cerr << "Item is already borrowed by customer" << std::endl;
+            return false;
         }
     }
 
     //Then borrowed item
     state->borrow(item);
+    return true;
 }
 
 //Customer returning an item
-void Customer::return_item(Item *item) {
+bool Customer::return_item(Item *item) {
     //Check if item id in rental
     int position = -1;
     for (int i = 0; i != items.size(); ++i) {
@@ -261,7 +265,7 @@ void Customer::return_item(Item *item) {
     //Display message if not exist
     if (position == -1) {
         std::cerr << "Item is not borrowed by user" << std::endl;
-        return;
+        return false;
     }
 
     //Increase item count
@@ -275,6 +279,7 @@ void Customer::return_item(Item *item) {
 
     //State return item
     state->return_item(item);
+    return true;
 }
 
 //Increase and decrease the number of rental items

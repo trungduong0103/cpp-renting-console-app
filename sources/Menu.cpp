@@ -295,7 +295,9 @@ bool Menu::display_item_menu(){
             Customer* customer = customer_service->get(customer_id);
             Item* item = item_service->get(item_id);
             if (customer != nullptr && item != nullptr) {
-                customer -> return_item(item);
+                if (customer -> return_item(item)) {
+                    std::cout << "Item rented returned successfully" << std::endl;
+                }
             } else {
                 std::cerr << "Item/Customer is not exist.\n" << std::endl;
             }

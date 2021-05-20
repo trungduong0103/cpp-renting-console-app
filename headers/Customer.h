@@ -49,8 +49,8 @@ public:
     void promote();
 
     //Methods to borrow an item
-    void borrow(Item* item);
-    void return_item(Item* item);
+    bool borrow(Item* item);
+    bool return_item(Item* item);
     void increase_number_of_rentals();
     void decrease_number_of_rentals();
     void add_rental(Item* item);
@@ -99,7 +99,7 @@ public:
     //Overidden methods to promote the state
     virtual void promote() override = 0;
     bool can_be_promoted() const override;
-    int get_number_of_videos_rented();
+    int get_number_of_videos_rented() const;
     void increase_number_of_videos_rented();
 
     //Overriden method to set Customer context
