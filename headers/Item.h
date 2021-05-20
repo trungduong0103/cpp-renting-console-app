@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+enum ItemType { GAME = 0, VIDEO, DISC };
+
 struct Item {
 	//Attributes
 	std::string id;
@@ -32,7 +34,7 @@ struct Item {
 	friend std::ostream& operator<<(std::ostream& os, Item const& item);
 	virtual std::string to_string_console() const = 0;
 	virtual std::string to_string_file() const = 0;
-
+	virtual ItemType get_type() const = 0;
 };
 
 struct GenredItem : public Item {
@@ -58,6 +60,7 @@ struct Game : public Item {
 	friend std::ostream& operator<<(std::ostream& os, Game const& game);
 	std::string to_string_console() const;
 	std::string to_string_file() const;
+    ItemType get_type() const override;
 };
 
 struct VideoRecord : public GenredItem {
@@ -68,6 +71,7 @@ struct VideoRecord : public GenredItem {
 	friend std::ostream& operator<<(std::ostream& os, VideoRecord const& videoRecord);
 	std::string to_string_console() const override;
     std::string to_string_file() const override;
+    ItemType get_type() const override;
 };
 
 struct DVD : public GenredItem {
@@ -78,5 +82,6 @@ struct DVD : public GenredItem {
 	friend std::ostream& operator<<(std::ostream& os, DVD const& dvd);
 	std::string to_string_console() const override;
     std::string to_string_file() const override;
+    ItemType get_type() const override;
 };
 

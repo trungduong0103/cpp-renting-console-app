@@ -55,6 +55,8 @@ std::string Game::to_string_file() const {
     };
 }
 
+ItemType Game::get_type() const { return GAME; }
+
 std::ostream &operator<<(std::ostream &os, Game const &game) {
     return os << game.to_string_console();
 }
@@ -76,6 +78,8 @@ std::string VideoRecord::to_string_file() const {
     };
 }
 
+ItemType VideoRecord::get_type() const { return VIDEO; }
+
 std::ostream &operator<<(std::ostream &os, VideoRecord const &videoRecord) {
     return os << videoRecord.to_string_console();
 }
@@ -96,6 +100,8 @@ std::string DVD::to_string_file() const {
             genre_to_string(this -> get_genre())
     };
 }
+
+ItemType DVD::get_type() const { return DISC; }
 
 std::ostream &operator<<(std::ostream &os, DVD const &dvd) {
     return os << dvd.to_string_console();
