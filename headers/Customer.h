@@ -28,7 +28,7 @@ class Customer {
 public:
     //Constructor and destructor
     Customer() = default;
-    Customer(std::string const& id, std::string const& name, std::string const& address, std::string const& phone, int total_rentals, std::vector<Item*> const& items, CustomerState* state);
+    Customer(std::string  id, std::string  name, std::string  address, std::string  phone, int total_rentals, std::vector<Item*>  items, CustomerState* state);
     ~Customer();
 
     //Get methods
@@ -159,6 +159,6 @@ public:
     void promote() override;
 
     //Get the State enum (guest, regular, VIP) and set context
-    void set_context(Customer* customer);
+    void set_context(Customer* customer) override;
     Category get_state() override;
 };

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 #include "../headers/Customer.h"
 #include "../headers/CustomerHelpers.h"
 
@@ -10,15 +11,17 @@ bool ThreeItemPromotableCustomer::can_be_promoted() const {
 }
 
 //Constructor for ThreeItemPromotableCustomer
-ThreeItemPromotableCustomer::ThreeItemPromotableCustomer(Customer* customer, bool promoted) : context(customer), promoted(promoted) {}
+ThreeItemPromotableCustomer::ThreeItemPromotableCustomer(Customer *customer, bool promoted) : context(customer),
+                                                                                              promoted(promoted) {}
 
 //Set the Customer context (State design pattern)
-void ThreeItemPromotableCustomer::set_context(Customer* customer) {
+void ThreeItemPromotableCustomer::set_context(Customer *customer) {
     context = customer;
 }
 
 //Get number of videos rented
 int ThreeItemPromotableCustomer::get_number_of_videos_rented() const { return number_of_video_rented; }
+
 void ThreeItemPromotableCustomer::increase_number_of_videos_rented() { number_of_video_rented += 1; }
 
 //Guest state
@@ -26,7 +29,7 @@ void ThreeItemPromotableCustomer::increase_number_of_videos_rented() { number_of
 GuestState::GuestState() : ThreeItemPromotableCustomer(nullptr, false) {};
 
 //Constructor with context and promoted
-GuestState::GuestState(Customer* customer, bool promoted) : ThreeItemPromotableCustomer(customer, promoted) {}
+GuestState::GuestState(Customer *customer, bool promoted) : ThreeItemPromotableCustomer(customer, promoted) {}
 
 //Get State enum
 Category GuestState::get_state() { return Category::guest; }
@@ -42,12 +45,12 @@ void GuestState::promote() {
 
     //Promote to Regular customer by changing the state of
     //Customer context (State design pattern)
-    context->change_state(new RegularState{ nullptr, true });
+    context->change_state(new RegularState{nullptr, true});
     std::cout << "Customer promoted to Regular customer" << std::endl;
 }
 
 //Method to borrow an item
-void GuestState::borrow(Item* item) {
+void GuestState::borrow(Item *item) {
     //Check if item is in stock
     if (!item->is_in_stock()) {
         std::cerr << "Item is currently out of stock, can not be borrowed" << std::endl;
@@ -91,7 +94,7 @@ void GuestState::return_item(Item *item) {
 RegularState::RegularState() : ThreeItemPromotableCustomer(nullptr, false) {}
 
 //Constructor with Customer state and promoted boolean
-RegularState::RegularState(Customer* customer, bool promoted) : ThreeItemPromotableCustomer(customer, promoted) {}
+RegularState::RegularState(Customer *customer, bool promoted) : ThreeItemPromotableCustomer(customer, promoted) {}
 
 //Get Regular state enum
 Category RegularState::get_state() { return Category::regular; }
@@ -105,12 +108,12 @@ void RegularState::promote() {
     }
 
     //Set the State attribute of Customer context to VIP (State design pattern)
-    context->change_state(new VIPState{ context, true });
+    context->change_state(new VIPState{context, true});
     std::cout << "Customer promoted to VIP customer" << std::endl;
 }
 
 //Method to borrow an item
-void RegularState::borrow(Item* item) {
+void RegularState::borrow(Item *item) {
     //Check if the item is already borrowed
     if (!item->is_in_stock()) {
         std::cerr << "Item is currently out of stock, can not be borrowed" << std::endl;
@@ -136,10 +139,12 @@ void RegularState::return_item(Item *item) {
 
 //VIP state
 VIPState::VIPState() : ThreeItemPromotableCustomer(nullptr, false) {}
-VIPState::VIPState(Customer* customer, bool promoted) : ThreeItemPromotableCustomer(customer, promoted) {
+
+VIPState::VIPState(Customer *customer, bool promoted) : ThreeItemPromotableCustomer(customer, promoted) {
     //Initially set up customer points
     current_points = customer->get_number_of_rentals() * 10;
 }
+
 Category VIPState::get_state() { return Category::vip; }
 
 void VIPState::promote() {
@@ -148,7 +153,7 @@ void VIPState::promote() {
     return;
 }
 
-void VIPState::borrow(Item* item) {
+void VIPState::borrow(Item *item) {
     //Check if the item is borrowed or not
     if (!item->is_in_stock()) {
         std::cerr << "Item is currently out of stock, can not be borrowed" << std::endl;
@@ -170,8 +175,7 @@ void VIPState::borrow(Item* item) {
     if (current_points >= 100) {
         current_points -= 100;
         std::cout << "Item rented for free (vip account only)" << std::endl;
-    }
-    else {
+    } else {
         current_points += 10;
         std::cout << "Item rented successfully (add 10 points to vip account)" << std::endl;
     }
@@ -182,15 +186,17 @@ void VIPState::return_item(Item *item) {
 }
 
 //Set context of VIPState account
-void VIPState::set_context(Customer* customer) {
+void VIPState::set_context(Customer *customer) {
     ThreeItemPromotableCustomer::set_context(customer);
     //We need to get the current points by 10 times the number of items he/she has borrowed
     current_points = customer->get_number_of_rentals() * 10;
 }
 
 //Customer constructor
-Customer::Customer(std::string const& id, std::string const& name, std::string const& address, std::string const& phone, int total_rentals, std::vector<Item*> const& items, CustomerState* state)
-        : id(id), name(name), address(address), phone(phone), number_of_rentals(total_rentals), items(items) , state(state) {
+Customer::Customer(std::string id, std::string name, std::string address, std::string phone, int total_rentals,
+                   std::vector<Item *> items, CustomerState *state)
+        : id(std::move(id)), name(std::move(name)), address(std::move(address)), phone(std::move(phone)),
+          number_of_rentals(total_rentals), items(std::move(items)), state(state) {
     state->set_context(this);
 }
 
@@ -204,7 +210,7 @@ Customer::~Customer() {
 
 //Change the customer state
 //Guest -> Regular or Regular -> VIP
-void Customer::change_state(CustomerState* new_state) {
+void Customer::change_state(CustomerState *new_state) {
     //Delete the current state
     if (state != nullptr) {
         delete state;
@@ -234,7 +240,7 @@ Category Customer::get_state() const {
 
 //Customer borrowing an item
 //By calling the method on item
-bool Customer::borrow(Item* item) {
+bool Customer::borrow(Item *item) {
     //Check if item is already borrowed
     for (int i = 0; i != items.size(); ++i) {
         if (items[i]->get_id() == item->get_id()) {
@@ -288,16 +294,16 @@ void Customer::increase_number_of_rentals() {
 }
 
 void Customer::decrease_number_of_rentals() {
-    number_of_rentals -=1;
+    number_of_rentals -= 1;
 }
 
 //Add item id to rental list
-void Customer::add_rental(Item* item) {
+void Customer::add_rental(Item *item) {
     items.push_back(item);
 }
 
 //Display the customer
-std::ostream& operator<<(std::ostream& os, Customer const& customer) {
+std::ostream &operator<<(std::ostream &os, Customer const &customer) {
     std::string state;
     switch ((customer.state)->get_state()) {
         case Category::guest:

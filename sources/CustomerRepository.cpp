@@ -221,12 +221,13 @@ bool already_have_item(const std::vector<std::string> &vector, const std::string
     return std::count(vector.begin(), vector.end(), item) != 0;
 }
 
-void load_customer(
+Customer * load_customer(
         const std::vector<std::string> &customer_vector,
         std::vector<std::string> rentals_vector,
         const std::vector<Item *> &items,
         std::string items_quantity_msg
 ) {
+    std::vector<Item *> rental_items;
     items_quantity_msg = rentals_vector.empty() ? " with no items." : " with item(s):";
     if (customer_vector[5] == "Guest") {
         unsigned int video_count = 0;
@@ -285,7 +286,52 @@ void load_customer(
     std::cout << "[INFO] Loaded Customer: " << customer_vector[0] << items_quantity_msg << std::endl;
     for (const std::string &item : rentals_vector) {
         std::cout << "+ " << item << ::std::endl;
+        Item *new_item = get_item_with_id(items, item);
+        rental_items.push_back(new_item);
     }
+
+
+    if (customer_vector[customer_vector.size() - 1] == "Guest") {
+        std::cout << "[SUCCESS] Guest customer with ID: " << customer_vector[0] << " successfully created!" << std::endl;
+        CustomerState *guestState = new GuestState;
+        Customer *guest_customer = new Customer(
+                customer_vector[0],
+                customer_vector[1],
+                customer_vector[2],
+                customer_vector[3],
+                std::stoi(customer_vector[4]),
+                rental_items,
+                guestState);
+        return guest_customer;
+    }
+    else if (customer_vector[customer_vector.size() - 1] == "Regular") {
+        std::cout << "[SUCCESS] Regular customer with ID: " << customer_vector[0] << " successfully created!" << std::endl;
+        CustomerState *regularState = new RegularState;
+        Customer *regular_customer = new Customer(
+                customer_vector[0],
+                customer_vector[1],
+                customer_vector[2],
+                customer_vector[3],
+                std::stoi(customer_vector[4]),
+                rental_items,
+                regularState);
+        return regular_customer;
+    }
+    else if (customer_vector[customer_vector.size() - 1] == "VIP") {
+        std::cout << "[SUCCESS] VIP customer with ID: " << customer_vector[0] << " successfully created!" << std::endl;
+        CustomerState *vipState = new VIPState;
+        Customer *vip_customer = new Customer(
+                customer_vector[0],
+                customer_vector[1],
+                customer_vector[2],
+                customer_vector[3],
+                std::stoi(customer_vector[4]),
+                rental_items,
+                vipState);
+        return vip_customer;
+    }
+
+    return nullptr;
 }
 
 std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> items) {
@@ -316,7 +362,13 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
         } else if (lines[x][0] == 'C') {
             // customer and items have been loaded
             if (!customer_vector.empty()) {
-                load_customer(customer_vector, rentals_vector, items, items_quantity_msg);
+                Customer *customer = load_customer(customer_vector, rentals_vector, items, items_quantity_msg);
+                if (customer != nullptr) {
+                    mockCustomers.push_back(customer);
+                }
+                else {
+                    std::cout << "[FATAL] Something went wrong creating new customer" << std::endl;
+                }
             }
             // clear customer_vector and rentals_vector for next customer
             customer_vector.clear();
@@ -342,7 +394,6 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
                 }
             }
         }
-
         // for the final customer
         if (!customer_vector.empty() && x == lines.size() - 1) {
             load_customer(customer_vector, rentals_vector, items, items_quantity_msg);
@@ -350,7 +401,7 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
     }
     std::cout << "[INFO] Done loading customers!" << std::endl;
     infile.close();
-    return {};
+    return mockCustomers;
 }
 
 void TextFileCustomerPersistence::save(std::vector<Customer *>) {
