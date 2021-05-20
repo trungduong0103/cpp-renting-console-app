@@ -5,7 +5,8 @@
 //Promotable
 bool ThreeItemPromotableCustomer::can_be_promoted() const {
     //User can only be promoted if the number of rentals >= 3 and has not been promoted yet
-    return get_number_of_videos_rented() - ThreeItemPromotableCustomer::minimum_promotion_rentals * promoted >= 3;
+    std::cout << context->get_number_of_videos() << std::endl;
+    return context->get_number_of_videos() - ThreeItemPromotableCustomer::minimum_promotion_rentals * promoted >= 3;
 }
 
 //Constructor for ThreeItemPromotableCustomer
@@ -104,7 +105,7 @@ void RegularState::promote() {
     }
 
     //Set the State attribute of Customer context to VIP (State design pattern)
-    context->change_state(new VIPState{ nullptr, true });
+    context->change_state(new VIPState{ context, true });
     std::cout << "Customer promoted to VIP customer" << std::endl;
 }
 
@@ -130,9 +131,7 @@ void RegularState::borrow(Item* item) {
 }
 
 void RegularState::return_item(Item *item) {
-    if (item->get_type() == VIDEO) {
-        increase_number_of_videos_rented();
-    }
+
 }
 
 //VIP state
@@ -179,9 +178,7 @@ void VIPState::borrow(Item* item) {
 }
 
 void VIPState::return_item(Item *item) {
-    if (item->get_type() == VIDEO) {
-        increase_number_of_videos_rented();
-    }
+
 }
 
 //Set context of VIPState account
@@ -278,7 +275,10 @@ bool Customer::return_item(Item *item) {
     decrease_number_of_rentals();
 
     //State return item
-    state->return_item(item);
+    if (item->get_type() == VIDEO) {
+        increase_number_of_videos();
+    }
+
     return true;
 }
 

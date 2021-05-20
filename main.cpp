@@ -25,6 +25,7 @@ int main() {
                                   Item::RentalStatus::Available, GenredItem::Genre::Action);
 
     Customer* customer = new Customer(id, name, address, phone, 0, items, state);
+    //Promotion 1
     customer->borrow(item1);
     customer->return_item(item1);
 
@@ -35,5 +36,16 @@ int main() {
     customer->return_item(item1);
 
     customer->promote();
+
+    //Promotion 2
+    customer->borrow(item1);
+    customer->return_item(item1);
+
+    customer->borrow(item1);
+    customer->return_item(item1);
+
+    customer->borrow(item1);
+    customer->return_item(item1);
+
     customer->promote();
 }

@@ -16,7 +16,8 @@ class Customer {
     std::string phone;
 
     //Hold the number of renting items
-    int number_of_rentals;
+    int number_of_rentals = 0;
+    int number_of_videos = 0;
 
     //Hold the id of items
     std::vector<Item*> items;
@@ -32,6 +33,8 @@ public:
 
     //Get methods
     inline int get_number_of_rentals() { return number_of_rentals; }
+    inline void increase_number_of_videos() { number_of_videos += 1; }
+    inline int get_number_of_videos() { return number_of_videos; }
     inline std::vector<Item*> get_items() const { return items; }
     inline std::string get_id() const { return id; }
     inline std::string get_name() const { return name; }
