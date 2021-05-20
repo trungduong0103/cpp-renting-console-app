@@ -171,7 +171,6 @@ std::vector<Item *> TextFileItemPersistence::load() {
     std::string line;
     const std::string default_ignore = "[LOG] Ignoring line ";
     while (std::getline(infile, line)) {
-        std::cout << "[LOG] LINE " << "[" << count << "]: " << line << std::endl;
         if (line[0] == '#') {
             std::cout << default_ignore << count << " (has # in the beginning)" << std::endl;
         } else if (line.empty()) {
@@ -193,7 +192,7 @@ std::vector<Item *> TextFileItemPersistence::load() {
                         item_vector[4],
                         item_vector[5]
                 )) {
-                    std::cout << "[LOG] Item is OK" << std::endl;
+
                     // 6 means video game
                     if (item_vector.size() == 6) {
                         Item *game = new Game(
@@ -205,6 +204,9 @@ std::vector<Item *> TextFileItemPersistence::load() {
                                 Item::RentalStatus::Available
                         );
                         mockItems.push_back(game);
+                        std::cout << "[SUCCESS] Successfully created Game listing with ID: "
+                                  << item_vector[0]
+                                  << std::endl;
                     }
                         // 7 means dvd or record
                     else if (item_vector.size() == 7) {
@@ -219,6 +221,9 @@ std::vector<Item *> TextFileItemPersistence::load() {
                                     string_to_genre(item_vector[6])
                             );
                             mockItems.push_back(dvd);
+                            std::cout << "[SUCCESS] Successfully created DVD listing with ID: "
+                                      << item_vector[0]
+                                      << std::endl;
                         } else if (item_vector[2] == "Record") {
                             Item *videoRecord = new VideoRecord(
                                     item_vector[0],
@@ -230,6 +235,9 @@ std::vector<Item *> TextFileItemPersistence::load() {
                                     string_to_genre(item_vector[6])
                             );
                             mockItems.push_back(videoRecord);
+                            std::cout << "[SUCCESS] Successfully created Video Record listing with ID: "
+                                      << item_vector[0]
+                                      << std::endl;
                         }
                     } else {
                         std::cerr << "Unexpected length of item :/" << std::endl;
@@ -249,7 +257,7 @@ std::vector<Item *> TextFileItemPersistence::load() {
 void TextFileItemPersistence::save(std::vector<Item *> items) {
     std::ofstream outfile("../outfiles/items_out.txt", std::ios::trunc);
     if (!outfile) {
-        std::cerr << "Cannot read file items.txt" << std::endl;
+        std::cerr << "Cannot write to file items_out.txt" << std::endl;
         return;
     }
     unsigned int i = 0;

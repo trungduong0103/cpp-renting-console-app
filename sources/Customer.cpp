@@ -89,6 +89,23 @@ void GuestState::return_item(Item *item) {
     }
 }
 
+std::string GuestState::to_string_file() const {
+    std::string guest_as_string = {
+            this->context->get_id() + "," +
+            this->context->get_name() + "," +
+            this->context->get_address() + "," +
+            this->context->get_phone() + "," +
+            std::to_string(this->context->get_number_of_rentals()) + "," +
+            "Guest\n"
+    };
+
+    for (Item *item : this->context->get_items()) {
+        guest_as_string += item->get_id() + "\n";
+    }
+
+    return guest_as_string;
+}
+
 //Regular state
 //Constructor with no argument
 RegularState::RegularState() : ThreeItemPromotableCustomer(nullptr, false) {}
@@ -135,6 +152,23 @@ void RegularState::borrow(Item *item) {
 
 void RegularState::return_item(Item *item) {
 
+}
+
+std::string RegularState::to_string_file() const {
+    std::string regular_as_string = {
+            this->context->get_id() + "," +
+            this->context->get_name() + "," +
+            this->context->get_address() + "," +
+            this->context->get_phone() + "," +
+            std::to_string(this->context->get_number_of_rentals()) + "," +
+            "Regular\n"
+    };
+
+    for (Item *item : this->context->get_items()) {
+        regular_as_string += item->get_id() + "\n";
+    }
+
+    return regular_as_string;
 }
 
 //VIP state
@@ -190,6 +224,23 @@ void VIPState::set_context(Customer *customer) {
     ThreeItemPromotableCustomer::set_context(customer);
     //We need to get the current points by 10 times the number of items he/she has borrowed
     current_points = customer->get_number_of_rentals() * 10;
+}
+
+std::string VIPState::to_string_file() const {
+    std::string vip_as_string = {
+            this->context->get_id() + "," +
+            this->context->get_name() + "," +
+            this->context->get_address() + "," +
+            this->context->get_phone() + "," +
+            std::to_string(this->context->get_number_of_rentals()) + "," +
+            "VIP\n"
+    };
+
+    for (Item *item : this->context->get_items()) {
+        vip_as_string += item->get_id() + "\n";
+    }
+
+    return vip_as_string;
 }
 
 //Customer constructor
@@ -318,4 +369,8 @@ std::ostream &operator<<(std::ostream &os, Customer const &customer) {
     }
     os << "Id: " << customer.id << ", Name: " << customer.name << ", State: " << state;
     return os;
+}
+
+std::string Customer::to_string_file() const {
+
 }

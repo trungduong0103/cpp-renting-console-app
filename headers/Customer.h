@@ -32,9 +32,9 @@ public:
     ~Customer();
 
     //Get methods
-    inline int get_number_of_rentals() { return number_of_rentals; }
+    inline int get_number_of_rentals() const { return number_of_rentals; }
     inline void increase_number_of_videos() { number_of_videos += 1; }
-    inline int get_number_of_videos() { return number_of_videos; }
+    inline int get_number_of_videos() const { return number_of_videos; }
     inline std::vector<Item*> get_items() const { return items; }
     inline std::string get_id() const { return id; }
     inline std::string get_name() const { return name; }
@@ -60,6 +60,8 @@ public:
 
     //Methods for printing the items
     friend std::ostream& operator<<(std::ostream& os, Customer const&);
+
+    std::string to_string_file() const;
 };
 
 //State design pattern
@@ -90,7 +92,7 @@ class ThreeItemPromotableCustomer : public CustomerState {
 protected:
     //Holds the customer context and boolean checking if the customer has been promoted
     bool promoted;
-    int number_of_video_rented;
+    int number_of_video_rented{};
     Customer* context;
     //Protected constructor
     ThreeItemPromotableCustomer(Customer*, bool);
@@ -100,13 +102,13 @@ public:
     static const unsigned int minimum_promotion_rentals = 3;
 
     //Overidden methods to promote the state
-    virtual void promote() override = 0;
+    void promote() override = 0;
     bool can_be_promoted() const override;
     int get_number_of_videos_rented() const;
     void increase_number_of_videos_rented();
 
     //Overriden method to set Customer context
-    virtual void set_context(Customer* customer) override;
+    void set_context(Customer* customer) override;
 };
 
 //GuestState: Child of ThreeItemPromotableState
@@ -126,6 +128,8 @@ public:
 
     //Method to get the State (Guest, VIP, Regular)
     Category get_state() override;
+
+    std::string to_string_file() const;
 };
 
 //RegularState: Child of ThreeItemPromotableState
@@ -142,6 +146,7 @@ public:
 
     //Get the State enum (guest, regular, VIP)
     Category get_state() override;
+    std::string to_string_file() const;
 };
 
 //VIPState: Child of ThreeItemPromotableState
@@ -161,4 +166,5 @@ public:
     //Get the State enum (guest, regular, VIP) and set context
     void set_context(Customer* customer) override;
     Category get_state() override;
+    std::string to_string_file() const;
 };

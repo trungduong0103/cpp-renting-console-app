@@ -221,7 +221,7 @@ bool already_have_item(const std::vector<std::string> &vector, const std::string
     return std::count(vector.begin(), vector.end(), item) != 0;
 }
 
-Customer * load_customer(
+Customer *load_customer(
         const std::vector<std::string> &customer_vector,
         std::vector<std::string> rentals_vector,
         const std::vector<Item *> &items,
@@ -292,7 +292,7 @@ Customer * load_customer(
 
 
     if (customer_vector[customer_vector.size() - 1] == "Guest") {
-        std::cout << "[SUCCESS] Guest customer with ID: " << customer_vector[0] << " successfully created!" << std::endl;
+        std::cout << "[SUCCESS] Successfully created Guest customer with ID: " << customer_vector[0] << std::endl;
         CustomerState *guestState = new GuestState;
         Customer *guest_customer = new Customer(
                 customer_vector[0],
@@ -303,9 +303,8 @@ Customer * load_customer(
                 rental_items,
                 guestState);
         return guest_customer;
-    }
-    else if (customer_vector[customer_vector.size() - 1] == "Regular") {
-        std::cout << "[SUCCESS] Regular customer with ID: " << customer_vector[0] << " successfully created!" << std::endl;
+    } else if (customer_vector[customer_vector.size() - 1] == "Regular") {
+        std::cout << "[SUCCESS] Successfully created Regular customer with ID: " << customer_vector[0] << std::endl;
         CustomerState *regularState = new RegularState;
         Customer *regular_customer = new Customer(
                 customer_vector[0],
@@ -316,9 +315,8 @@ Customer * load_customer(
                 rental_items,
                 regularState);
         return regular_customer;
-    }
-    else if (customer_vector[customer_vector.size() - 1] == "VIP") {
-        std::cout << "[SUCCESS] VIP customer with ID: " << customer_vector[0] << " successfully created!" << std::endl;
+    } else if (customer_vector[customer_vector.size() - 1] == "VIP") {
+        std::cout << "[SUCCESS] Successfully created VIP customer with ID: " << customer_vector[0] << std::endl;
         CustomerState *vipState = new VIPState;
         Customer *vip_customer = new Customer(
                 customer_vector[0],
@@ -365,8 +363,7 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
                 Customer *customer = load_customer(customer_vector, rentals_vector, items, items_quantity_msg);
                 if (customer != nullptr) {
                     mockCustomers.push_back(customer);
-                }
-                else {
+                } else {
                     std::cout << "[FATAL] Something went wrong creating new customer" << std::endl;
                 }
             }
@@ -404,6 +401,16 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
     return mockCustomers;
 }
 
-void TextFileCustomerPersistence::save(std::vector<Customer *>) {
+void TextFileCustomerPersistence::save(std::vector<Customer *> customers) {
+    std::ofstream outfile("../outfiles/items_out.txt", std::ios::trunc);
+    if (!outfile) {
+        std::cerr << "Cannot write to file items_out.txt" << std::endl;
+        return;
+    }
 
+    unsigned int i = 0;
+    std::string state;
+    for (; i < customers.size(); i++) {
+
+    }
 }

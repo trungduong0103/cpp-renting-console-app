@@ -120,7 +120,6 @@ struct CustomerPersistence {
 //customers from and to a text file
 struct TextFileCustomerPersistence : public CustomerPersistence {
     std::vector<Customer *> load(std::vector<Item *>) override;
-
     void save(std::vector<Customer *>) override;
 };
 

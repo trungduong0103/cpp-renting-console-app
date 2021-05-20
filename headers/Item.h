@@ -48,8 +48,8 @@ struct GenredItem : public Item {
     inline Genre get_genre() const { return genre; }
     inline void set_genre(Genre const new_genre) { genre = new_genre; }
 	friend std::ostream& operator<<(std::ostream& os, GenredItem const& genredItem);
-	virtual std::string to_string_console() const override;
-	virtual std::string to_string_file() const override = 0;
+	std::string to_string_console() const override;
+	std::string to_string_file() const override = 0;
 };
 
 struct Game : public Item {
@@ -58,8 +58,8 @@ struct Game : public Item {
 
 	//Methods
 	friend std::ostream& operator<<(std::ostream& os, Game const& game);
-	std::string to_string_console() const;
-	std::string to_string_file() const;
+	std::string to_string_console() const override;
+	std::string to_string_file() const override;
     ItemType get_type() const override;
 };
 
