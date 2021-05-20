@@ -9,12 +9,7 @@ int main() {
     menu.start();
 
     /*
-    string id{ "I001" };
-    string name{ "John Cena" };
-    string phone{ "0909 "};
-    string address{ "none" };
-    CustomerState* state = new GuestState;
-    vector<Item*> items;
+     * TEST
 
     string itemId1{ "I001-001" };
     string itemTitle1{ "none" };
@@ -23,26 +18,17 @@ int main() {
     Item* item1 = new VideoRecord(itemId1, itemTitle1, Item::RentalType::OneWeek, stock1, fee1,
                                   Item::RentalStatus::Available, GenredItem::Genre::Action);
 
+    string id{ "I001" };
+    string name{ "John Cena" };
+    string phone{ "0909"};
+    string address{ "none" };
+    CustomerState* state = new GuestState;
+    vector<Item*> items = {
+            item1,
+            item1
+    };
+
     Customer* customer = new Customer(id, name, address, phone, 0, items, state);
-    //Promotion 1
-    customer->borrow(item1);
-    customer->return_item(item1);
-
-    customer->borrow(item1);
-    customer->return_item(item1);
-
-    customer->borrow(item1);
-    customer->return_item(item1);
-
-    customer->promote();
-
-    //Promotion 2
-    customer->borrow(item1);
-    customer->return_item(item1);
-
-    customer->borrow(item1);
-    customer->return_item(item1);
-
-    customer->promote();
+    std::cout << customer->to_string_file() << std::endl;
      */
 }

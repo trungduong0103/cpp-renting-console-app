@@ -60,7 +60,6 @@ public:
 
     //Methods for printing the items
     friend std::ostream& operator<<(std::ostream& os, Customer const&);
-
     std::string to_string_file() const;
 };
 
@@ -78,6 +77,7 @@ public:
     //Guest -> Regular or Regula -> VIP
     virtual bool can_be_promoted() const = 0;
     virtual void promote() = 0;
+    virtual std::string to_string() const = 0;
 
     //Set the Context of the state - which is the customer itself
     virtual void set_context(Customer* customer) = 0;
@@ -129,7 +129,7 @@ public:
     //Method to get the State (Guest, VIP, Regular)
     Category get_state() override;
 
-    std::string to_string_file() const;
+    std::string to_string() const override;
 };
 
 //RegularState: Child of ThreeItemPromotableState
@@ -146,7 +146,7 @@ public:
 
     //Get the State enum (guest, regular, VIP)
     Category get_state() override;
-    std::string to_string_file() const;
+    std::string to_string() const override;
 };
 
 //VIPState: Child of ThreeItemPromotableState
@@ -166,5 +166,5 @@ public:
     //Get the State enum (guest, regular, VIP) and set context
     void set_context(Customer* customer) override;
     Category get_state() override;
-    std::string to_string_file() const;
+    std::string to_string() const override;
 };
