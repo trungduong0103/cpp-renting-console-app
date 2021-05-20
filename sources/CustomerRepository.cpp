@@ -222,7 +222,7 @@ bool already_have_item(const std::vector<std::string> &vector, const std::string
 }
 
 Customer *load_customer(
-        const std::vector<std::string> &customer_vector,
+        std::vector<std::string> &customer_vector,
         std::vector<std::string> rentals_vector,
         const std::vector<Item *> &items,
         std::string items_quantity_msg
@@ -281,6 +281,9 @@ Customer *load_customer(
                 << std::endl;
         std::cout << "[LOG] Number of rentals: " << customer_vector[4] << std::endl;
         std::cout << "[LOG] Actual items: " << rentals_vector.size() << std::endl;
+        customer_vector[4] = std::to_string(rentals_vector.size());
+        std::cout << "[LOG] Changed " << customer_vector[0] << " 's number of rentals to " << rentals_vector.size()
+                  << std::endl;
     }
 
     std::cout << "[INFO] Loaded Customer: " << customer_vector[0] << items_quantity_msg << std::endl;
@@ -393,24 +396,36 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
         }
         // for the final customer
         if (!customer_vector.empty() && x == lines.size() - 1) {
-            load_customer(customer_vector, rentals_vector, items, items_quantity_msg);
+            Customer *customer = load_customer(customer_vector, rentals_vector, items, items_quantity_msg);
+            if (customer != nullptr) {
+                mockCustomers.push_back(customer);
+            } else {
+                std::cout << "[FATAL] Something went wrong creating new customer" << std::endl;
+            }
         }
     }
     std::cout << "[INFO] Done loading customers!" << std::endl;
     infile.close();
+    std::cout << "[INFO] Rewriting content of customers.txt..." << std::endl;
+    this->save(mockCustomers);
     return mockCustomers;
 }
 
 void TextFileCustomerPersistence::save(std::vector<Customer *> customers) {
-    std::ofstream outfile("../outfiles/items_out.txt", std::ios::trunc);
+    std::ofstream outfile("../textfiles/customers.txt", std::ios::trunc);
     if (!outfile) {
-        std::cerr << "Cannot write to file items_out.txt" << std::endl;
+        std::cerr << "[ERROR] Cannot write to file items_out.txt" << std::endl;
         return;
     }
-
     unsigned int i = 0;
     std::string state;
     for (; i < customers.size(); i++) {
-
+        outfile << customers[i]->to_string_file();
+        // no newline EOF
+        if (i < customers.size() - 1 && customers[i]->get_number_of_rentals() != 0) {
+            outfile << "\n";
+        }
     }
+    std::cout << "[SUCCESS] Successfully saved customers.txt!" << std::endl;
+    outfile.close();
 }

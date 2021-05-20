@@ -68,13 +68,13 @@ std::string VideoRecord::to_string_console() const {
 
 std::string VideoRecord::to_string_file() const {
     return {
-        this -> get_id() + "," +
-        this -> get_title() + "," +
-        "Record" + "," +
-        rental_type_to_string(this -> rental_type) + "," +
-        std::to_string(this -> get_number_in_stock()) + "," +
-        std::to_string(this -> get_rental_fee()) + "," +
-        genre_to_string(this -> get_genre())
+            this->get_id() + "," +
+            this->get_title() + "," +
+            "Record" + "," +
+            rental_type_to_string(this->rental_type) + "," +
+            std::to_string(this->get_number_in_stock()) + "," +
+            std::to_string(this->get_rental_fee()) + "," +
+            genre_to_string(this->get_genre())
     };
 }
 
@@ -91,13 +91,13 @@ std::string DVD::to_string_console() const {
 
 std::string DVD::to_string_file() const {
     return {
-            this -> get_id() + "," +
-            this -> get_title() + "," +
+            this->get_id() + "," +
+            this->get_title() + "," +
             "DVD" + "," +
-            rental_type_to_string(this -> rental_type) + "," +
-            std::to_string(this -> get_number_in_stock()) + "," +
-            std::to_string(this -> get_rental_fee()) + "," +
-            genre_to_string(this -> get_genre())
+            rental_type_to_string(this->rental_type) + "," +
+            std::to_string(this->get_number_in_stock()) + "," +
+            std::to_string(this->get_rental_fee()) + "," +
+            genre_to_string(this->get_genre())
     };
 }
 

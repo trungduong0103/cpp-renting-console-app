@@ -251,22 +251,26 @@ std::vector<Item *> TextFileItemPersistence::load() {
     }
     std::cout << "[INFO] Done loading items!" << std::endl;
     infile.close();
+    std::cout << "[INFO] Rewriting content of items.txt..." << std::endl;
+    this->save(mockItems);
     return mockItems;
 }
 
 void TextFileItemPersistence::save(std::vector<Item *> items) {
-    std::ofstream outfile("../outfiles/items_out.txt", std::ios::trunc);
+    std::ofstream outfile("../textfiles/items.txt", std::ios::trunc);
     if (!outfile) {
-        std::cerr << "Cannot write to file items_out.txt" << std::endl;
+        std::cerr << "[ERROR] Cannot write to file items_out.txt" << std::endl;
         return;
     }
     unsigned int i = 0;
     for (; i < items.size(); i++) {
         outfile << items[i]->to_string_file();
-        if (i < items.size()) {
+        // no newline EOF
+        if (i < items.size() - 1) {
             outfile << "\n";
         }
     }
+    std::cout << "[SUCCESS] Successfully saved items.txt!" << std::endl;
     outfile.close();
 }
 

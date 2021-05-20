@@ -334,11 +334,19 @@ std::ostream &operator<<(std::ostream &os, Customer const &customer) {
 
 std::string Customer::to_string_file() const {
     std::stringstream out_stream;
-    out_stream << id << "," << name << "," << address << "," << phone << "," << number_of_rentals
-    << "," << state->to_string() << std::endl;
+    out_stream << id << ","
+               << name << ","
+               << address << ","
+               << phone << ","
+               << number_of_rentals << ","
+               << state->to_string()
+               << std::endl;
 
-    for (auto item : items) {
-        out_stream << item->get_id() << std::endl;
+    for (unsigned int i = 0;  i < items.size() ; i++) {
+        out_stream << items[i] -> get_id();
+        if (i < items.size() - 1) {
+            out_stream << "\n";
+        }
     }
 
     return out_stream.str();
