@@ -46,6 +46,13 @@ void ItemNumberOfStockDecreaseIntent::modify() {
     item->decrease_num_in_stock(value);
 }
 
+GenredItemGenreModificationIntent::GenredItemGenreModificationIntent(GenredItem::Genre genre) : genre(
+        genre) {}
+
+void GenredItemGenreModificationIntent::modify() {
+    genred_item->set_genre(genre);
+}
+
 //Repository
 InMemoryItemRepository::InMemoryItemRepository(std::vector<Item *> items) : items(std::move(items)) {}
 
@@ -93,7 +100,20 @@ void InMemoryItemRepository::update_item(std::string const &item_id, ItemModific
         intent.set_item(items[position]);
         intent.modify();
     } else {
-        std::cerr << "User does not exist" << std::endl;
+        std::cerr << "Item does not exist" << std::endl;
+    }
+}
+
+void InMemoryItemRepository::update_genred_item(std::string const &item_id, GenredItemModificationIntent &intent) {
+    //Find the position of the item
+    int position = get_item_index(item_id);
+
+    //Update if element exists
+    if (position != -1) {
+        intent.set_item((GenredItem *) items[position]);
+        intent.modify();
+    } else {
+        std::cerr << "Item does not exist" << std::endl;
     }
 }
 
@@ -358,6 +378,10 @@ void ItemService::remove(std::string const &id) {
 
 void ItemService::update(std::string const &id, ItemModificationIntent &intent) {
     repository->update_item(id, intent);
+}
+
+void ItemService::update_genre(std::string const &id, GenredItemModificationIntent &intent) {
+    repository->update_genred_item(id, intent);
 }
 
 void ItemService::display(ItemOrder const *order) {

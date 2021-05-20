@@ -19,5 +19,5 @@ public:
     void read_customer(Customer*& customer);
     void modify_customer(std::string id);
     void read_item(Item*& item);
-    void modify_item(std::string id);
+    void modify_item(std::string id, ItemType type);
 };

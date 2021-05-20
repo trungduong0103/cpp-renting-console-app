@@ -83,12 +83,35 @@ struct ItemNumberOfStockDecreaseIntent : public ItemModificationIntent {
     void modify() override;
 };
 
+//Intent pattern
+//This intent is used for updating a user attributes using the
+//repository update method
+struct GenredItemModificationIntent {
+protected:
+    GenredItem* genred_item;
+public:
+    GenredItemModificationIntent() = default;
+    GenredItemModificationIntent(GenredItem*);
+    inline void set_item(GenredItem* gen_ite) { genred_item = gen_ite; }
+    virtual void modify() = 0;
+};
+
+//Child of Modification intent
+//Used when we want to change an genre of genred item
+struct GenredItemGenreModificationIntent : public GenredItemModificationIntent {
+    GenredItem::Genre genre;
+    GenredItemGenreModificationIntent() = default;
+    GenredItemGenreModificationIntent(GenredItem::Genre genre);
+    void modify() override;
+};
+
 //A blue print of repository pattern
 //containing methods such as CRUD of customers
 struct ItemRepository {
     virtual void add_item(Item* item) = 0;
     virtual void remove_item(std::string const& item_id) = 0;
     virtual void update_item(std::string const& item_id, ItemModificationIntent& intent) = 0;
+    virtual void update_genred_item(std::string const& item_id, GenredItemModificationIntent& intent) = 0;
     virtual Item* get_item(std::string const& id) = 0;
     virtual std::vector<Item*> get_items() = 0;
     virtual void set_items(std::vector<Item*> const&) = 0;
@@ -115,6 +138,7 @@ public:
     void add_item(Item* item) override;
     void remove_item(std::string const& item_id) override;
     void update_item(std::string const& item_id, ItemModificationIntent& intent) override;
+    void update_genred_item(std::string const& item_id, GenredItemModificationIntent& intent) override;
     Item* get_item(std::string const& id) override;
     int get_item_index(std::string const &item_id);
 };
@@ -236,6 +260,7 @@ public:
     void add(Item* item);
     void remove(std::string const& id);
     void update(std::string const& id, ItemModificationIntent& intent);
+    void update_genre(std::string const& id, GenredItemModificationIntent& intent);
     void display(ItemOrder const* order);
     void filter(ItemFilterSpecification const* spec);
 };

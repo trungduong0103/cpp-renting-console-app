@@ -254,9 +254,9 @@ bool Menu::display_item_menu(){
             std::cout << "Input item ID that you want to edit:" << std::endl;
             std::cin >> id;
             std::cin.ignore();
-
-            if (item_service->get(id) != nullptr) {
-                modify_item(id);
+            Item* item = item_service->get(id);
+            if ( item != nullptr) {
+                modify_item(id, item -> get_type());
             } else {
                 std::cerr << "Item is not exist.\n" << std::endl;
             }
@@ -633,7 +633,7 @@ void Menu::read_item(Item*& item){
     std::cout << "Add customer successful. \n" << std::endl;
 }
 
-void Menu::modify_item(std::string id){
+void Menu::modify_item(std::string id, ItemType type){
     std::string title;
     std::string rental_type;
     std::string stock;
@@ -707,6 +707,33 @@ void Menu::modify_item(std::string id){
     }
     float fee_float = std::stof(fee);
 
+    int genre_int;
+    if (type != ItemType::GAME) {
+        while (true) {
+            std::cout << "Select genre:" << std::endl;
+            std::cout << "1.Action" << std::endl;
+            std::cout << "2.Horror" << std::endl;
+            std::cout << "3.Drama" << std::endl;
+            std::cout << "4.Comedy" << std::endl;
+            std::cin >> genre;
+            genre_int = std::stoi(genre);
+            if (genre != "1" && genre != "2" && genre != "3" && genre != "4") {
+                std::cerr << "Invalid input." << std::endl;
+                std::string option;
+                std::cout << "Try again" << std::endl;
+                std::cout << "1.Yes" << std::endl;
+                std::cout << "2.No" << std::endl;
+                std::cin >> option;
+                if (option == "2") {
+                    return;
+                }
+            } else {
+                break;
+            }
+        }
+    }
+
+
     ItemTitleModificationIntent intent_title{title};
     item_service->update(id, intent_title);
     ItemRentalTypeModificationIntent intent_rental_type{Item::RentalType(rental_type_int - 1)};
@@ -715,6 +742,10 @@ void Menu::modify_item(std::string id){
     item_service->update(id, intent_stock);
     ItemFeeModificationIntent intent_fee{fee_float};
     item_service->update(id, intent_fee);
+    if(type != ItemType::GAME){
+        GenredItemGenreModificationIntent intent_genre{GenredItem::Genre(genre_int - 1)};
+        item_service->update_genre(id, intent_genre);
+    }
     std::cout << "Updated item successfully.\n" << std::endl;
 };
 
