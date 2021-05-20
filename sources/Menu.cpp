@@ -416,7 +416,7 @@ void Menu::read_customer(Customer*& customer){
 
 
     int number_of_rentals = 0;
-    std::vector<std::string> items;
+    std::vector<Item*> items;
     CustomerState* state = new GuestState;
 
     customer = new Customer(id, name, address, phone, number_of_rentals, items, state);

@@ -19,7 +19,7 @@ class Customer {
     int number_of_rentals;
 
     //Hold the id of items
-    std::vector<std::string> items;
+    std::vector<Item*> items;
 
     //Apply the State design pattern for customer state
     CustomerState* state;
@@ -27,12 +27,12 @@ class Customer {
 public:
     //Constructor and destructor
     Customer() = default;
-    Customer(std::string const& id, std::string const& name, std::string const& address, std::string const& phone, int total_rentals, std::vector<std::string> const& items, CustomerState* state);
+    Customer(std::string const& id, std::string const& name, std::string const& address, std::string const& phone, int total_rentals, std::vector<Item*> const& items, CustomerState* state);
     ~Customer();
 
     //Get methods
     inline int get_number_of_rentals() { return number_of_rentals; }
-    inline std::vector<std::string> get_items() const { return items; }
+    inline std::vector<Item*> get_items() const { return items; }
     inline std::string get_id() const { return id; }
     inline std::string get_name() const { return name; }
     inline std::string get_address() const { return address; }
@@ -66,6 +66,8 @@ class CustomerState {
 public:
     //Methods to borrow an items
     virtual void borrow(Item* item) = 0;
+    //Method to return an item
+    virtual void return_item(Item* item) = 0;
 
     //Method to promote to next state
     //Guest -> Regular or Regula -> VIP
@@ -85,6 +87,7 @@ class ThreeItemPromotableCustomer : public CustomerState {
 protected:
     //Holds the customer context and boolean checking if the customer has been promoted
     bool promoted;
+    int number_of_video_rented;
     Customer* context;
     //Protected constructor
     ThreeItemPromotableCustomer(Customer*, bool);
@@ -96,6 +99,8 @@ public:
     //Overidden methods to promote the state
     virtual void promote() override = 0;
     bool can_be_promoted() const override;
+    int get_number_of_videos_rented();
+    void increase_number_of_videos_rented();
 
     //Overriden method to set Customer context
     virtual void set_context(Customer* customer) override;
@@ -113,6 +118,7 @@ public:
 
     //Methods to borrow and promote customer
     void borrow(Item* item) override;
+    void return_item(Item* item) override;
     void promote() override;
 
     //Method to get the State (Guest, VIP, Regular)
@@ -128,6 +134,7 @@ public:
 
     //Methods to borrow and promote customer
     void borrow(Item* item) override;
+    void return_item(Item* item) override;
     void promote() override;
 
     //Get the State enum (guest, regular, VIP)
@@ -145,6 +152,7 @@ public:
 
     //Methods to borrow and promote customer
     void borrow(Item* item) override;
+    void return_item(Item* item) override;
     void promote() override;
 
     //Get the State enum (guest, regular, VIP) and set context

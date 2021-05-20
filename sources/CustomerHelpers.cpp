@@ -133,3 +133,13 @@ bool valid_customer_data(const std::string &line) {
            customer_address_is_valid(customer_vector[2]) &&
            customer_type_is_valid(customer_vector[5]);
 }
+
+int get_number_of_videos(Customer const* customer) {
+    int video_count = 0;
+
+    for (auto const& item : customer->get_items()) {
+        if (item->get_type() == ItemType::VIDEO) video_count += 1;
+    }
+
+    return video_count;
+}

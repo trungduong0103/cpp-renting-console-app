@@ -1,10 +1,11 @@
 #include <iostream>
 #include "../headers/Customer.h"
+#include "../headers/CustomerHelpers.h"
 
 //Promotable
 bool ThreeItemPromotableCustomer::can_be_promoted() const {
     //User can only be promoted if the number of rentals >= 3 and has not been promoted yet
-    return context->get_number_of_rentals() - ThreeItemPromotableCustomer::minimum_promotion_rentals * promoted >= 3;
+    return get_number_of_videos(context) - ThreeItemPromotableCustomer::minimum_promotion_rentals * promoted >= 3;
 }
 
 //Constructor for ThreeItemPromotableCustomer
@@ -14,6 +15,10 @@ ThreeItemPromotableCustomer::ThreeItemPromotableCustomer(Customer* customer, boo
 void ThreeItemPromotableCustomer::set_context(Customer* customer) {
     context = customer;
 }
+
+//Get number of videos rented
+int ThreeItemPromotableCustomer::get_number_of_videos_rented() { return number_of_video_rented; }
+void ThreeItemPromotableCustomer::increase_number_of_videos_rented() { number_of_video_rented += 1; }
 
 //Guest state
 //Constructor with no arguments
@@ -49,7 +54,7 @@ void GuestState::borrow(Item* item) {
 
     //Check the number of item in the list
     //Guest can not borrow more than 2 items
-    if (context->get_items().size() >= 2) {
+    if (get_number_of_videos(context) >= 2) {
         std::cerr << "Can not rent more items (number of currently renting items has exceeded 2)" << std::endl;
         return;
     }
@@ -71,6 +76,12 @@ void GuestState::borrow(Item* item) {
 
     //Display successfuly message
     std::cout << "Item rented successfully" << std::endl;
+}
+
+void GuestState::return_item(Item *item) {
+    if (item->get_type() == VIDEO) {
+        increase_number_of_videos_rented();
+    }
 }
 
 //Regular state
@@ -116,6 +127,12 @@ void RegularState::borrow(Item* item) {
     std::cout << "Item rented successfully" << std::endl;
 }
 
+void RegularState::return_item(Item *item) {
+    if (item->get_type() == VIDEO) {
+        increase_number_of_videos_rented();
+    }
+}
+
 //VIP state
 VIPState::VIPState() : ThreeItemPromotableCustomer(nullptr, false) {}
 VIPState::VIPState(Customer* customer, bool promoted) : ThreeItemPromotableCustomer(customer, promoted) {
@@ -146,6 +163,7 @@ void VIPState::borrow(Item* item) {
     item->decrease_num_in_stock(1);
     item->set_rental_status(Item::RentalStatus::Borrowed);
 
+
     //If current point is over 100
     //Item will be rented for free
     if (current_points >= 100) {
@@ -158,6 +176,12 @@ void VIPState::borrow(Item* item) {
     }
 }
 
+void VIPState::return_item(Item *item) {
+    if (item->get_type() == VIDEO) {
+        increase_number_of_videos_rented();
+    }
+}
+
 //Set context of VIPState account
 void VIPState::set_context(Customer* customer) {
     ThreeItemPromotableCustomer::set_context(customer);
@@ -166,7 +190,7 @@ void VIPState::set_context(Customer* customer) {
 }
 
 //Customer constructor
-Customer::Customer(std::string const& id, std::string const& name, std::string const& address, std::string const& phone, int total_rentals, std::vector<std::string> const& items, CustomerState* state)
+Customer::Customer(std::string const& id, std::string const& name, std::string const& address, std::string const& phone, int total_rentals, std::vector<Item*> const& items, CustomerState* state)
         : id(id), name(name), address(address), phone(phone), number_of_rentals(total_rentals), items(items) , state(state) {
     state->set_context(this);
 }
@@ -212,6 +236,14 @@ Category Customer::get_state() const {
 //Customer borrowing an item
 //By calling the method on item
 void Customer::borrow(Item* item) {
+    //Check if item is already borrowed
+    for (int i = 0; i != items.size(); ++i) {
+        if (items[i]->get_id() == item->get_id()) {
+            std::cerr << "Item is already borrowed by customer" << std::endl;
+        }
+    }
+
+    //Then borrowed item
     state->borrow(item);
 }
 
@@ -220,7 +252,7 @@ void Customer::return_item(Item *item) {
     //Check if item id in rental
     int position = -1;
     for (int i = 0; i != items.size(); ++i) {
-        if (items[i] == item->get_id()) {
+        if (items[i]->get_id() == item->get_id()) {
             position = i;
             break;
         }
@@ -240,6 +272,9 @@ void Customer::return_item(Item *item) {
 
     //Reduce user's item count
     decrease_number_of_rentals();
+
+    //State return item
+    state->return_item(item);
 }
 
 //Increase and decrease the number of rental items
@@ -253,7 +288,7 @@ void Customer::decrease_number_of_rentals() {
 
 //Add item id to rental list
 void Customer::add_rental(Item* item) {
-    items.push_back(item->id);
+    items.push_back(item);
 }
 
 //Display the customer
