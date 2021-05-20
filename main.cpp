@@ -5,11 +5,10 @@
 using namespace std;
 
 int main() {
-    /*
     Menu menu;
     menu.start();
-     */
 
+    /*
     string id{ "I001" };
     string name{ "John Cena" };
     string phone{ "0909 "};
@@ -44,8 +43,6 @@ int main() {
     customer->borrow(item1);
     customer->return_item(item1);
 
-    customer->borrow(item1);
-    customer->return_item(item1);
-
     customer->promote();
+     */
 }
