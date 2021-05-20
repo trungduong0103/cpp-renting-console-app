@@ -92,7 +92,8 @@ bool customer_name_is_valid(const std::string &name) {
     }
     for (char c : name) {
         if (!std::isalnum(c) && c != 32) {
-            std::cout << "[ERROR] Customer name must not have special characters/digits, received " << name << std::endl;
+            std::cout << "[ERROR] Customer name must not have special characters/digits, received " << name
+                      << std::endl;
             return false;
         }
     }
@@ -114,6 +115,24 @@ bool customer_address_is_valid(const std::string &address) {
     return true;
 }
 
+bool customer_rental_number_is_valid(const std::string &rental_num) {
+    const std::string default_error = "[ERROR] Customer number of rentals is invalid ";
+    try {
+        const int int_rental_num = std::stoi(rental_num);
+        if (int_rental_num >= 0) {
+            return true;
+        }
+        std::cout << default_error
+                  << ", rental number must be bigger or equals to 0, received: "
+                  << rental_num
+                  << std::endl;
+        return false;
+    } catch (std::invalid_argument &e) {
+        std::cout << default_error << ", received: " << rental_num << std::endl;
+        return false;
+    }
+}
+
 bool customer_type_is_valid(const std::string &type) {
     if (type != "Guest" && type != "Regular" && type != "VIP") {
         std::cout << "Customer must be either Guest, Regular, or VIP, received: " << type << std::endl;
@@ -131,13 +150,14 @@ bool valid_customer_data(const std::string &line) {
     return customer_id_is_valid(customer_vector[0], false) &&
            customer_name_is_valid(customer_vector[1]) &&
            customer_address_is_valid(customer_vector[2]) &&
+           customer_rental_number_is_valid(customer_vector[4]) &&
            customer_type_is_valid(customer_vector[5]);
 }
 
-int get_number_of_videos(Customer const* customer) {
+int get_number_of_videos(Customer const *customer) {
     int video_count = 0;
 
-    for (auto const& item : customer->get_items()) {
+    for (auto const &item : customer->get_items()) {
         if (item->get_type() == ItemType::VIDEO) video_count += 1;
     }
 
