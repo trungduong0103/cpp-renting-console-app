@@ -515,7 +515,7 @@ void Menu::modify_customer(const std::string& id) {
     customer_service->update(id, intent_address);
     PhoneModificationIntent intent_phone{phone};
     customer_service->update(id, intent_phone);
-    std::cerr << "Modify customer successful. \n" << std::endl;
+    std::cout << "Modify customer successful. \n" << std::endl;
 }
 
 void Menu::read_item(Item *&item) {
