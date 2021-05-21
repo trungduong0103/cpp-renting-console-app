@@ -205,6 +205,7 @@ bool Menu::display_customer_menu() {
             } else {
                 std::cerr << "Invalid input. \n" << std::endl;
             }
+            }
         }
             break;
         case 0:
@@ -416,7 +417,7 @@ void Menu::read_customer(Customer *&customer) {
     CustomerState *state = new GuestState;
 
     customer = new Customer(id, name, address, phone, number_of_rentals, items, state);
-    std::cout << "Added item successful.\n" << std::endl;
+    std::cout << "Added customer successful.\n" << std::endl;
 }
 
 void Menu::modify_customer(const std::string& id) {
