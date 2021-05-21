@@ -5,28 +5,48 @@
 #include <fstream>
 #include <string>
 
-//Modification intents
+/*
+	This class contains the Item Service class
+	which is responsible for all CRUD operation on items
+	This class is aggragated by combining different classes such as ItemRepository (for CRUD operation)
+	- Repository design pattern will be used here, ItemPersistence (for reading and writing files),
+	ItemFilterer (for filtering customer based on their attributes) and ItemDisplayer
+	(for displaying purposes)
+
+	This is to follow open-closed principle: whenever a specification changes, we can switch
+	out ItemRepository and replace by a new implementation, for instance,
+	to make the ItemService more robust to changes
+*/
+
+//Intent pattern
+//This intent is used for updating a user attributes using the
+//repository update method
 ItemModificationIntent::ItemModificationIntent(Item *item) : item(item) {}
 
+//Child of Modification intent
+//Used when we want to change an item's title
 ItemTitleModificationIntent::ItemTitleModificationIntent(std::string title) : title(std::move(title)) {}
-
 void ItemTitleModificationIntent::modify() {
     item->set_title(title);
 }
 
+//Child of Modification intent
+//Used when we want to change an item's rental type
 ItemRentalTypeModificationIntent::ItemRentalTypeModificationIntent(Item::RentalType rental_type) : rental_type(
         rental_type) {}
-
 void ItemRentalTypeModificationIntent::modify() {
     item->set_rental_type(rental_type);
 }
 
+//Child of Modification intent
+//Used when we want to change an item's fee
 ItemFeeModificationIntent::ItemFeeModificationIntent(float fee) : fee(fee) {}
-
 void ItemFeeModificationIntent::modify() {
     item->set_rental_fee(fee);
 }
 
+//Child of Modification intent
+//Used when we want to change an item's stock
 ItemNumStockModificationIntent::ItemNumStockModificationIntent(unsigned int number_in_stock) : number_in_stock(
         number_in_stock) {}
 
@@ -34,28 +54,31 @@ void ItemNumStockModificationIntent::modify() {
     item->set_num_in_stock(number_in_stock);
 }
 
+//Child of Modification intent
+//Used when we want to change an item's stock
 ItemNumberOfStockIncreaseIntent::ItemNumberOfStockIncreaseIntent(unsigned int value) : value(value) {}
-
 void ItemNumberOfStockIncreaseIntent::modify() {
     item->increase_num_in_stock(value);
 }
 
+//Child of Modification intent
+//Used when we want to change an item's stock
 ItemNumberOfStockDecreaseIntent::ItemNumberOfStockDecreaseIntent(unsigned int value) : value(value) {}
-
 void ItemNumberOfStockDecreaseIntent::modify() {
     item->decrease_num_in_stock(value);
 }
 
+//Child of Modification intent
+//Used when we want to change an item's genre
 GenredItemGenreModificationIntent::GenredItemGenreModificationIntent(GenredItem::Genre genre) : genre(
         genre) {}
-
 void GenredItemGenreModificationIntent::modify() {
     genred_item->set_genre(genre);
 }
 
-//Repository
+//Implementation of Repository pattern
+//Where all CRUD operation will be done using an in-memory vector
 InMemoryItemRepository::InMemoryItemRepository(std::vector<Item *> items) : items(std::move(items)) {}
-
 InMemoryItemRepository::~InMemoryItemRepository() {
     for (auto item_ptr : items) {
         if (item_ptr != nullptr) {
@@ -157,8 +180,9 @@ std::vector<std::string> get_item_as_vector(std::string &line) {
     return item_as_vector;
 }
 
-
-//Text file persistence
+//Implementation of ItemPersistence
+//This is responsible for loading and saving
+//customers from and to a text file
 std::vector<Item *> TextFileItemPersistence::load() {
     std::ifstream infile("../textfiles/items.txt");
     if (!infile) {
@@ -256,6 +280,9 @@ std::vector<Item *> TextFileItemPersistence::load() {
     return mockItems;
 }
 
+//Implementation of ItemPersistence
+//This is responsible for loading and saving
+//customers from and to a text file
 void TextFileItemPersistence::save(std::vector<Item *> items) {
     std::ofstream outfile("../textfiles/items.txt", std::ios::trunc);
     if (!outfile) {
@@ -274,23 +301,27 @@ void TextFileItemPersistence::save(std::vector<Item *> items) {
     outfile.close();
 }
 
-//Displayer
+//Order by name: This class will sort the items based on their titles
 void ItemTitleOrder::order(std::vector<Item *> &items) const {
     std::sort(items.begin(), items.end(), [](Item const *a, Item const *b) {
         return a->get_title() < b->get_title();
     });
 }
 
+//Order by id: This class will sort the items based on their ids
 void ItemIdOrder::order(std::vector<Item *> &items) const {
     std::sort(items.begin(), items.end(), [](Item const *a, Item const *b) {
         return a->get_id() < b->get_id();
     });
 }
 
+//No order: This class will do nothing
 void ItemNoOrder::order(std::vector<Item *> &items) const {
     //Do nothing
 }
 
+//Implementation of ItemDisplayer
+//Responsible for displaying the items through the console
 void ConsoleItemDisplayer::display(std::vector<Item *> items, ItemOrder const *order) {
     //Sort first
     order->order(items);
@@ -300,13 +331,14 @@ void ConsoleItemDisplayer::display(std::vector<Item *> items, ItemOrder const *o
 }
 
 //Filters
+//Filter item based on their number of stock
 ItemNumStockFilterSpecification::ItemNumStockFilterSpecification(unsigned int const number_in_stock)
         : number_in_stock(number_in_stock) {}
-
 bool ItemNumStockFilterSpecification::is_satisfied(Item const *item) const {
     return item->get_number_in_stock() == number_in_stock;
 }
 
+//Filter item based on their id
 ItemIdFilterSpecification::ItemIdFilterSpecification(std::string id)
         : id(id) {}
 
@@ -314,17 +346,20 @@ bool ItemIdFilterSpecification::is_satisfied(Item const *item) const {
     return check_field_contains(item->get_id(), id);
 }
 
+//Filter item based on their title
 ItemTitleFilterSpecification::ItemTitleFilterSpecification(std::string title)
         : title(title) {}
-
 bool ItemTitleFilterSpecification::is_satisfied(Item const *item) const {
     return check_field_contains(item->get_title(), title);
 }
 
+//Filter base on no conditions -> Every item is satisfied
 bool ItemAllFilterSpecification::is_satisfied(Item const *item) const {
     return true;
 }
 
+//This class uses a spefication class (TitleSpec, StockSpec or all Spec)
+//to filter the list of items and include only those which satistfies the spec
 std::vector<Item *> ItemFilterer::filter(std::vector<Item *> const &items, ItemFilterSpecification const *spec) {
     std::vector<Item *> result;
 
@@ -337,7 +372,10 @@ std::vector<Item *> ItemFilterer::filter(std::vector<Item *> const &items, ItemF
     return result;
 }
 
-//Item service
+//Aggregated class
+//Each attributes: repo, displayer, filterer and persistence
+//can be switched out and replaced by another implementation
+//to satisfy the Open-Closed principle
 ItemService::ItemService(ItemRepository *repo, ItemDisplayer *display, ItemFilterer *filterer,
                          ItemPersistence *persistence) :
         repository(repo), displayer(display), filterer(filterer), persistence(persistence) {}

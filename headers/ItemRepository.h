@@ -118,10 +118,6 @@ struct ItemRepository {
     virtual void set_items(std::vector<Item*> const&) = 0;
 };
 
-// TODO:
-//  If an item is currently borrowed, a delete action with that item will fail with an error message
-//  A customer can only be removed from the system once he/she returned all borrowed items
-
 //Implementation of Repository pattern
 //Where all CRUD operation will be done using an in-memory vector
 struct InMemoryItemRepository : public ItemRepository {
@@ -209,7 +205,7 @@ struct ItemNumStockFilterSpecification : public ItemFilterSpecification {
     bool is_satisfied(Item const* item) const override;
 };
 
-//Filter item based on their number of stock
+//Filter item based on their id
 struct ItemIdFilterSpecification : public ItemFilterSpecification {
     std::string id;
 
@@ -217,7 +213,7 @@ struct ItemIdFilterSpecification : public ItemFilterSpecification {
     bool is_satisfied(Item const* item) const override;
 };
 
-
+//Filter item based on their title
 struct ItemTitleFilterSpecification : public ItemFilterSpecification {
     std::string title;
 
