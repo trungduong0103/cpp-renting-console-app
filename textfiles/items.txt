@@ -4,3 +4,4 @@ I003-1992,Alpha Dog,Record,1-week,1,1.000000,Action
 I004-1999,Rat Race,DVD,1-week,1,1.000000,Horror
 I005-2015,Halo,Game,2-day,2,4.990000
 I006-2013,Halloween,DVD,2-day,2,2.000000,Horror
+I099-2020,The End Of Earth,Game,2-day,11,10.990000
