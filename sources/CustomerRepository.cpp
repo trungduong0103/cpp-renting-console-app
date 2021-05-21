@@ -9,28 +9,47 @@
 #include <fstream>
 #include <iostream>
 
-//Modification intents
+/*
+	This class contains the Customer Service class
+	which is responsible for all CRUD operation on customers
+	This class is aggragated by combining different classes such as CustomerRepository (for CRUD operation)
+	- Repository design pattern will be used here, CustomerPersistence (for reading and writing files),
+	CustomerFilterer (for filtering customer based on their attributes) and CustomerDisplayer
+	(for displaying purposes)
+
+	This is to follow open-closed principle: whenever a specification changes, we can switch
+	out CustomerRepository and replace by a new implementation, for instance,
+	to make the CustomerService more robust to changes
+*/
+
+//Intent pattern
+//This intent is used for updating a user attributes using the
+//repository update method
 ModificationIntent::ModificationIntent(Customer *customer) : customer(customer) {}
 
+//Child of Modification intent
+//Used when we want to change a customer's name
 NameModificationIntent::NameModificationIntent(std::string const &name) : name(name) {}
-
 void NameModificationIntent::modify() {
     customer->set_name(name);
 }
 
+//Child of Modification intent
+//Used when we want to change a customer's phone
 PhoneModificationIntent::PhoneModificationIntent(std::string const &phone) : phone(phone) {}
-
 void PhoneModificationIntent::modify() {
     customer->set_phone(phone);
 }
 
+//Child of Modification intent
+//Used when we want to change a customer's address
 AddressModificationIntent::AddressModificationIntent(std::string const &address) : address(address) {}
-
 void AddressModificationIntent::modify() {
     customer->set_address(address);
 }
 
-//Repository
+//Implementation of Repository pattern
+//Where all CRUD operation will be done using an in-memory vector
 InMemoryCustomerRepository::InMemoryCustomerRepository(std::vector<Customer *> const &customers) : customers(
         customers) {}
 
@@ -111,7 +130,6 @@ void CustomerLevelOrder::order(std::vector<Customer *> &customers) const {
 void CustomerNoOrder::order(std::vector<Customer *> &customers) const {
     //Do nothing
 }
-
 
 void ConsoleCustomerDisplayer::display(std::vector<Customer *> customers, CustomerOrder const *order) {
     //Sort first
@@ -341,6 +359,9 @@ Customer *load_customer(
     return nullptr;
 }
 
+//Implementation of CustomerPersistence
+//This is responsible for loading and saving
+//customers from and to a text file
 std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> items) {
     std::ifstream infile("../textfiles/customers.txt");
     if (!infile) {
@@ -417,6 +438,9 @@ std::vector<Customer *> TextFileCustomerPersistence::load(std::vector<Item *> it
     return mockCustomers;
 }
 
+//Implementation of CustomerPersistence
+//This is responsible for loading and saving
+//customers from and to a text file
 void TextFileCustomerPersistence::save(std::vector<Customer *> customers) {
     std::ofstream outfile("../textfiles/customers.txt", std::ios::trunc);
     if (!outfile) {
