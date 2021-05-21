@@ -4,14 +4,22 @@
 #include "../headers/Customer.h"
 #include "../headers/CustomerHelpers.h"
 
-//Promotable
+/*
+	This components contains the logic for a customer and its state: Guest, Regular and VIP
+	Here, the State design pattern is used to represent a customer's state using
+	GuestState, RegularState, VIPState and all the returning and renting of item will be
+	carried out using these state. After a customer gets promoted, the state of the account will also be
+	changed (GuestState -> RegularState -> VIPState)
+*/
+
+//PromotableState -> This state can be promoted if 3 items are borrowed and returned successfully
 bool ThreeItemPromotableCustomer::can_be_promoted() const {
     //User can only be promoted if the number of rentals >= 3 and has not been promoted yet
     std::cout << context->get_number_of_videos() << std::endl;
     return context->get_number_of_videos() - ThreeItemPromotableCustomer::minimum_promotion_rentals * promoted >= 3;
 }
 
-//Constructor for ThreeItemPromotableCustomer
+//Constructor for ThreeItemPromotableCustomer (State)
 ThreeItemPromotableCustomer::ThreeItemPromotableCustomer(Customer *customer, bool promoted) : context(customer),
                                                                                               promoted(promoted) {}
 
@@ -20,10 +28,6 @@ void ThreeItemPromotableCustomer::set_context(Customer *customer) {
     context = customer;
 }
 
-//Get number of videos rented
-int ThreeItemPromotableCustomer::get_number_of_videos_rented() const { return number_of_video_rented; }
-
-void ThreeItemPromotableCustomer::increase_number_of_videos_rented() { number_of_video_rented += 1; }
 
 //Guest state
 //Constructor with no arguments
@@ -84,12 +88,7 @@ void GuestState::borrow(Item *item) {
     std::cout << "Item rented successfully" << std::endl;
 }
 
-void GuestState::return_item(Item *item) {
-    if (item->get_type() == VIDEO) {
-        increase_number_of_videos_rented();
-    }
-}
-
+//Return state in string for printing and writing for files
 std::string GuestState::to_string() const {
     return "Guest";
 }
@@ -138,10 +137,7 @@ void RegularState::borrow(Item *item) {
     std::cout << "Item rented successfully" << std::endl;
 }
 
-void RegularState::return_item(Item *item) {
-
-}
-
+//Return the state in string
 std::string RegularState::to_string() const {
     return "Regular";
 }
@@ -154,6 +150,7 @@ VIPState::VIPState(Customer *customer, bool promoted) : ThreeItemPromotableCusto
     current_points = customer->get_number_of_rentals() * 10;
 }
 
+//Return the state in enum
 Category VIPState::get_state() { return Category::vip; }
 
 void VIPState::promote() {
@@ -189,10 +186,6 @@ void VIPState::borrow(Item *item) {
     }
 }
 
-void VIPState::return_item(Item *item) {
-
-}
-
 //Set context of VIPState account
 void VIPState::set_context(Customer *customer) {
     ThreeItemPromotableCustomer::set_context(customer);
@@ -212,7 +205,7 @@ Customer::Customer(std::string id, std::string name, std::string address, std::s
     state->set_context(this);
 }
 
-//Destrcutor
+//Destructor
 Customer::~Customer() {
     //Delete the state
     if (state != nullptr) {
@@ -332,6 +325,7 @@ std::ostream &operator<<(std::ostream &os, Customer const &customer) {
     return os;
 }
 
+//Convert customer into string representation to write to string
 std::string Customer::to_string_file() const {
     std::stringstream out_stream;
     out_stream << id << ","

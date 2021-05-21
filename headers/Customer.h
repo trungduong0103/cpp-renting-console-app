@@ -3,6 +3,14 @@
 #include <vector>
 #include "Item.h"
 
+/*
+	This components contains the logic for a customer and its state: Guest, Regular and VIP
+	Here, the State design pattern is used to represent a customer's state using
+	GuestState, RegularState, VIPState and all the returning and renting of item will be
+	carried out using these state. After a customer gets promoted, the state of the account will also be
+	changed (GuestState -> RegularState -> VIPState)
+*/
+
 //Enum for customer categories
 enum class Category { guest, regular, vip };
 class CustomerState;
@@ -22,7 +30,8 @@ class Customer {
     //Hold the id of items
     std::vector<Item*> items;
 
-    //Apply the State design pattern for customer state
+    //Apply the State design pattern for Customer state
+    //Each customer will have a state representing his/her privelegde
     CustomerState* state;
 
 public:
@@ -70,8 +79,6 @@ class CustomerState {
 public:
     //Methods to borrow an items
     virtual void borrow(Item* item) = 0;
-    //Method to return an item
-    virtual void return_item(Item* item) = 0;
 
     //Method to promote to next state
     //Guest -> Regular or Regula -> VIP
@@ -104,8 +111,6 @@ public:
     //Overidden methods to promote the state
     void promote() override = 0;
     bool can_be_promoted() const override;
-    int get_number_of_videos_rented() const;
-    void increase_number_of_videos_rented();
 
     //Overriden method to set Customer context
     void set_context(Customer* customer) override;
@@ -123,7 +128,6 @@ public:
 
     //Methods to borrow and promote customer
     void borrow(Item* item) override;
-    void return_item(Item* item) override;
     void promote() override;
 
     //Method to get the State (Guest, VIP, Regular)
@@ -141,7 +145,6 @@ public:
 
     //Methods to borrow and promote customer
     void borrow(Item* item) override;
-    void return_item(Item* item) override;
     void promote() override;
 
     //Get the State enum (guest, regular, VIP)
@@ -160,7 +163,6 @@ public:
 
     //Methods to borrow and promote customer
     void borrow(Item* item) override;
-    void return_item(Item* item) override;
     void promote() override;
 
     //Get the State enum (guest, regular, VIP) and set context
