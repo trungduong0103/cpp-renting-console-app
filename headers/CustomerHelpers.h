@@ -22,3 +22,5 @@ bool customer_type_is_valid(const std::string &type);
 bool valid_customer_data(const std::string &id);
 
 int get_number_of_videos(Customer const* customer);
+
+bool check_field_contains(std::string field, std::string queries);

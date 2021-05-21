@@ -125,13 +125,13 @@ void ConsoleCustomerDisplayer::display(std::vector<Customer *> customers, Custom
 IdFilterSpecification::IdFilterSpecification(std::string const &id) : id(id) {}
 
 bool IdFilterSpecification::is_satisfied(Customer const *customer) const {
-    return customer->get_id() == id;
+    return check_field_contains(customer->get_id(), id);
 }
 
 NameFilterSpecification::NameFilterSpecification(std::string const &name) : name(name) {}
 
 bool NameFilterSpecification::is_satisfied(Customer const *customer) const {
-    return customer->get_name() == name;
+    return check_field_contains(customer->get_name(), name);
 }
 
 StateFilterSpecification::StateFilterSpecification(Category state) : state(state) {}

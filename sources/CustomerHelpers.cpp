@@ -163,3 +163,18 @@ int get_number_of_videos(Customer const *customer) {
 
     return video_count;
 }
+
+void convert_to_lowercase(std::string& string) {
+    for (char & pointer : string) {
+        pointer = tolower(pointer);
+    }
+}
+
+bool check_field_contains(std::string field, std::string query) {
+    //First convert string to lowercase
+    convert_to_lowercase(field);
+    convert_to_lowercase(query);
+
+    //Check if field contains queries
+    return field.find(query) != std::string::npos;
+}
