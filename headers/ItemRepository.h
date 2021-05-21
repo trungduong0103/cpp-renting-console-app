@@ -1,5 +1,6 @@
 #pragma once
 #include "Item.h"
+#include "StringHelper.h"
 #include <iostream>
 #include <vector>
 

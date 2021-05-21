@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Customer.h"
+#include "StringHelper.h"
 #include <iostream>
 
 /*
