@@ -212,6 +212,12 @@ void CustomerService::filter(FilterSpecification const *spec) {
     //Get filtered element
     auto filtered = filterer->filter(repository->get_customers(), spec);
 
+    //Check if there is no item
+    if (filtered.size() == 0) {
+        std::cout << "Such customer does not exist" << std::endl;
+        return;
+    }
+
     //Display
     CustomerNoOrder order;
     displayer->display(filtered, &order);

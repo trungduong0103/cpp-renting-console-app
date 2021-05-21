@@ -403,6 +403,13 @@ void ItemService::display(ItemOrder const *order) {
 void ItemService::filter(ItemFilterSpecification const *spec) {
     //Get filtered element
     auto filtered = filterer->filter(repository->get_items(), spec);
+
+    //Check if length is not 0
+    if (filtered.size() == 0) {
+        std::cout << "Such item does not exist" << std::endl;
+        return;
+    }
+
     //Display
     ItemNoOrder order;
     displayer->display(filtered, &order);

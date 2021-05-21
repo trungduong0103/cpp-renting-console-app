@@ -47,6 +47,7 @@ int Menu::process_input(const std::string &option_string) {
 
 bool Menu::display_main_menu() {
     // Display menu
+    std::cout << std::endl; //New line before the menu
     std::cout << "MAIN MENU" << std::endl;
     std::cout << "1. Access item functions" << std::endl;
     std::cout << "2. Access customer functions" << std::endl;
@@ -143,6 +144,7 @@ bool Menu::display_customer_menu() {
         case 4: {
             CustomerNoOrder no_order;
             customer_service->display(&no_order);
+            std::cout << std::endl;
         }
             break;
         case 5: {
@@ -184,17 +186,22 @@ bool Menu::display_customer_menu() {
                 std::string id;
                 std::cout << "Input id:" << std::endl;
                 std::getline(std::cin, id);
+
+                std::cout << "Results" << std::endl;
                 IdFilterSpecification id_spec{id};
-                std::cerr << std::endl;
+
                 customer_service->filter(&id_spec);
+                std::cout << std::endl;
             } else if (option == "2") {
                 std::string name;
                 std::cout << "Input name:" << std::endl;
                 std::getline(std::cin, name);
+
                 NameFilterSpecification name_spec{name};
-                std::cerr << "Results:" << std::endl;
+                std::cout << "Results:" << std::endl;
+
                 customer_service->filter(&name_spec);
-                std::cerr << std::endl;
+                std::cout << std::endl;
             } else {
                 std::cerr << "Invalid input. \n" << std::endl;
             }
@@ -318,17 +325,17 @@ bool Menu::display_item_menu() {
                 std::cout << "Input id:" << std::endl;
                 std::getline(std::cin, id);
                 ItemIdFilterSpecification id_spec{id};
-                std::cerr << "Results:" << std::endl;
+                std::cout << "Results:" << std::endl;
                 item_service->filter(&id_spec);
-                std::cerr << std::endl;
+                std::cout << std::endl;
             } else if (option == "2") {
                 std::string title;
                 std::cout << "Input title:" << std::endl;
                 std::getline(std::cin, title);
                 ItemTitleFilterSpecification title_spec{title};
-                std::cerr << "Results:" << std::endl;
+                std::cout << "Results:" << std::endl;
                 item_service->filter(&title_spec);
-                std::cerr << std::endl;
+                std::cout << std::endl;
             } else {
                 std::cerr << "Invalid input.\n" << std::endl;
             }
