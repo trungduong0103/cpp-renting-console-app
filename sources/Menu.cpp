@@ -152,7 +152,7 @@ bool Menu::display_customer_menu() {
             std::cout << "1. Guest customer" << std::endl;
             std::cout << "2. Regular customer" << std::endl;
             std::cout << "3. VIP customer" << std::endl;
-            std::getline(std::cin, option);
+            std::cin >> option;
             if (option == "1") {
                 StateFilterSpecification state_spec{Category::guest};
                 std::cout << "Results:" << std::endl;
@@ -178,7 +178,7 @@ bool Menu::display_customer_menu() {
             std::cout << "1.Search by id" << std::endl;
             std::cout << "2.Search by name" << std::endl;
             std::cout << "Search option:" << std::endl;
-            std::getline(std::cin, option);
+            std::cin >> option;
             std::cin.ignore();
 
             if (option == "1") {
@@ -316,7 +316,7 @@ bool Menu::display_item_menu() {
             std::cout << "1.Search by id" << std::endl;
             std::cout << "2.Search by title" << std::endl;
             std::cout << "Search option:" << std::endl;
-            std::getline(std::cin, option);
+            std::cin >> option;
             std::cin.ignore();
 
             if (option == "1") {
