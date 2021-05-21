@@ -297,7 +297,7 @@ Customer *load_customer(
     if (customer_vector[customer_vector.size() - 1] == "Guest") {
         std::cout << "[SUCCESS] Successfully created Guest customer with ID: " << customer_vector[0] << std::endl;
         CustomerState *guestState = new GuestState;
-        Customer *guest_customer = new Customer(
+        auto *guest_customer = new Customer(
                 customer_vector[0],
                 customer_vector[1],
                 customer_vector[2],
@@ -309,7 +309,7 @@ Customer *load_customer(
     } else if (customer_vector[customer_vector.size() - 1] == "Regular") {
         std::cout << "[SUCCESS] Successfully created Regular customer with ID: " << customer_vector[0] << std::endl;
         CustomerState *regularState = new RegularState;
-        Customer *regular_customer = new Customer(
+        auto *regular_customer = new Customer(
                 customer_vector[0],
                 customer_vector[1],
                 customer_vector[2],
@@ -321,7 +321,7 @@ Customer *load_customer(
     } else if (customer_vector[customer_vector.size() - 1] == "VIP") {
         std::cout << "[SUCCESS] Successfully created VIP customer with ID: " << customer_vector[0] << std::endl;
         CustomerState *vipState = new VIPState;
-        Customer *vip_customer = new Customer(
+        auto *vip_customer = new Customer(
                 customer_vector[0],
                 customer_vector[1],
                 customer_vector[2],
