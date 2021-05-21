@@ -113,7 +113,6 @@ bool Menu::display_customer_menu() {
             Customer *customer = nullptr;
             read_customer(customer);
             customer_service->add(customer);
-            std::cout << "Invalid input. \n" << std::endl;
         }
             break;
         case 2: {
@@ -153,24 +152,24 @@ bool Menu::display_customer_menu() {
             std::cout << "1. Guest customer" << std::endl;
             std::cout << "2. Regular customer" << std::endl;
             std::cout << "3. VIP customer" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "1") {
                 StateFilterSpecification state_spec{Category::guest};
-                std::cerr << "Results:" << std::endl;
+                std::cout << "Results:" << std::endl;
                 customer_service->filter(&state_spec);
                 std::cerr << std::endl;
             } else if (option == "2") {
                 StateFilterSpecification state_spec{Category::regular};
-                std::cerr << "Results:" << std::endl;
+                std::cout << "Results:" << std::endl;
                 customer_service->filter(&state_spec);
                 std::cerr << std::endl;
             } else if (option == "3") {
                 StateFilterSpecification state_spec{Category::vip};
-                std::cerr << "Results:" << std::endl;
+                std::cout << "Results:" << std::endl;
                 customer_service->filter(&state_spec);
                 std::cerr << std::endl;
             } else {
-                std::cout << "Invalid input. \n" << std::endl;
+                std::cerr << "Invalid input. \n" << std::endl;
             }
         }
             break;
@@ -179,7 +178,7 @@ bool Menu::display_customer_menu() {
             std::cout << "1.Search by id" << std::endl;
             std::cout << "2.Search by name" << std::endl;
             std::cout << "Search option:" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             std::cin.ignore();
 
             if (option == "1") {
@@ -204,7 +203,6 @@ bool Menu::display_customer_menu() {
                 std::cout << std::endl;
             } else {
                 std::cerr << "Invalid input. \n" << std::endl;
-            }
             }
         }
             break;
@@ -318,7 +316,7 @@ bool Menu::display_item_menu() {
             std::cout << "1.Search by id" << std::endl;
             std::cout << "2.Search by title" << std::endl;
             std::cout << "Search option:" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             std::cin.ignore();
 
             if (option == "1") {
@@ -368,7 +366,7 @@ void Menu::read_customer(Customer *&customer) {
             std::cout << "Try again" << std::endl;
             std::cout << "1.Yes" << std::endl;
             std::cout << "2.No" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "2") {
                 return;
             }
@@ -378,7 +376,7 @@ void Menu::read_customer(Customer *&customer) {
             std::cout << "Try again" << std::endl;
             std::cout << "1.Yes" << std::endl;
             std::cout << "2.No" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "2") {
                 return;
             }
@@ -387,11 +385,42 @@ void Menu::read_customer(Customer *&customer) {
         }
     }
 
-    std::cout << "Input customer name:" << std::endl;
-    std::getline(std::cin, name);
+    while (true) {
+        std::cout << "Input customer name:" << std::endl;
+        std::getline(std::cin, name);
+        if (!customer_name_is_valid(name)) {
+            std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::getline(std::cin, option);
+            if (option == "2") {
+                return;
+            }
+        } else {
+            break;
+        }
+    }
 
-    std::cout << "Input customer address:" << std::endl;
-    std::getline(std::cin, address);
+    while (true) {
+        std::cout << "Input customer address:" << std::endl;
+        std::getline(std::cin, address);
+        std::cout << address << std::endl;
+        if (!customer_address_is_valid(address)) {
+            std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::getline(std::cin, option);
+            if (option == "2") {
+                return;
+            }
+        } else {
+            break;
+        }
+    }
 
     while (true) {
         std::cout << "Input customer phone:" << std::endl;
@@ -402,7 +431,7 @@ void Menu::read_customer(Customer *&customer) {
             std::cout << "Try again" << std::endl;
             std::cout << "1.Yes" << std::endl;
             std::cout << "2.No" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "2") {
                 return;
             }
@@ -417,7 +446,7 @@ void Menu::read_customer(Customer *&customer) {
     CustomerState *state = new GuestState;
 
     customer = new Customer(id, name, address, phone, number_of_rentals, items, state);
-    std::cout << "Added customer successful.\n" << std::endl;
+    std::cout << "Add customer successful.\n" << std::endl;
 }
 
 void Menu::modify_customer(const std::string& id) {
@@ -426,22 +455,53 @@ void Menu::modify_customer(const std::string& id) {
     std::string phone;
 
     std::cin.ignore();
-    std::cout << "Input customer name:" << std::endl;
-    std::getline(std::cin, name);
+    while (true) {
+        std::cout << "Input customer name:" << std::endl;
+        std::getline(std::cin, name);
+        if (!customer_name_is_valid(name)) {
+            std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::getline(std::cin, option);
+            if (option == "2") {
+                return;
+            }
+        } else {
+            break;
+        }
+    }
 
-    std::cout << "Input customer address:" << std::endl;
-    std::getline(std::cin, address);
+    while (true) {
+        std::cout << "Input customer address:" << std::endl;
+        std::getline(std::cin, address);
+        if (!customer_address_is_valid(address)) {
+            std::cerr << "Invalid input." << std::endl;
+            std::string option;
+            std::cout << "Try again" << std::endl;
+            std::cout << "1.Yes" << std::endl;
+            std::cout << "2.No" << std::endl;
+            std::getline(std::cin, option);
+            if (option == "2") {
+                return;
+            }
+        } else {
+            break;
+        }
+    }
 
     while (true) {
         std::cout << "Input customer phone:" << std::endl;
         std::cin >> phone;
+        std::cin.ignore();
         if (!customer_phone_is_valid(phone)) {
             std::cerr << "Invalid input." << std::endl;
             std::string option;
             std::cout << "Try again" << std::endl;
             std::cout << "1.Yes" << std::endl;
             std::cout << "2.No" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "2") {
                 return;
             }
@@ -479,7 +539,7 @@ void Menu::read_item(Item *&item) {
             std::cout << "Try again" << std::endl;
             std::cout << "1.Yes" << std::endl;
             std::cout << "2.No" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "2") {
                 return;
             }
@@ -497,7 +557,7 @@ void Menu::read_item(Item *&item) {
             std::cout << "Try again" << std::endl;
             std::cout << "1.Yes" << std::endl;
             std::cout << "2.No" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "2") {
                 return;
             }
@@ -507,7 +567,7 @@ void Menu::read_item(Item *&item) {
             std::cout << "Try again" << std::endl;
             std::cout << "1.Yes" << std::endl;
             std::cout << "2.No" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "2") {
                 return;
             }
@@ -531,7 +591,7 @@ void Menu::read_item(Item *&item) {
             std::cout << "Try again" << std::endl;
             std::cout << "1.Yes" << std::endl;
             std::cout << "2.No" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "2") {
                 return;
             }
@@ -551,7 +611,7 @@ void Menu::read_item(Item *&item) {
             std::cout << "Try again" << std::endl;
             std::cout << "1.Yes" << std::endl;
             std::cout << "2.No" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "2") {
                 return;
             }
@@ -570,7 +630,7 @@ void Menu::read_item(Item *&item) {
             std::cout << "Try again" << std::endl;
             std::cout << "1.Yes" << std::endl;
             std::cout << "2.No" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "2") {
                 return;
             }
@@ -595,7 +655,7 @@ void Menu::read_item(Item *&item) {
                 std::cout << "Try again" << std::endl;
                 std::cout << "1.Yes" << std::endl;
                 std::cout << "2.No" << std::endl;
-                std::cin >> option;
+                std::getline(std::cin, option);
                 if (option == "2") {
                     return;
                 }
@@ -617,7 +677,7 @@ void Menu::read_item(Item *&item) {
         item = new VideoRecord(id, title, Item::RentalType(rental_type_int - 1), stock_int, fee_float, rental_status,
                                GenredItem::Genre(genre_int - 1));
     }
-    std::cout << "Add customer successful. \n" << std::endl;
+    std::cout << "Add item successful. \n" << std::endl;
 }
 
 void Menu::modify_item(const std::string &id, ItemType type) {
@@ -642,7 +702,7 @@ void Menu::modify_item(const std::string &id, ItemType type) {
             std::cout << "Try again" << std::endl;
             std::cout << "1.Yes" << std::endl;
             std::cout << "2.No" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "2") {
                 return;
             }
@@ -662,7 +722,7 @@ void Menu::modify_item(const std::string &id, ItemType type) {
             std::cout << "Try again" << std::endl;
             std::cout << "1.Yes" << std::endl;
             std::cout << "2.No" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "2") {
                 return;
             }
@@ -681,7 +741,7 @@ void Menu::modify_item(const std::string &id, ItemType type) {
             std::cout << "Try again" << std::endl;
             std::cout << "1.Yes" << std::endl;
             std::cout << "2.No" << std::endl;
-            std::cin >> option;
+            std::getline(std::cin, option);
             if (option == "2") {
                 return;
             }
@@ -707,7 +767,7 @@ void Menu::modify_item(const std::string &id, ItemType type) {
                 std::cout << "Try again" << std::endl;
                 std::cout << "1.Yes" << std::endl;
                 std::cout << "2.No" << std::endl;
-                std::cin >> option;
+                std::getline(std::cin, option);
                 if (option == "2") {
                     return;
                 }
